@@ -7,13 +7,17 @@
 <meta name="description" content="نموذج تجريبي v5 للصفحة الرئيسية — كيف الضيافة: ضيافة راقية للجهات الحكومية والشركات والمناسبات.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0D0D0D">
+<link rel="preload" as="image" href="img/photos/hero.webp" imagesrcset="img/photos/hero-800.webp 800w, img/photos/hero.webp 1200w" imagesizes="100vw" media="(max-width:899px)" fetchpriority="high">
+<link rel="preload" as="image" href="img/photos/hero-desktop.webp" media="(min-width:900px)" fetchpriority="high">
 <meta property="og:title" content="كيف الضيافة — ضيافة راقية للجهات والشركات والمناسبات">
 <meta property="og:description" content="قهوجيين وصبابين بزي رسمي وتقديمات فاخرة — +500 مناسبة منذ 2016.">
 <meta property="og:image" content="img/og.jpg">
-<link rel="icon" href="img/logo-emblem.png">
+<link rel="icon" href="img/logo-emblem.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;700&family=Marcellus&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;700&family=Marcellus&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;700&family=Marcellus&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;700&family=Marcellus&display=swap"></noscript>
 <style>
 /* =========================================================
    v5 — خامة v4 (فحمي/ذهبي) + هيكلة الكتالوج المختصرة من v1
@@ -146,7 +150,6 @@ body.nav-open{overflow:hidden}
 .hero .bg img,.hero .bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%}
 .hero .bg video{object-position:center;opacity:0;transition:opacity 1.2s ease}
 .hero .bg video.ready{opacity:1}
-.hero .bg .d{display:none}
 .hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(26,26,26,.72) 0%,rgba(18,18,18,.35) 40%,rgba(13,13,13,.9) 76%,var(--rich) 90%)}
 .hero::after{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 50% 50%,rgba(197,160,89,.12) 0%,transparent 70%);pointer-events:none}
 .hero .wrap{position:relative;z-index:3;width:100%;display:flex;flex-direction:column;align-items:center}
@@ -193,7 +196,6 @@ body.nav-open{overflow:hidden}
 @keyframes lxDrift{0%,100%{transform:translateY(0) scale(1);opacity:.15}50%{transform:translateY(-30px) scale(1.5);opacity:.5}}
 @media (min-width:900px){
   .hero{min-height:0;height:min(84vh,820px);padding:0}
-  .hero .bg .m{display:none}.hero .bg .d{display:block}
   .hero .bg img{animation:kb 24s ease-in-out infinite alternate;transform-origin:60% 40%}
   .hero .bg video{object-position:center 30%}
   @keyframes kb{from{transform:scale(1)}to{transform:scale(1.07)}}
@@ -334,7 +336,7 @@ footer .dev{display:inline-flex;align-items:center;gap:12px;font-family:var(--f-
 footer .dev::before,footer .dev::after{content:"";width:28px;height:1px;background:linear-gradient(90deg,transparent,rgba(184,134,11,.5))}
 footer .dev::after{background:linear-gradient(90deg,rgba(184,134,11,.5),transparent)}
 footer .dev b{font-weight:400;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-footer .tag{font-family:var(--f-latin);font-size:.72rem;letter-spacing:.14em;color:rgba(184,134,11,.4);direction:ltr}
+footer .tag{font-family:var(--f-latin);font-size:.72rem;letter-spacing:.14em;color:#A67C37;direction:ltr}
 @media (min-width:900px){footer{padding-bottom:44px}footer .badges{gap:56px}footer .badges img{height:56px;max-width:180px}}
 
 /* ===== واتساب طافٍ — الإجراء الوحيد (D29) ===== */
@@ -380,8 +382,8 @@ body.lb-lock{overflow:hidden}
 <div class="proto">نموذج تجريبي للمراجعة — ليس الموقع الفعلي · v5.2 · 2026-09-03</div>
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#top" aria-label="كيف الضيافة — الرئيسية">
-      <img src="img/logo-emblem.png" alt="" width="35" height="42">
+    <a class="brand" href="#top" title="الرئيسية">
+      <img src="img/logo-emblem.webp" alt="" width="35" height="42">
       <span class="word"><b>كيف الضيافة</b><small>KEIF AL-DIAFA</small></span>
     </a>
     <nav class="nav-right" aria-label="روابط سريعة">
@@ -405,7 +407,7 @@ body.lb-lock{overflow:hidden}
 <div class="scrim" id="scrim" aria-hidden="true"></div>
 <aside class="drawer" id="drawer" aria-label="قائمة الصفحة" aria-hidden="true">
   <div class="d-top">
-    <span class="brand"><img src="img/logo-emblem.png" alt=""><span class="word"><b>كيف الضيافة</b><small>SINCE 2016</small></span></span>
+    <span class="brand"><img src="img/logo-emblem.webp" alt="" width="226" height="271"><span class="word"><b>كيف الضيافة</b><small>SINCE 2016</small></span></span>
     <button class="close" id="drawerClose" aria-label="إغلاق القائمة">×</button>
   </div>
   <ul>
@@ -429,8 +431,10 @@ body.lb-lock{overflow:hidden}
 <!-- 1) الهيرو -->
 <section class="hero" aria-label="الشاشة الرئيسية">
   <div class="bg" aria-hidden="true">
-    <img class="m" src="img/photos/hero.webp" alt="" width="1200" height="2175" fetchpriority="high">
-    <img class="d" src="img/photos/hero-desktop.webp" alt="" width="1920" height="815" loading="lazy">
+    <picture>
+      <source media="(min-width:900px)" srcset="img/photos/hero-desktop.webp" width="1920" height="815">
+      <img src="img/photos/hero.webp" srcset="img/photos/hero-800.webp 800w, img/photos/hero.webp 1200w" sizes="100vw" alt="" width="1200" height="2175" fetchpriority="high" decoding="async">
+    </picture>
     <video id="heroVid" muted loop playsinline preload="none" poster="img/photos/hero-poster.webp" aria-hidden="true" tabindex="-1">
       <source src="video/hero-bg.mp4" type="video/mp4">
     </video>
@@ -470,7 +474,7 @@ body.lb-lock{overflow:hidden}
       <h2 class="rv">طاقم واحد مدرّب — وزيّ وتقديم بحسب طابع مناسبتك</h2>
     </div>
     <div class="who-grid">
-      <a class="who rv" href="https://keifaldiafa.com/portfolio?type=government"><img src="img/photos/p-official.webp" alt="طاقم كيف الضيافة في استقبال رسمي" loading="lazy"><div><b>الجهات الحكومية</b><small>جامعات · أمانات · مؤتمرات ومعارض رسمية</small></div></a>
+      <a class="who rv" href="https://keifaldiafa.com/portfolio?type=government"><img src="img/photos/p-official.webp" alt="قهوجي كيف الضيافة يصب القهوة السعودية في فعالية وطنية" loading="lazy"><div><b>الجهات الحكومية</b><small>جامعات · أمانات · مؤتمرات ومعارض رسمية</small></div></a>
       <a class="who rv" href="https://keifaldiafa.com/portfolio?type=corporate"><img src="img/photos/c-flyadeal.webp" alt="قهوجي في فعالية شركة" loading="lazy"><div><b>الشركات</b><small>افتتاحات · معارض · استقبال VIP</small></div></a>
       <a class="who rv" href="https://keifaldiafa.com/portfolio?type=private"><img src="img/photos/p-wedding.webp" alt="طاقم ضيافة في قاعة زواج" loading="lazy"><div><b>المناسبات الخاصة</b><small>زواجات · مجالس · احتفالات عائلية</small></div></a>
     </div>
@@ -487,7 +491,7 @@ body.lb-lock{overflow:hidden}
       <span class="hint rv">اسحب لليسار<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m7-7-7 7 7 7"/></svg></span>
     </div>
     <div class="strip rv" id="shots">
-      <figure class="shot" data-g="works" data-go="https://keifaldiafa.com/portfolio" data-go-txt="معرض الأعمال"><img src="img/photos/p-official.webp" alt="احتفال رسمي لجهة حكومية" loading="lazy" data-cap="احتفال رسمي — جهة حكومية" data-sub="بشت وقهوة سعودية · استقبال كبار الشخصيات"><span class="tag">جهة حكومية</span><figcaption><b>احتفال رسمي — جهة حكومية</b><span>بشت وقهوة سعودية</span></figcaption></figure>
+      <figure class="shot" data-g="works" data-go="https://keifaldiafa.com/portfolio?type=government" data-go-txt="أعمال الجهات الحكومية"><img src="img/photos/p-official.webp" alt="قهوجي يصب القهوة السعودية في فعالية وطنية" loading="lazy" data-cap="فعالية وطنية — جهة حكومية" data-sub="قهوة سعودية · زي موحد · استقبال الزوار"><span class="tag">جهة حكومية</span><figcaption><b>فعالية وطنية — جهة حكومية</b><span>قهوة سعودية وزي موحد</span></figcaption></figure>
       <figure class="shot" data-g="works" data-go="https://keifaldiafa.com/portfolio" data-go-txt="معرض الأعمال"><img src="img/photos/c-osus.webp" alt="استقبال VIP لشركة" loading="lazy" data-cap="استقبال VIP — شركة مقاولات" data-sub="قاعة رخامية"><span class="tag">شركة</span><figcaption><b>استقبال VIP — شركة مقاولات</b><span>قاعة رخامية</span></figcaption></figure>
       <figure class="shot" data-g="works" data-go="https://keifaldiafa.com/portfolio" data-go-txt="معرض الأعمال"><img src="img/photos/p-gala2.webp" alt="قهوة عربية في عشاء رسمي" loading="lazy" data-cap="ركن ضيافة — معرض دولي" data-sub="قهوة عربية · صالة VIP"><span class="tag">جهة حكومية</span><figcaption><b>ركن ضيافة — معرض دولي</b><span>قهوة عربية · صالة VIP</span></figcaption></figure>
       <figure class="shot" data-g="works" data-go="https://keifaldiafa.com/portfolio" data-go-txt="معرض الأعمال"><img src="img/photos/p-gala.webp" alt="عشاء رسمي" loading="lazy" data-cap="عشاء رسمي" data-sub="قاعة فاخرة · بروتوكول ضيافة"><span class="tag">مناسبة</span><figcaption><b>عشاء رسمي</b><span>قاعة فاخرة · بروتوكول ضيافة</span></figcaption></figure>
@@ -574,17 +578,17 @@ body.lb-lock{overflow:hidden}
     </div>
     <div class="strip rv">
       <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#equipment" data-go-txt="صفحة التقديمات"><img src="img/photos/o-dallah.webp" alt="دلال ذهبية" loading="lazy" data-cap="دلال ذهبية وفضية"><span>دلال ذهبية وفضية</span></figure>
-      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#equipment" data-go-txt="صفحة التقديمات"><img src="img/photos/o-cups.webp" alt="فناجين وكاسات" loading="lazy" data-cap="فناجين وكاسات فاخرة"><span>فناجين وكاسات</span></figure>
-      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#dates" data-go-txt="صفحة التقديمات"><img src="img/photos/o-dates.webp" alt="تمور فاخرة" loading="lazy" data-cap="تمور فاخرة"><span>تمور فاخرة</span></figure>
-      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#sweets" data-go-txt="صفحة التقديمات"><img src="img/photos/o-sweets.webp" alt="حلويات ومعجنات" loading="lazy" data-cap="حلويات ومعجنات"><span>حلويات ومعجنات</span></figure>
+      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#equipment" data-go-txt="صفحة التقديمات"><img src="img/photos/o-cups.webp" alt="فناجين قهوة وكاسات شاي مذهّبة على صينية" loading="lazy" data-cap="فناجين وكاسات فاخرة"><span>فناجين وكاسات</span></figure>
+      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#dates" data-go-txt="صفحة التقديمات"><img src="img/photos/o-dates.webp" alt="تمور سكري مرصوصة في صحن تقديم فاخر" loading="lazy" data-cap="تمور فاخرة"><span>تمور فاخرة</span></figure>
+      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#sweets" data-go-txt="صفحة التقديمات"><img src="img/photos/o-sweets.webp" alt="بقلاوة وحلويات شرقية في صينية ذهبية" loading="lazy" data-cap="حلويات ومعجنات"><span>حلويات ومعجنات</span></figure>
       <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#hot" data-go-txt="صفحة التقديمات"><img src="img/photos/o-tea.webp" alt="قهوة وشاي ومشروبات" loading="lazy" data-cap="قهوة · شاي · مشروبات ساخنة"><span>قهوة · شاي</span></figure>
       <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#cold" data-go-txt="صفحة التقديمات"><img src="img/photos/o-cold.webp" alt="مشروبات باردة وعصائر" loading="lazy" data-cap="مشروبات باردة وعصائر طبيعية"><span>مشروبات باردة</span></figure>
-      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#snacks" data-go-txt="صفحة التقديمات"><img src="img/photos/o-snacks.webp" alt="سناكات ومقبلات" loading="lazy" data-cap="سناكات ومقبلات"><span>سناكات ومقبلات</span></figure>
-      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#sandwiches" data-go-txt="صفحة التقديمات"><img src="img/photos/o-sandwich.webp" alt="سندوتشات" loading="lazy" data-cap="سندوتشات"><span>سندوتشات</span></figure>
-      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#fruits" data-go-txt="صفحة التقديمات"><img src="img/photos/o-fruits.webp" alt="فواكه" loading="lazy" data-cap="فواكه طازجة"><span>فواكه</span></figure>
-      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#nuts" data-go-txt="صفحة التقديمات"><img src="img/photos/o-nuts.webp" alt="مكسرات" loading="lazy" data-cap="مكسرات فاخرة"><span>مكسرات</span></figure>
-      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#distributions" data-go-txt="صفحة التقديمات"><img src="img/photos/o-tray.webp" alt="توزيعات VIP" loading="lazy" data-cap="توزيعات VIP"><span>توزيعات VIP</span></figure>
-      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#buffet" data-go-txt="صفحة التقديمات"><img src="img/photos/o-buffet.webp" alt="بوفيه ضيافة" loading="lazy" data-cap="بوفيه ضيافة"><span>بوفيه ضيافة</span></figure>
+      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#snacks" data-go-txt="صفحة التقديمات"><img src="img/photos/o-snacks.webp" alt="مقبلات وسناكات مرتّبة للضيافة" loading="lazy" data-cap="سناكات ومقبلات"><span>سناكات ومقبلات</span></figure>
+      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#sandwiches" data-go-txt="صفحة التقديمات"><img src="img/photos/o-sandwich.webp" alt="سندوتشات صغيرة مرصوصة لفعالية" loading="lazy" data-cap="سندوتشات"><span>سندوتشات</span></figure>
+      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#fruits" data-go-txt="صفحة التقديمات"><img src="img/photos/o-fruits.webp" alt="فواكه طازجة مقطّعة في أطباق تقديم" loading="lazy" data-cap="فواكه طازجة"><span>فواكه</span></figure>
+      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#nuts" data-go-txt="صفحة التقديمات"><img src="img/photos/o-nuts.webp" alt="مكسرات محمّصة في صحون تقديم" loading="lazy" data-cap="مكسرات فاخرة"><span>مكسرات</span></figure>
+      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#distributions" data-go-txt="صفحة التقديمات"><img src="img/photos/o-tray.webp" alt="صينية توزيعات ضيافة VIP مغلّفة" loading="lazy" data-cap="توزيعات VIP"><span>توزيعات VIP</span></figure>
+      <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#buffet" data-go-txt="صفحة التقديمات"><img src="img/photos/o-buffet.webp" alt="بوفيه ضيافة متكامل بأطباق فاخرة" loading="lazy" data-cap="بوفيه ضيافة"><span>بوفيه ضيافة</span></figure>
       <figure class="tile" data-g="off" data-go="https://keifaldiafa.com/offerings#equipment" data-go-txt="صفحة التقديمات"><img src="img/photos/o-counter.webp" alt="كاونتر قهوة" loading="lazy" data-cap="كاونتر قهوة ذهبي"><span>كاونتر قهوة ذهبي</span></figure>
       <span class="edge" aria-hidden="true"></span>
     </div>
@@ -673,7 +677,7 @@ body.lb-lock{overflow:hidden}
 
 <footer>
   <div class="wrap">
-    <div class="brand-f"><img src="img/logo-emblem.png" alt=""><b>كيف الضيافة</b></div>
+    <div class="brand-f"><img src="img/logo-emblem.webp" alt="" width="226" height="271"><b>كيف الضيافة</b></div>
     <div class="links">
       <a href="https://keifaldiafa.com/services">خدماتنا</a>
       <a href="https://keifaldiafa.com/offerings">تقديماتنا</a>
@@ -685,9 +689,9 @@ body.lb-lock{overflow:hidden}
     <div class="trust">
       <span class="trust-lbl">شهادات التوثيق والاعتماد</span>
       <div class="badges" aria-label="التسجيلات الرسمية">
-        <img src="img/commerce-crop.svg" alt="وزارة التجارة" loading="lazy">
-        <img src="img/zatca-crop.svg" alt="هيئة الزكاة والضريبة والجمارك" loading="lazy">
-        <img src="img/sbc-crop.svg" alt="المركز السعودي للأعمال" loading="lazy">
+        <img src="img/commerce-crop.svg" alt="وزارة التجارة" loading="lazy" width="771" height="294">
+        <img src="img/zatca-crop.svg" alt="هيئة الزكاة والضريبة والجمارك" loading="lazy" width="833" height="581">
+        <img src="img/sbc-crop.svg" alt="المركز السعودي للأعمال" loading="lazy" width="748" height="206">
       </div>
       <p class="legal"><b>مؤسسة كيف الضيافة للأفراح والمناسبات</b>الرقم الوطني الموحّد: <span>7033069720</span></p>
     </div>
@@ -787,7 +791,7 @@ body.lb-lock{overflow:hidden}
     show(Math.max(0,group.findIndex(it=>it.thumb===src))); $('#lbClose').focus();
   }
   function close(){ lb.classList.remove('open'); document.body.classList.remove('lb-lock'); lbImg.src=''; if(lastFocus) lastFocus.focus(); }
-  $$('[data-g]').forEach(f=>{ f.setAttribute('tabindex','0'); f.setAttribute('role','button'); f.setAttribute('aria-label','تكبير: '+($('img',f).dataset.cap||$('img',f).alt));
+  $$('[data-g]').forEach(f=>{ if(!f.closest('a')){ f.setAttribute('tabindex','0'); f.setAttribute('aria-label','تكبير: '+($('img',f).dataset.cap||$('img',f).alt)); }
     // تمييز السحب عن الضغط داخل الأشرطة
     let sx=0,sy=0,moved=false;
     f.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY;moved=false;});
