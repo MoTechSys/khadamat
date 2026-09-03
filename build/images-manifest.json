@@ -1,0 +1,1161 @@
+{
+ "map": {
+  "sv-hosts-1": "services/male/hosts/dagla/dagla-1.webp",
+  "sv-hosts-2": "services/male/hosts/dagla/dagla-5.webp",
+  "sv-hosts-3": "services/male/hosts/dagla/dagla-6.webp",
+  "sv-hosts-4": "services/male/hosts/dagla/dagla-3.webp",
+  "sv-hizam-1": "services/male/hosts/hizam/hizam-1.webp",
+  "sv-hizam-2": "services/male/hosts/hizam/hizam-2.webp",
+  "sv-dagla-1": "services/male/hosts/dagla/dagla-1.webp",
+  "sv-dagla-2": "services/male/hosts/dagla/dagla-2.webp",
+  "sv-dagla-3": "services/male/hosts/dagla/dagla-5.webp",
+  "sv-dagla-4": "services/male/hosts/dagla/dagla-6.webp",
+  "sv-janbiya-1": "services/male/hosts/dagla-janbiya/dagla-janbiya-1.webp",
+  "sv-janbiya-2": "services/male/hosts/dagla-janbiya/dagla-janbiya-2.webp",
+  "sv-sideriya-1": "services/male/hosts/sideriya/sideriya-1.webp",
+  "sv-sideriya-2": "services/male/hosts/sideriya/sideriya-2.webp",
+  "sv-sideriya-3": "services/male/hosts/sideriya/sideriya-3.webp",
+  "sv-makkawi-1": "services/male/hosts/makkawi/makkawi-1.webp",
+  "sv-makkawi-2": "services/male/hosts/makkawi/makkawi-2.webp",
+  "sv-zamzam-2": "services/male/souqiya/souqiya-2.webp",
+  "sv-zamzam-3": "services/male/souqiya/souqiya-3.webp",
+  "sv-zamzam-4": "services/male/souqiya/souqiya-4.webp",
+  "sv-zamzam-5": "services/male/souqiya/souqiya-5.webp",
+  "sv-zamzam-6": "services/male/souqiya/souqiya-6.webp",
+  "sv-zamzam-7": "services/male/souqiya/souqiya-7.webp",
+  "sv-zamzam-8": "services/male/souqiya/souqiya-8.webp",
+  "sv-safarjia-1": "services/safarjia/safarji-1.webp",
+  "sv-safarjia-2": "services/safarjia/safarji-2.webp",
+  "sv-safarjia-3": "services/safarjia/safarji-3.webp",
+  "sv-safarjia-4": "services/safarjia/safarji-4.webp",
+  "sv-safarjia-5": "services/male/safarjia/safarjia-3.webp",
+  "sv-safarjia-6": "services/male/safarjia/safarjia-5.webp",
+  "sv-sawas-1": "services/sawas/sawas-main.webp",
+  "sv-sawas-2": "services/sawas/sawas-style-1.webp",
+  "sv-sawas-3": "services/sawas/sawas-style-2.webp",
+  "sv-sawas-4": "services/sawas/sawas-style-3.webp",
+  "sv-sawas-5": "services/sawas/sawas-style-4.webp",
+  "sv-hostess-1": "services/female-services/female-2.webp",
+  "sv-hostess-2": "services/female-services/female-1.webp",
+  "sv-hostess-3": "services/female-services/female-4.webp",
+  "sv-hostess-4": "services/female-services/female-6.webp",
+  "sv-hostess-5": "services/female/hostesses/hostess-2.webp",
+  "sv-hostess-6": "services/female-services/female-main-bg.webp",
+  "sv-safarjiat-1": "services/female-services/female-5.webp",
+  "sv-safarjiat-2": "services/female-services/female-3.webp",
+  "sv-safarjiat-3": "services/female-services/female-8.webp",
+  "sv-clean-1": "services/female/cleaning/cleaning-f-1.webp",
+  "sv-callig-1": "services/artistic/artist/artist-2.webp",
+  "sv-callig-2": "services/artistic/artist/artist-5.webp",
+  "sv-callig-3": "services/artistic/artist/artist-4.webp",
+  "sv-callig-4": "services/artistic/artist/artist-3.webp",
+  "sv-artist-1": "services/artistic/artist/artist-9.webp",
+  "sv-artist-2": "services/artistic/artist/artist-8.webp",
+  "sv-artist-3": "services/artistic/artist/artist-6.webp",
+  "sv-artist-4": "services/artistic/artist/artist-7.webp",
+  "sv-folk-1": "services/artistic/folkband/folkband-1.webp",
+  "sv-folk-2": "services/artistic/folkband/folkband-2.webp",
+  "sv-tent-1": "services/artistic/heritage-tent/tent-1.webp",
+  "sv-tent-2": "services/artistic/heritage-tent/tent-2.webp",
+  "sv-tent-3": "services/artistic/heritage-tent/tent-4.webp",
+  "sv-tent-4": "keif/khaima-turathiya-jeddah-diyafa-tent-keif-aldiafa.webp",
+  "sv-counter-1": "services/artistic/counter/counter-1.webp",
+  "sv-counter-2": "keif/qahwa-counter-jeddah-gold-station-keif-aldiafa.webp",
+  "sv-counter-3": "services/artistic/counter/counter-2.webp",
+  "sv-booth-1": "services/artistic/photo-booth/photo-booth-5.webp",
+  "sv-booth-2": "services/artistic/photo-booth/photo-booth-4.webp",
+  "sv-booth-3": "services/artistic/photo-booth/photo-booth-6.webp",
+  "sv-booth-4": "services/artistic/photo-booth/photo-booth-3.webp",
+  "sv-buffet-1": "services/artistic/buffet/buffet-1.webp",
+  "sv-buffet-2": "services/artistic/buffet/buffet-2.webp",
+  "sv-buffet-3": "services/artistic/buffet/buffet-3.webp",
+  "sv-buffet-4": "keif/diyafa-pastry-tiers-jeddah-keif-aldiafa.webp",
+  "sv-table-1": "services/artistic/mobile-table/table-2.webp",
+  "sv-table-2": "services/artistic/mobile-table/table-6.webp",
+  "sv-table-3": "services/artistic/mobile-table/table-3.webp",
+  "sv-table-4": "services/artistic/mobile-table/table-1.webp",
+  "of-hot-1": "hot-drinks/turkish-coffee.webp",
+  "of-hot-2": "hot-drinks/red-tea.webp",
+  "of-hot-3": "hot-drinks/green-tea.webp",
+  "of-hot-4": "hot-drinks/karak-tea.webp",
+  "of-hot-5": "hot-drinks/sahlab.webp",
+  "of-hot-6": "hot-drinks/ginger-pineapple.webp",
+  "of-hot-7": "hot-drinks/cappuccino.webp",
+  "of-cold-1": "cold-drinks/fresh-juice.webp",
+  "of-cold-2": "cold-drinks/mojito.webp",
+  "of-cold-3": "cold-drinks/arak-sous.webp",
+  "of-cold-4": "cold-drinks/karkade.webp",
+  "of-cold-5": "cold-drinks/tamarind.webp",
+  "of-cold-6": "cold-drinks/sobia.webp",
+  "of-cold-7": "cold-drinks/smoothie.webp",
+  "of-cold-8": "cold-drinks/iced-latte.webp",
+  "of-dates-1": "dates/sukari-stuffed.webp",
+  "of-dates-2": "dates/khalas-stuffed.webp",
+  "of-dates-3": "dates/khalas-sesame-tahini.webp",
+  "of-dates-4": "dates/stuffed-dates.webp",
+  "of-dates-5": "dates/stuffed-dates-2.webp",
+  "of-dates-6": "dates/stuffed-dates-3.webp",
+  "of-dates-7": "dates/stuffed-dates-5.webp",
+  "of-dates-8": "dates/palm-sukari.webp",
+  "of-dates-9": "dates/palm-sukari-stuffed.webp",
+  "of-dates-10": "dates/palm-khalas-stuffed.webp",
+  "of-dates-11": "dates/dates-assorted.webp",
+  "of-sweets-1": "sweets/baklava.webp",
+  "of-sweets-2": "sweets/kunafa.webp",
+  "of-sweets-3": "sweets/patchi-chocolate.webp",
+  "of-sweets-4": "sweets/bostani-chocolate.webp",
+  "of-sweets-5": "sweets/chocolate-croissant.webp",
+  "of-sweets-6": "sweets/pancake.webp",
+  "of-sweets-7": "sweets/saudi-luxury-dessert-buffet-chocolate-mousse-basbousa.webp",
+  "of-sweets-8": "sweets/saudi-traditional-baklava-kunafa-pistachio-fruit-platter.webp",
+  "of-sweets-9": "sweets/saudi-elegant-dessert-station-mango-panna-cotta-red-velvet.webp",
+  "of-pastry-1": "pastry/samosa.webp",
+  "of-pastry-2": "pastry/fruit-pie.webp",
+  "of-pastry-3": "pastry/arabic-pastry.webp",
+  "of-pastry-4": "pastry/assorted-pastry.webp",
+  "of-pastry-5": "pastry/appetizers.webp",
+  "of-snacks-1": "snacks/saudi-mini-margherita-pizza-luxury-catering-finger-food.webp",
+  "of-snacks-2": "snacks/saudi-loaded-nachos-cheese-jalapeno-vip-snacks.webp",
+  "of-snacks-3": "snacks/saudi-crispy-golden-potato-wedges-rosemary-catering.webp",
+  "of-snacks-4": "snacks/saudi-crispy-spring-rolls-sweet-chili-luxury-snacks.webp",
+  "of-snacks-5": "snacks/saudi-crispy-chicken-popcorn-bites-honey-mustard.webp",
+  "of-snacks-6": "snacks/saudi-golden-potato-cheese-croquettes-luxury-catering.webp",
+  "of-snacks-7": "snacks/saudi-gourmet-finger-food-assortment-canapes-vip.webp",
+  "of-snacks-8": "snacks/saudi-mini-beef-sliders-cheese-luxury-catering.webp",
+  "of-snacks-9": "snacks/saudi-crispy-mozzarella-cheese-sticks-marinara-snacks.webp",
+  "of-snacks-10": "snacks/saudi-italian-bruschetta-tomato-basil-luxury-appetizer.webp",
+  "of-sandwiches-1": "sandwiches/saudi-catering-tuna-salad-sandwich-long-roll.webp",
+  "of-sandwiches-2": "sandwiches/saudi-catering-grilled-chicken-sandwich-lettuce-cheese.webp",
+  "of-sandwiches-3": "sandwiches/saudi-catering-tuna-sandwich-sesame-bun.webp",
+  "of-sandwiches-4": "sandwiches/saudi-catering-turkey-cheese-tomato-long-sandwich.webp",
+  "of-sandwiches-5": "sandwiches/saudi-catering-chicken-cheese-sandwich-long-roll.webp",
+  "of-sandwiches-6": "sandwiches/saudi-catering-turkey-sandwich-soft-roll-tomato.webp",
+  "of-sandwiches-7": "sandwiches/saudi-catering-smoked-turkey-cheese-tomato-sandwich.webp",
+  "of-fruits-1": "fruits/saudi-fresh-strawberries-luxury-hospitality-fruit.webp",
+  "of-fruits-2": "fruits/saudi-red-green-grapes-premium-catering-fruit.webp",
+  "of-fruits-3": "fruits/saudi-fresh-mango-cubes-luxury-hospitality-fruit.webp",
+  "of-fruits-4": "fruits/saudi-fresh-pineapple-slices-premium-catering-fruit.webp",
+  "of-fruits-5": "fruits/saudi-fresh-sliced-kiwi-luxury-hospitality-fruit.webp",
+  "of-fruits-6": "fruits/saudi-mixed-berries-bowl-premium-catering-fruit.webp",
+  "of-fruits-7": "fruits/saudi-carved-watermelon-vip-event-fruit-display.webp",
+  "of-fruits-8": "fruits/saudi-fresh-figs-luxury-hospitality-fruit.webp",
+  "of-fruits-9": "fruits/saudi-fresh-pomegranate-premium-catering-fruit.webp",
+  "of-nuts-1": "nuts/saudi-cinnamon-roasted-nuts-noix-premium-luxury.webp",
+  "of-nuts-2": "nuts/saudi-cinnamon-nuts-noix-luxury-hospitality-display.webp",
+  "of-nuts-3": "nuts/saudi-zaatar-granola-noix-luxury-arabian-flavor.webp",
+  "of-nuts-4": "nuts/saudi-noix-fine-food-chocolate-butter-granola-trio.webp",
+  "of-nuts-5": "nuts/saudi-roasted-hazelnut-zaatar-nuts-noix-premium.webp",
+  "of-nuts-6": "nuts/saudi-super-q-granola-mixed-nuts-oats-luxury.webp",
+  "of-nuts-7": "nuts/saudi-noix-luxury-granola-zaatar-cinnamon-nuts-range.webp",
+  "of-nuts-8": "nuts/saudi-salted-caramel-nuts-noix-luxury-premium.webp",
+  "of-nuts-9": "nuts/saudi-salted-caramel-granola-noix-premium.webp",
+  "of-nuts-10": "nuts/saudi-noix-granola-premium-mixed-nuts-collage.webp",
+  "of-equipment-1": "equipment/arabic-coffee-gahwa-ornate-glass-cup-set-equipment.webp",
+  "of-equipment-2": "equipment/jeddah-luxury-ornate-tea-cup-saucer.webp",
+  "of-equipment-3": "equipment/jeddah-vip-majlis-golden-arabic-coffee-stand.webp",
+  "of-equipment-4": "equipment/ksa-golden-buffet-tray-glass-cups-hospitality.webp",
+  "of-equipment-5": "equipment/ksa-luxury-qahwa-golden-glass-cup-stand-majlis.webp",
+  "of-equipment-6": "equipment/luxury-clear-ribbed-glass-cup-saucer-hospitality.webp",
+  "of-equipment-7": "equipment/luxury-clear-stemmed-goblet-glass-hospitality.webp",
+  "of-equipment-8": "equipment/luxury-faceted-tea-cup-transparent-hospitality.webp",
+  "of-equipment-9": "equipment/luxury-saudi-white-coffee-cup-saucer.webp",
+  "of-equipment-10": "equipment/riyadh-luxury-arabic-coffee-glass-cup-dessert-table.webp",
+  "of-equipment-11": "equipment/royal-golden-dallah-coffee-pot-saudi-hospitality.webp",
+  "of-equipment-12": "equipment/royal-saudi-gold-qahwa-dates-service.webp",
+  "of-equipment-13": "equipment/saudi-arabic-coffee-emblem-handled-mug-golden-hospitality.webp",
+  "of-equipment-14": "equipment/saudi-arabic-coffee-vip-golden-cup-stand-majlis.webp",
+  "of-equipment-15": "equipment/saudi-ceremonial-golden-tray-white-cups-hospitality.webp",
+  "of-equipment-16": "equipment/saudi-clear-cup-saucer-golden-stripes-hospitality.webp",
+  "of-equipment-17": "equipment/saudi-gold-palm-gahwa-cups-set.webp",
+  "of-equipment-18": "equipment/saudi-golden-striped-tea-cup-saucer-hospitality.webp",
+  "of-equipment-19": "equipment/saudi-hospitality-glass-tea-set-equipment.webp",
+  "of-equipment-20": "equipment/saudi-luxury-gold-rimmed-emblem-coffee-pot.webp",
+  "of-equipment-21": "equipment/saudi-luxury-hospitality-white-porcelain-cup-saucer.webp",
+  "of-equipment-22": "equipment/saudi-luxury-ornate-tea-glass-golden-silver-hospitality.webp",
+  "of-equipment-23": "equipment/saudi-luxury-silver-dallah-arabic-coffee-equipment.webp",
+  "of-equipment-24": "equipment/saudi-silver-dallah-serveware-luxury-hospitality.webp",
+  "of-equipment-25": "equipment/saudi-traditional-ribbed-glass-tea-cup-set.webp",
+  "of-equipment-26": "equipment/saudi-vip-hospitality-golden-coffee-cup-stand-event.webp",
+  "of-equipment-27": "equipment/traditional-saudi-clear-glass-qahwa-cup.webp",
+  "of-equipment-28": "equipment/vip-saudi-golden-dallah-dates-table.webp",
+  "of-distributions-1": "distributions/jeddah-vip-dates-dessert-gahwa-gift-tray.webp",
+  "of-distributions-2": "distributions/ksa-dates-arabic-sweets-gahwa-distribution.webp",
+  "of-distributions-3": "distributions/riyadh-luxury-hospitality-gift-tray-qahwa-ceremony.webp",
+  "of-distributions-4": "distributions/saudi-luxury-palm-date-sweets-distribution.webp",
+  "of-distributions-5": "distributions/saudi-vip-majlis-dates-gahwa-hospitality.webp",
+  "pf-gov-1": "events/formal-reception-indoor-event-saudi-hosts-luxury-catering.webp",
+  "pf-gov-2": "events/gala-dinner-vip-reception-royal-protocol-marble-luxury.webp",
+  "pf-gov-3": "events/saudi-event-vip-reception-luxury-catering-majlis-traditional-attire.webp",
+  "pf-gov-4": "events/ksa-event-qahwa-service-hospitality-staff-arabic-coffee-ceremony.webp",
+  "pf-co-1": "events/jeddah-event-marble-hall-osus-alinsha-vip-reception.webp",
+  "pf-co-2": "events/ksa-event-vip-reception-arabic-coffee-flyadeal-corporate.webp",
+  "pf-co-3": "events/vip-reception-luxury-catering-millennium-hotels-golden-dallah.webp",
+  "pf-co-4": "events/corporate-event-almana-medical-group-arabic-coffee-ceremony.webp",
+  "pf-co-5": "events/saudi-event-vip-reception-bolt-exhibition-qahwa-service.webp",
+  "pf-co-6": "events/royal-protocol-vip-reception-makkah-hotel-towers-majlis.webp",
+  "pf-co-7": "events/exhibition-saudi-event-nayifat-financing-ceremonial-coffee.webp",
+  "pf-co-8": "events/corporate-event-hospitality-staff-formal-reception-saudi-hosts.webp",
+  "pf-co-9": "events/luxury-catering-arabic-coffee-ceremony-gala-dinner-indoor.webp",
+  "pf-co-10": "events/majlis-qahwa-service-saudi-event-camel-decor.webp",
+  "pf-co-11": "events/indoor-event-luxury-catering-ceremonial-coffee-exhibition-reception.webp",
+  "pf-co-12": "events/outdoor-event-nahda-park-arabic-coffee-formal-reception.webp",
+  "pf-co-13": "events/saudi-event-formal-reception-makkah-themed-exhibition.webp",
+  "pf-co-14": "events/official-ceremony-grand-opening-saudi-hosts-red-backdrop.webp",
+  "pf-co-15": "events/conference-catering-saudi-electricity-company-dates-tray-luxury.webp",
+  "pf-co-16": "events/formal-reception-government-event-majad-booth-arabic-coffee.webp",
+  "pf-co-17": "events/conference-catering-hospitality-staff-medical-college-exhibition.webp",
+  "pf-co-18": "events/outdoor-event-tourism-booth-expo-saudi-host-coffee-set.webp",
+  "pf-co-19": "events/ksa-event-corporate-event-takween-al-watan-ceremonial-coffee.webp",
+  "pf-co-20": "events/ksa-event-luxury-catering-mcdc-conference-ceremonial-coffee.webp",
+  "pf-co-21": "events/corporate-event-dallah-hajj-transport-ceremonial-coffee.webp",
+  "pf-co-22": "events/indoor-event-saudi-hosts-bisht-qahwa-service-traditional.webp",
+  "pf-wed-1": "weddings/luxury-wedding-hall-male-hosts-dallah-gift-tray.webp",
+  "pf-wed-2": "weddings/arab-wedding-male-host-qahwa-station-vip-wedding.webp",
+  "pf-wed-3": "weddings/luxury-wedding-men-section-traditional-uniform-wedding-hall.webp",
+  "pf-wed-4": "weddings/saudi-wedding-male-host-dallah-dates-qahwa-station.webp",
+  "pf-wed-5": "weddings/qahwa-station-male-host-dallah-wedding-hall-ceremony.webp",
+  "pf-wed-6": "weddings/saudi-wedding-traditional-uniform-male-hosts-white-thobe.webp",
+  "pf-wed-7": "weddings/riyadh-wedding-vip-wedding-hall-male-host.webp",
+  "pf-wed-8": "weddings/saudi-wedding-qahwa-station-dallah-white-thobe.webp",
+  "pf-wed-9": "weddings/jeddah-wedding-men-section-traditional-uniform-luxury-wedding.webp",
+  "pf-wed-10": "weddings/vip-wedding-traditional-uniform-dallah-wedding-hall.webp",
+  "pf-wed-11": "weddings/wedding-coffee-male-host-dallah-tray-white-thobe.webp",
+  "pf-wed-12": "weddings/saudi-wedding-male-host-arabic-coffee-luxury-wedding.webp",
+  "pf-eq-1": "keif/qahwa-counter-jeddah-gold-station-keif-aldiafa.webp",
+  "pf-eq-2": "keif/khaima-turathiya-jeddah-diyafa-tent-keif-aldiafa.webp",
+  "pf-eq-3": "keif/diyafa-buffet-jeddah-dates-sweets-keif-aldiafa.webp",
+  "pf-eq-4": "keif/nakhla-tamr-sukari-jeddah-display-keif-aldiafa.webp",
+  "pf-eq-5": "keif/mabkhara-dallah-gold-jeddah-diyafa-keif-aldiafa.webp",
+  "pf-eq-6": "keif/tawzeeat-jeddah-vip-dates-qahwa-tray-keif-aldiafa.webp",
+  "pf-eq-7": "keif/qahwajiyeen-jeddah-hall-reception-keif-aldiafa.webp",
+  "pf-eq-8": "keif/diyafa-canape-trays-jeddah-keif-aldiafa.webp",
+  "ab-team": "keif/sabab-qahwa-jeddah-majlis-hall-keif-aldiafa.webp",
+  "ab-hall": "keif/qahwajiyeen-jeddah-hall-reception-keif-aldiafa.webp"
+ },
+ "sizes": {
+  "sv-hosts-1": [
+   480,
+   640
+  ],
+  "sv-hosts-2": [
+   640,
+   427
+  ],
+  "sv-hosts-3": [
+   271,
+   300
+  ],
+  "sv-hosts-4": [
+   360,
+   640
+  ],
+  "sv-hizam-1": [
+   467,
+   640
+  ],
+  "sv-hizam-2": [
+   640,
+   360
+  ],
+  "sv-dagla-1": [
+   480,
+   640
+  ],
+  "sv-dagla-2": [
+   360,
+   640
+  ],
+  "sv-dagla-3": [
+   640,
+   427
+  ],
+  "sv-dagla-4": [
+   271,
+   300
+  ],
+  "sv-janbiya-1": [
+   360,
+   640
+  ],
+  "sv-janbiya-2": [
+   360,
+   640
+  ],
+  "sv-sideriya-1": [
+   640,
+   480
+  ],
+  "sv-sideriya-2": [
+   480,
+   640
+  ],
+  "sv-sideriya-3": [
+   480,
+   640
+  ],
+  "sv-makkawi-1": [
+   640,
+   360
+  ],
+  "sv-makkawi-2": [
+   640,
+   360
+  ],
+  "sv-zamzam-2": [
+   640,
+   360
+  ],
+  "sv-zamzam-3": [
+   360,
+   640
+  ],
+  "sv-zamzam-4": [
+   480,
+   640
+  ],
+  "sv-zamzam-5": [
+   480,
+   640
+  ],
+  "sv-zamzam-6": [
+   480,
+   640
+  ],
+  "sv-zamzam-7": [
+   280,
+   307
+  ],
+  "sv-zamzam-8": [
+   280,
+   316
+  ],
+  "sv-safarjia-1": [
+   457,
+   640
+  ],
+  "sv-safarjia-2": [
+   460,
+   640
+  ],
+  "sv-safarjia-3": [
+   443,
+   640
+  ],
+  "sv-safarjia-4": [
+   467,
+   640
+  ],
+  "sv-safarjia-5": [
+   640,
+   627
+  ],
+  "sv-safarjia-6": [
+   640,
+   526
+  ],
+  "sv-sawas-1": [
+   426,
+   640
+  ],
+  "sv-sawas-2": [
+   470,
+   640
+  ],
+  "sv-sawas-3": [
+   470,
+   640
+  ],
+  "sv-sawas-4": [
+   470,
+   640
+  ],
+  "sv-sawas-5": [
+   470,
+   640
+  ],
+  "sv-hostess-1": [
+   470,
+   640
+  ],
+  "sv-hostess-2": [
+   470,
+   640
+  ],
+  "sv-hostess-3": [
+   478,
+   640
+  ],
+  "sv-hostess-4": [
+   442,
+   640
+  ],
+  "sv-hostess-5": [
+   403,
+   640
+  ],
+  "sv-hostess-6": [
+   478,
+   640
+  ],
+  "sv-safarjiat-1": [
+   470,
+   640
+  ],
+  "sv-safarjiat-2": [
+   470,
+   640
+  ],
+  "sv-safarjiat-3": [
+   464,
+   640
+  ],
+  "sv-clean-1": [
+   640,
+   640
+  ],
+  "sv-callig-1": [
+   494,
+   640
+  ],
+  "sv-callig-2": [
+   571,
+   640
+  ],
+  "sv-callig-3": [
+   640,
+   578
+  ],
+  "sv-callig-4": [
+   640,
+   586
+  ],
+  "sv-artist-1": [
+   480,
+   640
+  ],
+  "sv-artist-2": [
+   480,
+   640
+  ],
+  "sv-artist-3": [
+   640,
+   631
+  ],
+  "sv-artist-4": [
+   480,
+   640
+  ],
+  "sv-folk-1": [
+   640,
+   480
+  ],
+  "sv-folk-2": [
+   360,
+   640
+  ],
+  "sv-tent-1": [
+   480,
+   640
+  ],
+  "sv-tent-2": [
+   640,
+   480
+  ],
+  "sv-tent-3": [
+   640,
+   360
+  ],
+  "sv-tent-4": [
+   640,
+   480
+  ],
+  "sv-counter-1": [
+   480,
+   640
+  ],
+  "sv-counter-2": [
+   640,
+   413
+  ],
+  "sv-counter-3": [
+   640,
+   281
+  ],
+  "sv-booth-1": [
+   480,
+   640
+  ],
+  "sv-booth-2": [
+   426,
+   640
+  ],
+  "sv-booth-3": [
+   480,
+   640
+  ],
+  "sv-booth-4": [
+   480,
+   640
+  ],
+  "sv-buffet-1": [
+   480,
+   640
+  ],
+  "sv-buffet-2": [
+   480,
+   640
+  ],
+  "sv-buffet-3": [
+   360,
+   640
+  ],
+  "sv-buffet-4": [
+   346,
+   640
+  ],
+  "sv-table-1": [
+   480,
+   640
+  ],
+  "sv-table-2": [
+   360,
+   640
+  ],
+  "sv-table-3": [
+   360,
+   640
+  ],
+  "sv-table-4": [
+   640,
+   360
+  ],
+  "of-hot-1": [
+   480,
+   640
+  ],
+  "of-hot-2": [
+   640,
+   554
+  ],
+  "of-hot-3": [
+   640,
+   607
+  ],
+  "of-hot-4": [
+   640,
+   507
+  ],
+  "of-hot-5": [
+   640,
+   501
+  ],
+  "of-hot-6": [
+   480,
+   640
+  ],
+  "of-hot-7": [
+   625,
+   640
+  ],
+  "of-cold-1": [
+   462,
+   640
+  ],
+  "of-cold-2": [
+   340,
+   509
+  ],
+  "of-cold-3": [
+   480,
+   640
+  ],
+  "of-cold-4": [
+   640,
+   480
+  ],
+  "of-cold-5": [
+   495,
+   640
+  ],
+  "of-cold-6": [
+   640,
+   528
+  ],
+  "of-cold-7": [
+   500,
+   500
+  ],
+  "of-cold-8": [
+   427,
+   640
+  ],
+  "of-dates-1": [
+   640,
+   553
+  ],
+  "of-dates-2": [
+   640,
+   640
+  ],
+  "of-dates-3": [
+   632,
+   640
+  ],
+  "of-dates-4": [
+   372,
+   640
+  ],
+  "of-dates-5": [
+   500,
+   500
+  ],
+  "of-dates-6": [
+   534,
+   640
+  ],
+  "of-dates-7": [
+   546,
+   640
+  ],
+  "of-dates-8": [
+   490,
+   640
+  ],
+  "of-dates-9": [
+   640,
+   640
+  ],
+  "of-dates-10": [
+   426,
+   640
+  ],
+  "of-dates-11": [
+   640,
+   640
+  ],
+  "of-sweets-1": [
+   640,
+   640
+  ],
+  "of-sweets-2": [
+   428,
+   640
+  ],
+  "of-sweets-3": [
+   600,
+   600
+  ],
+  "of-sweets-4": [
+   512,
+   640
+  ],
+  "of-sweets-5": [
+   512,
+   640
+  ],
+  "of-sweets-6": [
+   626,
+   640
+  ],
+  "of-sweets-7": [
+   640,
+   288
+  ],
+  "of-sweets-8": [
+   640,
+   427
+  ],
+  "of-sweets-9": [
+   640,
+   527
+  ],
+  "of-pastry-1": [
+   640,
+   640
+  ],
+  "of-pastry-2": [
+   564,
+   640
+  ],
+  "of-pastry-3": [
+   512,
+   640
+  ],
+  "of-pastry-4": [
+   427,
+   640
+  ],
+  "of-pastry-5": [
+   640,
+   640
+  ],
+  "of-snacks-1": [
+   640,
+   640
+  ],
+  "of-snacks-2": [
+   640,
+   640
+  ],
+  "of-snacks-3": [
+   640,
+   640
+  ],
+  "of-snacks-4": [
+   640,
+   640
+  ],
+  "of-snacks-5": [
+   640,
+   640
+  ],
+  "of-snacks-6": [
+   640,
+   640
+  ],
+  "of-snacks-7": [
+   640,
+   640
+  ],
+  "of-snacks-8": [
+   640,
+   640
+  ],
+  "of-snacks-9": [
+   640,
+   640
+  ],
+  "of-snacks-10": [
+   640,
+   640
+  ],
+  "of-sandwiches-1": [
+   480,
+   640
+  ],
+  "of-sandwiches-2": [
+   480,
+   640
+  ],
+  "of-sandwiches-3": [
+   480,
+   640
+  ],
+  "of-sandwiches-4": [
+   480,
+   640
+  ],
+  "of-sandwiches-5": [
+   480,
+   640
+  ],
+  "of-sandwiches-6": [
+   480,
+   640
+  ],
+  "of-sandwiches-7": [
+   480,
+   640
+  ],
+  "of-fruits-1": [
+   640,
+   480
+  ],
+  "of-fruits-2": [
+   474,
+   640
+  ],
+  "of-fruits-3": [
+   640,
+   426
+  ],
+  "of-fruits-4": [
+   640,
+   629
+  ],
+  "of-fruits-5": [
+   640,
+   426
+  ],
+  "of-fruits-6": [
+   474,
+   640
+  ],
+  "of-fruits-7": [
+   640,
+   480
+  ],
+  "of-fruits-8": [
+   640,
+   426
+  ],
+  "of-fruits-9": [
+   606,
+   640
+  ],
+  "of-nuts-1": [
+   480,
+   640
+  ],
+  "of-nuts-2": [
+   640,
+   640
+  ],
+  "of-nuts-3": [
+   640,
+   640
+  ],
+  "of-nuts-4": [
+   531,
+   640
+  ],
+  "of-nuts-5": [
+   640,
+   640
+  ],
+  "of-nuts-6": [
+   512,
+   640
+  ],
+  "of-nuts-7": [
+   640,
+   640
+  ],
+  "of-nuts-8": [
+   640,
+   640
+  ],
+  "of-nuts-9": [
+   640,
+   640
+  ],
+  "of-nuts-10": [
+   635,
+   640
+  ],
+  "of-equipment-1": [
+   640,
+   640
+  ],
+  "of-equipment-2": [
+   640,
+   496
+  ],
+  "of-equipment-3": [
+   480,
+   640
+  ],
+  "of-equipment-4": [
+   480,
+   640
+  ],
+  "of-equipment-5": [
+   480,
+   640
+  ],
+  "of-equipment-6": [
+   640,
+   640
+  ],
+  "of-equipment-7": [
+   640,
+   640
+  ],
+  "of-equipment-8": [
+   640,
+   640
+  ],
+  "of-equipment-9": [
+   640,
+   640
+  ],
+  "of-equipment-10": [
+   480,
+   640
+  ],
+  "of-equipment-11": [
+   640,
+   640
+  ],
+  "of-equipment-12": [
+   480,
+   640
+  ],
+  "of-equipment-13": [
+   640,
+   640
+  ],
+  "of-equipment-14": [
+   480,
+   640
+  ],
+  "of-equipment-15": [
+   480,
+   640
+  ],
+  "of-equipment-16": [
+   640,
+   640
+  ],
+  "of-equipment-17": [
+   640,
+   640
+  ],
+  "of-equipment-18": [
+   640,
+   640
+  ],
+  "of-equipment-19": [
+   640,
+   427
+  ],
+  "of-equipment-20": [
+   640,
+   640
+  ],
+  "of-equipment-21": [
+   640,
+   640
+  ],
+  "of-equipment-22": [
+   640,
+   640
+  ],
+  "of-equipment-23": [
+   640,
+   640
+  ],
+  "of-equipment-24": [
+   640,
+   640
+  ],
+  "of-equipment-25": [
+   640,
+   640
+  ],
+  "of-equipment-26": [
+   480,
+   640
+  ],
+  "of-equipment-27": [
+   640,
+   640
+  ],
+  "of-equipment-28": [
+   640,
+   640
+  ],
+  "of-distributions-1": [
+   480,
+   640
+  ],
+  "of-distributions-2": [
+   372,
+   640
+  ],
+  "of-distributions-3": [
+   640,
+   360
+  ],
+  "of-distributions-4": [
+   426,
+   640
+  ],
+  "of-distributions-5": [
+   640,
+   360
+  ],
+  "pf-gov-1": [
+   640,
+   360
+  ],
+  "pf-gov-2": [
+   480,
+   640
+  ],
+  "pf-gov-3": [
+   640,
+   480
+  ],
+  "pf-gov-4": [
+   480,
+   640
+  ],
+  "pf-co-1": [
+   480,
+   640
+  ],
+  "pf-co-2": [
+   360,
+   640
+  ],
+  "pf-co-3": [
+   480,
+   640
+  ],
+  "pf-co-4": [
+   480,
+   640
+  ],
+  "pf-co-5": [
+   360,
+   640
+  ],
+  "pf-co-6": [
+   480,
+   640
+  ],
+  "pf-co-7": [
+   360,
+   640
+  ],
+  "pf-co-8": [
+   480,
+   640
+  ],
+  "pf-co-9": [
+   360,
+   640
+  ],
+  "pf-co-10": [
+   374,
+   640
+  ],
+  "pf-co-11": [
+   480,
+   640
+  ],
+  "pf-co-12": [
+   480,
+   640
+  ],
+  "pf-co-13": [
+   480,
+   640
+  ],
+  "pf-co-14": [
+   480,
+   640
+  ],
+  "pf-co-15": [
+   360,
+   640
+  ],
+  "pf-co-16": [
+   480,
+   640
+  ],
+  "pf-co-17": [
+   360,
+   640
+  ],
+  "pf-co-18": [
+   480,
+   640
+  ],
+  "pf-co-19": [
+   360,
+   640
+  ],
+  "pf-co-20": [
+   480,
+   640
+  ],
+  "pf-co-21": [
+   365,
+   640
+  ],
+  "pf-co-22": [
+   481,
+   640
+  ],
+  "pf-wed-1": [
+   360,
+   640
+  ],
+  "pf-wed-2": [
+   480,
+   640
+  ],
+  "pf-wed-3": [
+   640,
+   480
+  ],
+  "pf-wed-4": [
+   480,
+   640
+  ],
+  "pf-wed-5": [
+   480,
+   640
+  ],
+  "pf-wed-6": [
+   480,
+   640
+  ],
+  "pf-wed-7": [
+   640,
+   480
+  ],
+  "pf-wed-8": [
+   480,
+   640
+  ],
+  "pf-wed-9": [
+   640,
+   480
+  ],
+  "pf-wed-10": [
+   360,
+   640
+  ],
+  "pf-wed-11": [
+   480,
+   640
+  ],
+  "pf-wed-12": [
+   640,
+   427
+  ],
+  "pf-eq-1": [
+   640,
+   413
+  ],
+  "pf-eq-2": [
+   640,
+   480
+  ],
+  "pf-eq-3": [
+   480,
+   640
+  ],
+  "pf-eq-4": [
+   640,
+   640
+  ],
+  "pf-eq-5": [
+   300,
+   640
+  ],
+  "pf-eq-6": [
+   480,
+   640
+  ],
+  "pf-eq-7": [
+   474,
+   640
+  ],
+  "pf-eq-8": [
+   360,
+   640
+  ],
+  "ab-team": [
+   640,
+   220
+  ],
+  "ab-hall": [
+   474,
+   640
+  ]
+ }
+}

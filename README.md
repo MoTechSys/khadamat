@@ -1,6 +1,31 @@
-# prototype-home — نموذج الصفحة الرئيسية (v5.2)
+# prototype-home — نموذج الموقع الكامل (v6: الرئيسية + 5 صفحات)
 
 مجلد مستقل للمراجعة فقط (`noindex`). ملف واحد `index.html` + صور مصغّرة + `hero-samples.html` (عيّنات الخطوط). لا يمسّ `keif-aldiafa-web`. v4 محفوظ في git `6c2e22f`، v1 في `prototype-home-v1/` (8788).
+
+## v6 — كل صفحات الموقع من غلاف واحد + خطّ صور مُدقَّق (2026-09-03)
+المصدر: تفويض المالك الكامل «لا تنتظر مني أي قرار… كمل المشروع بكله» ثم «استمررر بقووه وكون وثق كلل شي» (`04-owner-messages/2026-09-03-استمر-بقوة-ووثق-كل-شي-…md`). **ملف التسليم للوكيل الجديد: `02-context-memory/HANDOFF-2026-09-03-v6.md`.**
+
+### البنية
+- **`build/build.py`** يقتطع من `index.html` حرفياً: `<style>`، روابط الخطوط، `<header>` (+القائمة الجانبية)، `<footer>`، `.fab`، الـLightbox، `<script>`، ويركّب 5 صفحات: `services.html` · `offerings.html` · `portfolio.html` · `about.html` · `contact.html`. الغلاف له مصدر واحد = index.html؛ **لا تُحرَّر الصفحات المولّدة يدوياً**. تشغيل: `cd build && python3 build.py`.
+- **`build/data.py`**: المحتوى — 15 خدمة في 4 مجموعات (رجالي: hosts/zamzam/safarjia/sawas · نسائي: hostesses/safarjiat/cleaning-female · تراثي/فني: calligrapher/artist/folkband/heritage-tent · تجهيز: counter/photo-booth/buffet/mobile-table) لكل واحدة عنوان/لاتيني/وصف/4 مزايا/معرض/تعليقات (+ أزياء القهوجيين: حزام/دقلة/جنبية/صديرية/مكاوي) · 9 فئات تقديمات/76 صنفاً + 28 معدة + 5 توزيعات · تعليقات الأعمال (4 حكومي SAFE/FLAG، 22 شركات، 12 مناسبات خاصة، 8 معدات) · «من نحن» (قصة، قيم 4، شارات، Google 4.5★/49) · أسئلة.
+- **`build/images.py`**: من `keif-aldiafa-web/public/images` → 231 صورة `img/photos/` (≤640 q76) + `img/full/` (≤1600 q82) + `images-manifest.json` (أبعاد صريحة لكل `<img>` ضد CLS). **يرفض** أي ملف حكمه GOV/CAUTION في `photo-vetting.json`. البانرات النصية والصورة الصغيرة (271×300) مستبعدة.
+- **`build/photo-vetting.json`**: 51 صورة مُدقَّقة بصرياً (COMPANY 19 · GOV 15 · SAFE 12 · FLAG 3 · CAUTION 2). GOV+CAUTION خارج الموقع كلياً. صور المكسرات NOIX أُبقيت بأسماء صادقة (`NUTS_FIX`) + ملاحظة «شركات شريكة».
+
+### الصفحات
+- **services**: هيرو + شرائح (chips) لاصقة للمجموعات الأربع مع تتبّع IntersectionObserver · بطاقة لكل خدمة (نص/مزايا/معرض ≤5 + «+n» يفتح الباقي في Lightbox/شبكة الأزياء) · زر واتساب **برسالة مخصّصة لكل خدمة** + زر `contact.html?service=<id>` · أسئلة · تواصل.
+- **offerings**: شرائح بعدد الأصناف · 9 فئات + `#equipment` + `#distributions` · واتساب لكل فئة · أسماء الأصناف صُحِّحت لتطابق الصور (`NUTS_FIX`, `SANDWICH_FIX`, `NAME_FIX`).
+- **portfolio**: 46 صورة متداخلة · فلاتر `?type=government|corporate|private|equipment|all` + أسماء الإنتاج القديمة `events→corporate`, `weddings→private` (`history.replaceState`) · عدّاد `aria-live` · تنويه «بلا أسماء جهات» يظهر مع فلتر الحكومي فقط.
+- **about**: القصة (منذ 2016، +500) · الأرقام المسموحة فقط · القيم · الشارات (وزارة التجارة/هيئة الزكاة/معروف — كما الإنتاج) · Google.
+- **contact**: نموذج بلا خادم يبني رسالة واتساب (`مرحباً، أنا {name}…`) مع `?service=` للتعبئة المسبقة والتحقق `role=alert` · 8 طرق تواصل · المدن (`#cities`) كل مدينة → واتساب برسالتها.
+- **index** أُعيد توصيلها محلياً (كل رابط → صفحة/مرساة محلية؛ الخارجي الوحيد `/legal`) · وسوم صحيحة (فقط `p-official` تحمل «جهة حكومية» وهي FLAG بلا اسم) · مجموعة «الصفحات» في القائمة الجانبية · `data-ev` + `window.dataLayer` (`cta_click`, `lead_wa`) للربط مع GA4/GTM لاحقاً.
+
+### إصلاحات التشغيل الأول
+`sv-zamzam` فهرس 2..8 · الـfab كان مخفياً في الصفحات الفرعية (كتلة index تفترض `.hero`) → `if(fab && hero)` · قصّ صور المشروبات الحارة → `#hot .item img{object-position:50% 78%}`.
+
+### النتائج
+- Playwright 390/1440 على الصفحات الست: **0 أخطاء · 0 تمرير أفقي** · المراسي العميقة تُضيء `.hit` · Lightbox يفتح `img/full/` · فلاتر الأعمال + alias · النموذج يفتح `wa.me/966508252134` ويدفع `lead_wa`. لقطات `01-keif-aldiafa/reports/shots/v6/`.
+- فحص ثابت: 0 صور مفقودة · 0 مراسي مكسورة · 0 أسعار · 0 معرّفات مكرّرة · 0 أسماء جهات (وزارة/هيئة فقط في alt الشارات الرسمية).
+- **Lighthouse جوال**: services 81 · offerings 71 · portfolio 69 · about 99 · contact 98 (إتاحة 100 للكل؛ أفضل ممارسات 96 بسبب نسبة أبعاد `logo-emblem.webp` في الهيدر؛ SEO 63 = noindex مقصود). **المتبقي**: صورة هيرو متجاوبة (`<picture>`+srcset) لكل صفحة كما v5.3 → متوقّع ≥90؛ إصلاح أبعاد الشعار. التفاصيل والخطوات في HANDOFF §3.
 
 ## v5.3 — أداء عالمي (Lighthouse 92/99) + إتاحة 100 + سياسة صور الشركات (2026-09-03)
 المصدر: صوت المالك `04-owner-messages/2026-09-03-بنر-الفيديو-والبطاقة-والروابط-الطبيعية-وهيكلة-باقي-الصفحات.md` (نقاط 5–6–8: اختبارات دقيقة، أفضل معايير الأداء/الـSEO/النظافة، ضغط ذكي + WebP، شعارات الشركات مسموحة وتُوسَم «شركة»).
@@ -84,5 +109,6 @@
 ## التشغيل
 ```bash
 cd prototype-home && python3 -m http.server 8787
+cd prototype-home/build && python3 images.py && python3 build.py   # إعادة توليد الصفحات (v6)
 ```
 تدقيق Playwright (390 iPhone + 1440): `scrollWidth` = العرض تماماً، 0 أخطاء console، 0 صور مكسورة، الفيديو يعمل على الجوال والبطاقة على الديسكتوب.

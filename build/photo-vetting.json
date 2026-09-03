@@ -1,0 +1,286 @@
+{
+ "policy": "GOV = ممنوع النشر بدون موافقة كتابية (يُخفى الاسم/الشعار). COMPANY = مسموح مع وسم «شركة». SAFE = بلا جهة. FLAG = علم/شعار وطني عام بلا جهة محددة — مسموح.",
+ "date": "2026-09-03",
+ "source": "keif-aldiafa-web/public/images/events",
+ "items": [
+  {
+   "file": "corporate-event-hospitality-staff-formal-reception-saudi-hosts.webp",
+   "verdict": "COMPANY",
+   "entity": "دلة البركة"
+  },
+  {
+   "file": "formal-reception-indoor-event-saudi-hosts-luxury-catering.webp",
+   "verdict": "SAFE",
+   "entity": ""
+  },
+  {
+   "file": "gala-dinner-vip-reception-royal-protocol-marble-luxury.webp",
+   "verdict": "SAFE",
+   "entity": ""
+  },
+  {
+   "file": "government-event-official-ceremony-saudi-hosts-grand-opening.webp",
+   "verdict": "COMPANY",
+   "entity": "New Balance / Foot Locker"
+  },
+  {
+   "file": "indoor-event-luxury-catering-ceremonial-coffee-exhibition-reception.webp",
+   "verdict": "COMPANY",
+   "entity": "مطوّر عقاري — Nahda Park View"
+  },
+  {
+   "file": "indoor-event-saudi-hosts-bisht-qahwa-service-traditional.webp",
+   "verdict": "COMPANY",
+   "entity": "النايفات"
+  },
+  {
+   "file": "ksa-event-exhibition-hospitality-staff-hajj-conference.webp",
+   "verdict": "GOV",
+   "entity": "مؤتمر ومعرض الحج — وزارة الحج"
+  },
+  {
+   "file": "luxury-catering-arabic-coffee-ceremony-gala-dinner-indoor.webp",
+   "verdict": "COMPANY",
+   "entity": "توكيل"
+  },
+  {
+   "file": "majlis-qahwa-service-saudi-event-camel-decor.webp",
+   "verdict": "COMPANY",
+   "entity": "لافندر"
+  },
+  {
+   "file": "majlis-traditional-attire-dates-tower-ceremonial-coffee-display.webp",
+   "verdict": "GOV",
+   "entity": "غرفة جدة (75 عاماً) — شبه حكومية"
+  },
+  {
+   "file": "official-ceremony-grand-opening-saudi-hosts-red-backdrop.webp",
+   "verdict": "COMPANY",
+   "entity": "New Balance / Foot Locker"
+  },
+  {
+   "file": "official-ceremony-saudi-hosts-traditional-attire-vip-reception.webp",
+   "verdict": "GOV",
+   "entity": "كرسي الملك سلمان — جامعة"
+  },
+  {
+   "file": "outdoor-event-nahda-park-arabic-coffee-formal-reception.webp",
+   "verdict": "COMPANY",
+   "entity": "أجدال جدة"
+  },
+  {
+   "file": "saudi-event-formal-reception-makkah-themed-exhibition.webp",
+   "verdict": "COMPANY",
+   "entity": "مناسك المشاعر"
+  },
+  {
+   "file": "saudi-event-vip-reception-luxury-catering-majlis-traditional-attire.webp",
+   "verdict": "SAFE",
+   "entity": ""
+  },
+  {
+   "file": "saudi-event-vip-reception-makkah-halal-forum-coffee-lounge.webp",
+   "verdict": "GOV",
+   "entity": "منتدى مكة للحلال — شبه حكومي"
+  },
+  {
+   "file": "government-event-hospitality-staff-ceremonial-coffee-ministry-transport.webp",
+   "verdict": "GOV",
+   "entity": "وزارة النقل — TGA"
+  },
+  {
+   "file": "government-event-ministry-of-media-official-ceremony.webp",
+   "verdict": "GOV",
+   "entity": "وزارة الإعلام"
+  },
+  {
+   "file": "government-event-official-ceremony-madinah-municipality-arabic-coffee.webp",
+   "verdict": "GOV",
+   "entity": "أمانة منطقة المدينة"
+  },
+  {
+   "file": "government-event-official-ceremony-saudi-electricity-luxury-catering.webp",
+   "verdict": "GOV",
+   "entity": "الشركة السعودية للكهرباء (شبه حكومية)"
+  },
+  {
+   "file": "conference-catering-saudi-electricity-company-dates-tray-luxury.webp",
+   "verdict": "COMPANY",
+   "entity": "نجيب أوتو / سوزوكي"
+  },
+  {
+   "file": "formal-reception-government-event-majad-booth-arabic-coffee.webp",
+   "verdict": "COMPANY",
+   "entity": "فنادق (Mias / Sunrise / Ishraq)"
+  },
+  {
+   "file": "conference-catering-hospitality-staff-medical-college-exhibition.webp",
+   "verdict": "COMPANY",
+   "entity": "شركة صفوة الشعائر"
+  },
+  {
+   "file": "ksa-event-official-ceremony-turkish-pilgrims-office-luxury.webp",
+   "verdict": "GOV",
+   "entity": "مكتب شؤون حجاج تركيا (رسمي)"
+  },
+  {
+   "file": "outdoor-event-tourism-booth-expo-saudi-host-coffee-set.webp",
+   "verdict": "COMPANY",
+   "entity": "مكيون للتطوير العقاري"
+  },
+  {
+   "file": "ksa-event-corporate-event-takween-al-watan-ceremonial-coffee.webp",
+   "verdict": "COMPANY",
+   "entity": "شركة تكوين الوطن"
+  },
+  {
+   "file": "corporate-event-indoor-cybersecurity-awareness-ceremonial-coffee.webp",
+   "verdict": "GOV",
+   "entity": "مجموعة السعودية (شبه حكومية)"
+  },
+  {
+   "file": "ksa-event-qahwa-service-hospitality-staff-arabic-coffee-ceremony.webp",
+   "verdict": "FLAG",
+   "entity": "علم وشعار وطني فقط — بلا جهة محددة (p-official الحالية)"
+  },
+  {
+   "file": "corporate-event-formal-reception-umm-al-qura-university-saudi-hosts.webp",
+   "verdict": "GOV",
+   "entity": "جامعة أم القرى"
+  },
+  {
+   "file": "official-ceremony-hospitality-staff-umm-al-qura-exhibition.webp",
+   "verdict": "GOV",
+   "entity": "جامعة أم القرى"
+  },
+  {
+   "file": "ksa-event-luxury-catering-mcdc-conference-ceremonial-coffee.webp",
+   "verdict": "COMPANY",
+   "entity": "فندق وأبراج مكة / MCDC"
+  },
+  {
+   "file": "saudi-event-hifawa-vip-traditional-attire-qahwa-service.webp",
+   "verdict": "GOV",
+   "entity": "وزارة الحج والعمرة (شاشة) + حفاوة"
+  },
+  {
+   "file": "corporate-event-dallah-hajj-transport-ceremonial-coffee.webp",
+   "verdict": "COMPANY",
+   "entity": "دلة لنقل الحجاج"
+  },
+  {
+   "file": "services/artistic/mobile-table/table-3.webp",
+   "verdict": "SAFE",
+   "entity": "",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/artistic/mobile-table/table-4.webp",
+   "verdict": "GOV",
+   "entity": "وزارة الصحة (ورقة على الحائط) — تُستبعد",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/artistic/mobile-table/table-5.webp",
+   "verdict": "CAUTION",
+   "entity": "لافتات منشأة صحية بلا شعار — تُستبعد احتياطًا",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/male/hosts/dagla/dagla-3.webp",
+   "verdict": "FLAG",
+   "entity": "الشعار الوطني (نخلة وسيفان) فقط",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/male/hosts/dagla/dagla-4.webp",
+   "verdict": "GOV",
+   "entity": "أمانة جدة + شعار اليوم الوطني 94 — تُستبعد",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/male/hosts/hizam/hizam-1.webp",
+   "verdict": "COMPANY",
+   "entity": "Mavera مافيرا",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/artistic/photo-booth/photo-booth-2.webp",
+   "verdict": "COMPANY",
+   "entity": "New Balance",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/artistic/artist/artist-1.webp",
+   "verdict": "COMPANY",
+   "entity": "Foot Locker فوت لوكر",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/artistic/heritage-tent/tent-1.webp",
+   "verdict": "SAFE",
+   "entity": "",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/male/hosts/dagla/dagla-1.webp",
+   "verdict": "SAFE",
+   "entity": "",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/male/hosts/dagla/dagla-5.webp",
+   "verdict": "SAFE",
+   "entity": "",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/male/hosts/dagla/dagla-6.webp",
+   "verdict": "SAFE",
+   "entity": "",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/male/hosts/makkawi/makkawi-1.webp",
+   "verdict": "SAFE",
+   "entity": "",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/male/hosts/dagla-janbiya/dagla-janbiya-1.webp",
+   "verdict": "SAFE",
+   "entity": "",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/artistic/photo-booth/photo-booth-4.webp",
+   "verdict": "SAFE",
+   "entity": "",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/artistic/counter/counter-2.webp",
+   "verdict": "FLAG",
+   "entity": "الشعار الوطني على الكاونتر + رول-أب ترحيبي (Snapchat QR)",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/artistic/folkband/folkband-1.webp",
+   "verdict": "SAFE",
+   "entity": "",
+   "round": "2026-09-03-b"
+  },
+  {
+   "file": "services/artistic/heritage-tent/tent-3.webp",
+   "verdict": "CAUTION",
+   "entity": "صورة شخصية رسمية على الحائط — تُستبعد احتياطًا",
+   "round": "2026-09-03-b"
+  }
+ ],
+ "policy_notes": [
+  "GOV = لا تُستخدم بلا موافقة كتابية",
+  "COMPANY = مسموحة مع وسم «شركة»",
+  "FLAG = علم/شعار وطني فقط بلا جهة — مسموحة",
+  "CAUTION = بلا جهة واضحة لكن سياق حساس — استُبعدت احتياطًا"
+ ]
+}

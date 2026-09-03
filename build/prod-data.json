@@ -1,0 +1,688 @@
+{
+ "services": [
+  {
+   "key": "male",
+   "label": "الخدمات الرجالية",
+   "services": [
+    {
+     "id": "hosts",
+     "title": "قهوجيين وصبابين قهوة ومباشرين",
+     "subtitle": "Male Hosts & Servers",
+     "img": null,
+     "description": "طاقم قهوجيين وصبابين قهوة ومباشرين محترفين بزي فاخر، مدربون على أصول الضيافة السعودية وتقديم القهوة ببروتوكول VIP للمناسبات الرسمية والخاصة.",
+     "features": [
+      "زي رسمي ملكي",
+      "قهوجي خبير بالقهوة السعودية",
+      "مباشرين بزي موحد",
+      "بروتوكول VIP"
+     ],
+     "outfits": [
+      {
+       "name": "حزام",
+       "img": null,
+       "desc": "زي صبابين بحزام أنيق"
+      },
+      {
+       "name": "دقلة",
+       "img": null,
+       "desc": "دقلة صبابين سعودية أصيلة"
+      },
+      {
+       "name": "دقلة وجنبية",
+       "img": null,
+       "desc": "دقلة مع جنبية تراثية فاخرة"
+      },
+      {
+       "name": "سديرية",
+       "img": null,
+       "desc": "سديرية صبابين أنيقة"
+      },
+      {
+       "name": "مكاوي",
+       "img": null,
+       "desc": "زي مباشرين مكاوي تراثي"
+      }
+     ]
+    },
+    {
+     "id": "safarjia",
+     "title": "مقدمين طعام",
+     "subtitle": "Coffee Butler",
+     "img": "/images/services/safarjia/safarjia-main-bg.webp",
+     "description": "مقدمين طعام محترفين يقدمون القهوة السعودية الأصيلة بأسلوب يليق بضيوفكم، مع تقديم فاخر وخدمة استثنائية.",
+     "features": [
+      "قهوة سعودية طازجة",
+      "دلال نحاسية أصيلة",
+      "تمر وحلويات فاخرة",
+      "خدمة مستمرة"
+     ],
+     "outfits": [
+      {
+       "name": "زي مقدم طعام - 1",
+       "img": "/images/services/safarjia/safarji-1.webp",
+       "desc": "زي تقليدي فاخر مع دلال نحاسية"
+      },
+      {
+       "name": "زي مقدم طعام - 2",
+       "img": "/images/services/safarjia/safarji-2.webp",
+       "desc": "ثوب سعودي أصيل مع بشت فاخر"
+      },
+      {
+       "name": "زي مقدم طعام - 3",
+       "img": "/images/services/safarjia/safarji-3.webp",
+       "desc": "ملابس تراثية بتصميم راقٍ"
+      },
+      {
+       "name": "زي مقدم طعام - 4",
+       "img": "/images/services/safarjia/safarji-4.webp",
+       "desc": "زي فاخر للمناسبات الخاصة"
+      }
+     ]
+    },
+    {
+     "id": "sawas",
+     "title": "سوّاس",
+     "subtitle": "Traditional Hospitality",
+     "img": "/images/services/sawas/sawas-main.webp",
+     "description": "تجربة ضيافة تراثية حية، حيث يقدم السوّاس بزيّه الفلكلوري الأصيل وإبريقه النحاسي المشروبات بأسلوب استعراضي فاخر يعكس كرم الضيافة.",
+     "features": [
+      "مشروبات متنوعة",
+      "زي فلكلوري أصيل",
+      "استعراض وتقديم حي",
+      "إبريق نحاسي فاخر"
+     ],
+     "outfits": [
+      {
+       "name": "الزي التراثي الأصيل",
+       "img": "/images/services/sawas/sawas-style-1.webp",
+       "desc": "تقديم المشروبات بأسلوب فلكلوري يعكس الأصالة"
+      },
+      {
+       "name": "ضيافة استعراضية",
+       "img": "/images/services/sawas/sawas-style-2.webp",
+       "desc": "أجواء تراثية فخمة تلفت أنظار ضيوفكم"
+      },
+      {
+       "name": "تقديم فاخر",
+       "img": "/images/services/sawas/sawas-style-3.webp",
+       "desc": "تكامل بين جودة الضيافة والمظهر التراثي"
+      },
+      {
+       "name": "أجواء متكاملة",
+       "img": "/images/services/sawas/sawas-style-4.webp",
+       "desc": "عناصر ديكورية تراثية تصاحب خدمة التقديم"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "female",
+   "label": "الخدمات النسائية",
+   "services": []
+  },
+  {
+   "key": "artistic",
+   "label": "الخدمات الفنية",
+   "services": [
+    {
+     "id": "calligrapher",
+     "title": "خطاط",
+     "subtitle": "Arabic Calligrapher",
+     "img": null,
+     "description": "خطاط محترف يضيف لمسة فنية راقية لمناسباتكم.",
+     "features": [
+      "خط عربي أصيل",
+      "كتابة أسماء الضيوف",
+      "لوحات فنية حية",
+      "هدايا مخصصة"
+     ],
+     "outfits": []
+    },
+    {
+     "id": "artist",
+     "title": "رسّام بورتريه",
+     "subtitle": "Portrait Artist",
+     "img": null,
+     "description": "رسام بورتريه محترف يرسم لوحات حية لضيوفكم.",
+     "features": [
+      "رسم حي سريع",
+      "أنماط متنوعة",
+      "هدايا تذكارية",
+      "تجربة تفاعلية"
+     ],
+     "outfits": []
+    },
+    {
+     "id": "folkband",
+     "title": "فرقة شعبية",
+     "subtitle": "Folk Band",
+     "img": null,
+     "description": "فرقة شعبية تضيف أجواء حماسية أصيلة لمناسباتكم.",
+     "features": [
+      "عرض حي",
+      "أغاني تراثية",
+      "أجواء حماسية",
+      "فقرات متنوعة"
+     ],
+     "outfits": []
+    },
+    {
+     "id": "heritage-tent",
+     "title": "خيمة تراثية",
+     "subtitle": "Heritage Tent",
+     "img": null,
+     "description": "خيمة تراثية سعودية مجهزة بالكامل لإضافة لمسة أصالة.",
+     "features": [
+      "تجهيز كامل",
+      "ديكور تراثي",
+      "إضاءة مميزة",
+      "أحجام متعددة"
+     ],
+     "outfits": []
+    },
+    {
+     "id": "counter",
+     "title": "تجهيز طاولات استقبال",
+     "subtitle": "Hospitality Counter",
+     "img": null,
+     "description": "تجهيز طاولات استقبال وكاونترات ضيافة فاخرة مجهزة بالكامل لخدمة ضيوفكم بأسلوب ملكي.",
+     "features": [
+      "تصميم استقبال أنيق",
+      "تجهيزات ضيافة كاملة",
+      "تنسيق طاولات VIP",
+      "توصيل وتركيب"
+     ],
+     "outfits": []
+    },
+    {
+     "id": "photo-booth",
+     "title": "ركن التصوير",
+     "subtitle": "Photo Booth",
+     "img": null,
+     "description": "ركن تصوير احترافي لتوثيق لحظات مناسباتكم.",
+     "features": [
+      "خلفيات متنوعة",
+      "طباعة فورية",
+      "إكسسوارات ممتعة",
+      "صور رقمية"
+     ],
+     "outfits": []
+    },
+    {
+     "id": "buffet",
+     "title": "بوفيه متكامل",
+     "subtitle": "Full Buffet",
+     "img": null,
+     "description": "تجهيز بوفيه متكامل بأطباق فاخرة ومتنوعة.",
+     "features": [
+      "أطباق عالمية",
+      "تقديم فاخر",
+      "معدات حديثة",
+      "فريق متخصص"
+     ],
+     "outfits": []
+    },
+    {
+     "id": "mobile-table",
+     "title": "طاولة متنقلة",
+     "subtitle": "Mobile Table",
+     "img": null,
+     "description": "طاولة متنقلة فاخرة لتقديم المشروبات والحلويات.",
+     "features": [
+      "تصميم أنيق",
+      "حركة سهلة",
+      "أحجام متعددة",
+      "تخصيص كامل"
+     ],
+     "outfits": []
+    }
+   ]
+  }
+ ],
+ "offerings": [
+  {
+   "id": "hot",
+   "label": "المشروبات الحارة",
+   "desc": "قهوة سعودية أصيلة وشاي فاخر ومشروبات دافئة",
+   "items": [
+    {
+     "name": "القهوة التركية",
+     "desc": "قهوة تركية أصيلة",
+     "img": "/images/hot-drinks/turkish-coffee.webp"
+    },
+    {
+     "name": "الشاي الأحمر",
+     "desc": "شاي أحمر معطر بالنعناع",
+     "img": "/images/hot-drinks/red-tea.webp"
+    },
+    {
+     "name": "الشاي الأخضر",
+     "desc": "شاي أخضر طبيعي منعش",
+     "img": "/images/hot-drinks/green-tea.webp"
+    },
+    {
+     "name": "شاي الكرك",
+     "desc": "شاي كرك بنكهة فريدة",
+     "img": "/images/hot-drinks/karak-tea.webp"
+    },
+    {
+     "name": "السحلب",
+     "desc": "مشروب الدفء الشتوي",
+     "img": "/images/hot-drinks/sahlab.webp"
+    },
+    {
+     "name": "زنجبيل بالأناناس",
+     "desc": "مزيج فريد منعش",
+     "img": "/images/hot-drinks/ginger-pineapple.webp"
+    },
+    {
+     "name": "الكابتشينو",
+     "desc": "كابتشينو إيطالي الأصل",
+     "img": "/images/hot-drinks/cappuccino.webp"
+    }
+   ]
+  },
+  {
+   "id": "cold",
+   "label": "المشروبات الباردة",
+   "desc": "مشروبات منعشة وباردة تليق بالمناسبات",
+   "items": [
+    {
+     "name": "عصائر طبيعية",
+     "desc": "عصائر فواكه طازجة",
+     "img": "/images/cold-drinks/fresh-juice.webp"
+    },
+    {
+     "name": "موهيتو",
+     "desc": "موهيتو منعش بنكهات متعددة",
+     "img": "/images/cold-drinks/mojito.webp"
+    },
+    {
+     "name": "عرق سوس",
+     "desc": "مشروب عرق السوس الأصيل",
+     "img": "/images/cold-drinks/arak-sous.webp"
+    },
+    {
+     "name": "كركديه",
+     "desc": "شراب الكركديه الأحمر المنعش",
+     "img": "/images/cold-drinks/karkade.webp"
+    },
+    {
+     "name": "تمر هندي",
+     "desc": "شراب التمر الهندي الحامض",
+     "img": "/images/cold-drinks/tamarind.webp"
+    },
+    {
+     "name": "سوبيا",
+     "desc": "سوبيا تراثية سعودية",
+     "img": "/images/cold-drinks/sobia.webp"
+    },
+    {
+     "name": "سموذي فواكه",
+     "desc": "سموذي طازج من الفواكه",
+     "img": "/images/cold-drinks/smoothie.webp"
+    },
+    {
+     "name": "آيس لاتيه",
+     "desc": "لاتيه مثلج بنكهات مختلفة",
+     "img": "/images/cold-drinks/iced-latte.webp"
+    }
+   ]
+  },
+  {
+   "id": "dates",
+   "label": "التمور الفاخرة",
+   "desc": "أجود أنواع التمور السعودية الفاخرة",
+   "items": [
+    {
+     "name": "تمر سكري محشي",
+     "desc": "محشو بالمكسرات الملكية",
+     "img": "/images/dates/sukari-stuffed.webp"
+    },
+    {
+     "name": "تمر خلاص محشي",
+     "desc": "محشي بالقشدة واللوز",
+     "img": "/images/dates/khalas-stuffed.webp"
+    },
+    {
+     "name": "تمر خلاص بالسمسم",
+     "desc": "بالسمسم والطحينية الطبيعية",
+     "img": "/images/dates/khalas-sesame-tahini.webp"
+    },
+    {
+     "name": "تمر محشي بالمكسرات",
+     "desc": "تشكيلة تمور محشية فاخرة",
+     "img": "/images/dates/stuffed-dates.webp"
+    },
+    {
+     "name": "تمر محشي مشكّل",
+     "desc": "بمزيج الشوكولاتة والمكسرات",
+     "img": "/images/dates/stuffed-dates-2.webp"
+    },
+    {
+     "name": "تمر محشي فاخر",
+     "desc": "تشكيلة فاخرة للمناسبات",
+     "img": "/images/dates/stuffed-dates-3.webp"
+    },
+    {
+     "name": "تمر محشي ملكي",
+     "desc": "ملكية بالفستق والكاجو",
+     "img": "/images/dates/stuffed-dates-5.webp"
+    },
+    {
+     "name": "نخلة تمر سكري",
+     "desc": "طبيعي معروض بأناقة",
+     "img": "/images/dates/palm-sukari.webp"
+    },
+    {
+     "name": "نخلة تمر سكري محشي",
+     "desc": "نخلة تقديم فاخرة",
+     "img": "/images/dates/palm-sukari-stuffed.webp"
+    },
+    {
+     "name": "نخلة تمر خلاص محشي",
+     "desc": "نخلة تقديم أنيقة",
+     "img": "/images/dates/palm-khalas-stuffed.webp"
+    },
+    {
+     "name": "تمور مشكّلة",
+     "desc": "أجود التمور السعودية",
+     "img": "/images/dates/dates-assorted.webp"
+    }
+   ]
+  },
+  {
+   "id": "sweets",
+   "label": "الحلويات",
+   "desc": "حلويات شرقية وغربية فاخرة",
+   "items": [
+    {
+     "name": "بقلاوة فاخرة",
+     "desc": "بقلاوة تركية بالفستق",
+     "img": "/images/sweets/baklava.webp"
+    },
+    {
+     "name": "كنافة نابلسية",
+     "desc": "كنافة بالجبن والقطر",
+     "img": "/images/sweets/kunafa.webp"
+    },
+    {
+     "name": "شوكولاتة باتشي",
+     "desc": "باتشي الفاخرة للمناسبات",
+     "img": "/images/sweets/patchi-chocolate.webp"
+    },
+    {
+     "name": "شوكولاتة بستاني",
+     "desc": "بستاني الفاخرة بنكهات مميزة",
+     "img": "/images/sweets/bostani-chocolate.webp"
+    },
+    {
+     "name": "كرواءسون شوكولاتة",
+     "desc": "كرواسون فرنسي محشو",
+     "img": "/images/sweets/chocolate-croissant.webp"
+    },
+    {
+     "name": "بان كيك",
+     "desc": "بان كيك طازج بالتوبينج",
+     "img": "/images/sweets/pancake.webp"
+    },
+    {
+     "name": "بوفيه حلى كاسات",
+     "desc": "حلى كاسات شوكولاتة وبسبوسة ومكعبات",
+     "img": "/images/sweets/saudi-luxury-dessert-buffet-chocolate-mousse-basbousa.webp"
+    },
+    {
+     "name": "تشكيلة شرقية فاخرة",
+     "desc": "بقلاوة وكنافة بالفستق مع فواكه طازجة",
+     "img": "/images/sweets/saudi-traditional-baklava-kunafa-pistachio-fruit-platter.webp"
+    },
+    {
+     "name": "ركن الحلويات الفاخر",
+     "desc": "كاسات مانجو وريد فيلفيت وبقلاوة أصابع",
+     "img": "/images/sweets/saudi-elegant-dessert-station-mango-panna-cotta-red-velvet.webp"
+    }
+   ]
+  },
+  {
+   "id": "pastry",
+   "label": "المعجنات",
+   "desc": "معجنات طازجة محضرة بعناية",
+   "items": [
+    {
+     "name": "سمبوسة",
+     "desc": "ذهبية مقرمشة بحشوات متنوعة",
+     "img": "/images/pastry/samosa.webp"
+    },
+    {
+     "name": "فطائر بالفواكه",
+     "desc": "محشوة بالفواكه الموسمية",
+     "img": "/images/pastry/fruit-pie.webp"
+    },
+    {
+     "name": "معجنات عربية",
+     "desc": "تشكيلة معجنات أصيلة",
+     "img": "/images/pastry/arabic-pastry.webp"
+    },
+    {
+     "name": "معجنات متنوعة",
+     "desc": "باقة متنوعة للمناسبات",
+     "img": "/images/pastry/assorted-pastry.webp"
+    },
+    {
+     "name": "مقبلات فاخرة",
+     "desc": "مقبلات صغيرة فاخرة",
+     "img": "/images/pastry/appetizers.webp"
+    }
+   ]
+  },
+  {
+   "id": "snacks",
+   "label": "السناكات",
+   "desc": "وجبات خفيفة فاخرة ومتنوعة تليق بالمناسبات",
+   "items": [
+    {
+     "name": "ميني بيتزا",
+     "desc": "بيتزا صغيرة بحشوات متنوعة",
+     "img": "/images/snacks/saudi-mini-margherita-pizza-luxury-catering-finger-food.webp"
+    },
+    {
+     "name": "ناتشوز",
+     "desc": "ناتشوز مقرمشة بالجبن والصلصة",
+     "img": "/images/snacks/saudi-loaded-nachos-cheese-jalapeno-vip-snacks.webp"
+    },
+    {
+     "name": "بطاطس ودجز",
+     "desc": "ودجز ذهبية مقرمشة",
+     "img": "/images/snacks/saudi-crispy-golden-potato-wedges-rosemary-catering.webp"
+    },
+    {
+     "name": "سبرنج رول",
+     "desc": "لفائف مقرمشة بحشوات شرقية",
+     "img": "/images/snacks/saudi-crispy-spring-rolls-sweet-chili-luxury-snacks.webp"
+    },
+    {
+     "name": "تشيكن بوبس",
+     "desc": "كرات دجاج مقرمشة ذهبية",
+     "img": "/images/snacks/saudi-crispy-chicken-popcorn-bites-honey-mustard.webp"
+    },
+    {
+     "name": "كروكيت",
+     "desc": "كروكيت بالبطاطس والجبن",
+     "img": "/images/snacks/saudi-golden-potato-cheese-croquettes-luxury-catering.webp"
+    },
+    {
+     "name": "فنجر فود",
+     "desc": "تشكيلة مقبلات صغيرة فاخرة",
+     "img": "/images/snacks/saudi-gourmet-finger-food-assortment-canapes-vip.webp"
+    },
+    {
+     "name": "ميني برجر",
+     "desc": "برجر صغير بلمسة فاخرة",
+     "img": "/images/snacks/saudi-mini-beef-sliders-cheese-luxury-catering.webp"
+    },
+    {
+     "name": "تشيز ستيك",
+     "desc": "أصابع جبن مقرمشة ذهبية",
+     "img": "/images/snacks/saudi-crispy-mozzarella-cheese-sticks-marinara-snacks.webp"
+    },
+    {
+     "name": "بروشيتا",
+     "desc": "خبز محمص بالطماطم والريحان",
+     "img": "/images/snacks/saudi-italian-bruschetta-tomato-basil-luxury-appetizer.webp"
+    }
+   ]
+  },
+  {
+   "id": "sandwiches",
+   "label": "السندوتشات",
+   "desc": "سندوتشات طازجة محضرة بعناية فائقة",
+   "items": [
+    {
+     "name": "كلوب ساندوتش",
+     "desc": "ساندوتش كلاسيكي ثلاثي الطبقات",
+     "img": "/images/sandwiches/saudi-catering-tuna-salad-sandwich-long-roll.webp"
+    },
+    {
+     "name": "دجاج مشوي",
+     "desc": "ساندوتش دجاج مشوي بالأعشاب",
+     "img": "/images/sandwiches/saudi-catering-grilled-chicken-sandwich-lettuce-cheese.webp"
+    },
+    {
+     "name": "ساندوتش تونة",
+     "desc": "تونة طازجة بالخضروات",
+     "img": "/images/sandwiches/saudi-catering-tuna-sandwich-sesame-bun.webp"
+    },
+    {
+     "name": "لحم بارد",
+     "desc": "شرائح لحم بارد فاخرة",
+     "img": "/images/sandwiches/saudi-catering-turkey-cheese-tomato-long-sandwich.webp"
+    },
+    {
+     "name": "حلوم مشوي",
+     "desc": "جبن حلوم مشوي بالخضروات",
+     "img": "/images/sandwiches/saudi-catering-chicken-cheese-sandwich-long-roll.webp"
+    },
+    {
+     "name": "ديك رومي",
+     "desc": "شرائح ديك رومي مدخنة",
+     "img": "/images/sandwiches/saudi-catering-turkey-sandwich-soft-roll-tomato.webp"
+    },
+    {
+     "name": "سلمون مدخن",
+     "desc": "سلمون مدخن بالكريمة",
+     "img": "/images/sandwiches/saudi-catering-smoked-turkey-cheese-tomato-sandwich.webp"
+    }
+   ]
+  },
+  {
+   "id": "fruits",
+   "label": "فواكه مشكلة",
+   "desc": "فواكه طازجة مقطعة ومقدمة بأناقة",
+   "items": [
+    {
+     "name": "فراولة طازجة",
+     "desc": "فراولة حمراء طازجة ومنتقاة",
+     "img": "/images/fruits/saudi-fresh-strawberries-luxury-hospitality-fruit.webp"
+    },
+    {
+     "name": "عنب أحمر وأخضر",
+     "desc": "عنب فاخر بنوعيه",
+     "img": "/images/fruits/saudi-red-green-grapes-premium-catering-fruit.webp"
+    },
+    {
+     "name": "مانجو مقطعة",
+     "desc": "مانجو ناضجة مقطعة بأناقة",
+     "img": "/images/fruits/saudi-fresh-mango-cubes-luxury-hospitality-fruit.webp"
+    },
+    {
+     "name": "أناناس طازج",
+     "desc": "أناناس استوائي مقطع",
+     "img": "/images/fruits/saudi-fresh-pineapple-slices-premium-catering-fruit.webp"
+    },
+    {
+     "name": "كيوي مقطع",
+     "desc": "كيوي أخضر طازج ومنعش",
+     "img": "/images/fruits/saudi-fresh-sliced-kiwi-luxury-hospitality-fruit.webp"
+    },
+    {
+     "name": "توت مشكل",
+     "desc": "تشكيلة توت بري فاخرة",
+     "img": "/images/fruits/saudi-mixed-berries-bowl-premium-catering-fruit.webp"
+    },
+    {
+     "name": "بطيخ مكعبات",
+     "desc": "بطيخ أحمر مقطع مكعبات",
+     "img": "/images/fruits/saudi-carved-watermelon-vip-event-fruit-display.webp"
+    },
+    {
+     "name": "تين طازج",
+     "desc": "تين موسمي طازج ومميز",
+     "img": "/images/fruits/saudi-fresh-figs-luxury-hospitality-fruit.webp"
+    },
+    {
+     "name": "رمان مفصص",
+     "desc": "حبات رمان مفصصة بعناية",
+     "img": "/images/fruits/saudi-fresh-pomegranate-premium-catering-fruit.webp"
+    }
+   ]
+  },
+  {
+   "id": "nuts",
+   "label": "المكسرات",
+   "desc": "مكسرات فاخرة محمصة ومملحة بعناية",
+   "items": [
+    {
+     "name": "لوز محمص",
+     "desc": "لوز محمص بالملح الخفيف",
+     "img": "/images/nuts/saudi-cinnamon-roasted-nuts-noix-premium-luxury.webp"
+    },
+    {
+     "name": "كاجو ملكي",
+     "desc": "كاجو فاخر محمص بالزبدة",
+     "img": "/images/nuts/saudi-cinnamon-nuts-noix-luxury-hospitality-display.webp"
+    },
+    {
+     "name": "فستق حلبي",
+     "desc": "فستق حلبي أخضر فاخر",
+     "img": "/images/nuts/saudi-zaatar-granola-noix-luxury-arabian-flavor.webp"
+    },
+    {
+     "name": "جوز عين الجمل",
+     "desc": "جوز طبيعي غني بالفوائد",
+     "img": "/images/nuts/saudi-noix-fine-food-chocolate-butter-granola-trio.webp"
+    },
+    {
+     "name": "بندق محمص",
+     "desc": "بندق محمص بنكهة مميزة",
+     "img": "/images/nuts/saudi-roasted-hazelnut-zaatar-nuts-noix-premium.webp"
+    },
+    {
+     "name": "مكسرات مشكلة فاخرة",
+     "desc": "تشكيلة ملكية من أجود المكسرات",
+     "img": "/images/nuts/saudi-super-q-granola-mixed-nuts-oats-luxury.webp"
+    },
+    {
+     "name": "صنوبر ذهبي",
+     "desc": "صنوبر محمص ذهبي اللون",
+     "img": "/images/nuts/saudi-noix-luxury-granola-zaatar-cinnamon-nuts-range.webp"
+    },
+    {
+     "name": "مكاديميا",
+     "desc": "مكاديميا فاخرة نادرة",
+     "img": "/images/nuts/saudi-salted-caramel-nuts-noix-luxury-premium.webp"
+    },
+    {
+     "name": "بيكان محمص",
+     "desc": "بيكان أمريكي محمص فاخر",
+     "img": "/images/nuts/saudi-salted-caramel-granola-noix-premium.webp"
+    },
+    {
+     "name": "فول سوداني مملح",
+     "desc": "فول سوداني مقرمش ومملح",
+     "img": "/images/nuts/saudi-noix-granola-premium-mixed-nuts-collage.webp"
+    }
+   ]
+  }
+ ]
+}
