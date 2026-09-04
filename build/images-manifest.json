@@ -1157,5 +1157,137 @@
    474,
    640
   ]
+ },
+ "heroes": {
+  "s-hosts": {
+   "m": [
+    [
+     480,
+     480,
+     "img/hero/s-hosts-m-480.webp"
+    ],
+    [
+     750,
+     750,
+     "img/hero/s-hosts-m-750.webp"
+    ],
+    [
+     1080,
+     1080,
+     "img/hero/s-hosts-m-1080.webp"
+    ]
+   ],
+   "d": [
+    [
+     1185,
+     395,
+     "img/hero/s-hosts-d-1185.webp"
+    ]
+   ]
+  },
+  "pf-eq-3": {
+   "m": [
+    [
+     480,
+     480,
+     "img/hero/pf-eq-3-m-480.webp"
+    ],
+    [
+     750,
+     750,
+     "img/hero/pf-eq-3-m-750.webp"
+    ],
+    [
+     1080,
+     1080,
+     "img/hero/pf-eq-3-m-1080.webp"
+    ]
+   ],
+   "d": [
+    [
+     1200,
+     400,
+     "img/hero/pf-eq-3-d-1200.webp"
+    ]
+   ]
+  },
+  "p-gala": {
+   "m": [
+    [
+     480,
+     480,
+     "img/hero/p-gala-m-480.webp"
+    ],
+    [
+     750,
+     750,
+     "img/hero/p-gala-m-750.webp"
+    ],
+    [
+     960,
+     960,
+     "img/hero/p-gala-m-960.webp"
+    ]
+   ],
+   "d": [
+    [
+     960,
+     320,
+     "img/hero/p-gala-d-960.webp"
+    ]
+   ]
+  },
+  "ab-hall": {
+   "m": [
+    [
+     480,
+     480,
+     "img/hero/ab-hall-m-480.webp"
+    ],
+    [
+     750,
+     750,
+     "img/hero/ab-hall-m-750.webp"
+    ],
+    [
+     1080,
+     1080,
+     "img/hero/ab-hall-m-1080.webp"
+    ]
+   ],
+   "d": [
+    [
+     1185,
+     395,
+     "img/hero/ab-hall-d-1185.webp"
+    ]
+   ]
+  },
+  "p-reception": {
+   "m": [
+    [
+     480,
+     480,
+     "img/hero/p-reception-m-480.webp"
+    ],
+    [
+     720,
+     720,
+     "img/hero/p-reception-m-720.webp"
+    ]
+   ],
+   "d": [
+    [
+     1200,
+     400,
+     "img/hero/p-reception-d-1200.webp"
+    ],
+    [
+     1280,
+     427,
+     "img/hero/p-reception-d-1280.webp"
+    ]
+   ]
+  }
  }
 }

@@ -48,10 +48,16 @@ for c in pd['offerings']:
     for i, it in enumerate(c['items'], 1):
         M[f"of-{c['id']}-{i}"] = it['img'].lstrip('/').replace('images/','',1)
 # المعدات (29) + التوزيعات (5)
-EQ = sorted(f for f in os.listdir(os.path.join(SRC,'equipment')) if f.endswith('.webp') and 'cutout' not in f)
-for i, f in enumerate(EQ, 1): M[f'of-equipment-{i}'] = f'equipment/{f}'
-DI = sorted(f for f in os.listdir(os.path.join(SRC,'distributions')) if f.endswith('.webp'))
-for i, f in enumerate(DI, 1): M[f'of-distributions-{i}'] = f'distributions/{f}'
+if os.path.isdir(SRC):
+    EQ = sorted(f for f in os.listdir(os.path.join(SRC,'equipment')) if f.endswith('.webp') and 'cutout' not in f)
+    for i, f in enumerate(EQ, 1): M[f'of-equipment-{i}'] = f'equipment/{f}'
+    DI = sorted(f for f in os.listdir(os.path.join(SRC,'distributions')) if f.endswith('.webp'))
+    for i, f in enumerate(DI, 1): M[f'of-distributions-{i}'] = f'distributions/{f}'
+else:
+    # بلا مستودع الإنتاج (حساب جديد): نأخذ الخريطة المحفوظة في images-manifest.json حتى يبقى M كاملًا
+    _man = json.load(open(os.path.join(ROOT,'build','images-manifest.json'), encoding='utf-8'))
+    for k, v in _man['map'].items():
+        if k.startswith(('of-equipment-','of-distributions-')): M[k] = v
 
 # ===== المعرض (portfolio) — شركات (COMPANY) + رسمية بلا جهة (SAFE/FLAG) + زواجات =====
 PF_GOV = ['events/formal-reception-indoor-event-saudi-hosts-luxury-catering.webp','events/gala-dinner-vip-reception-royal-protocol-marble-luxury.webp','events/saudi-event-vip-reception-luxury-catering-majlis-traditional-attire.webp','events/ksa-event-qahwa-service-hospitality-staff-arabic-coffee-ceremony.webp']
@@ -65,6 +71,54 @@ for i,f in enumerate(PF_EQ,1): M[f'pf-eq-{i}']=f
 # من نحن
 M['ab-team'] = 'keif/sabab-qahwa-jeddah-majlis-hall-keif-aldiafa.webp'
 M['ab-hall'] = 'keif/qahwajiyeen-jeddah-hall-reception-keif-aldiafa.webp'
+
+# ===== صور هيرو الصفحات الداخلية (v6.1) =====
+# المصدر: img/full/<name>.webp (≤1600px، موجود في المستودع) → img/hero/<name>-m-<w>.webp (مربّع 1:1 للجوال)
+#                                                            → img/hero/<name>-d-<w>.webp (شريط 3:1 للديسكتوب ≥900px)
+# نقطة التركيز الرأسية 30% (تطابق object-position:center 30% في .phero img.bg). لا تكبير فوق المصدر أبدًا.
+HERO = {'s-hosts': 's-hosts', 'pf-eq-3': 'pf-eq-3', 'p-gala': 'p-gala', 'ab-hall': 'ab-hall', 'p-reception': 'p-reception'}
+HERO_DIR = os.path.join(ROOT, 'img', 'hero')
+HERO_M_W = (480, 750, 1080)      # DPR 1 / 2 / 3 لعرض 390–412px
+HERO_D_W = (1200, 1600)          # ديسكتوب 100vw
+HERO_FOCUS_Y = 0.30
+HERO_Q = 76   # v6.1: كالمصغّرات؛ pf-eq-3-m-750 نزل من 87→~70KB
+
+def _crop(im, ratio, fy=HERO_FOCUS_Y):
+    """قصّ إلى نسبة عرض/ارتفاع مع تركيز رأسي fy وتوسيط أفقي."""
+    w, h = im.size
+    if w / h > ratio:  # أعرض من المطلوب → قصّ الجانبين
+        nw = round(h * ratio); x = (w - nw) // 2; return im.crop((x, 0, x + nw, h))
+    nh = round(w / ratio); y = round((h - nh) * fy); return im.crop((0, y, w, y + nh))
+
+def hero_variants(force=False):
+    os.makedirs(HERO_DIR, exist_ok=True)
+    out = {}
+    for name in HERO:
+        src = os.path.join(FULL, name + '.webp')
+        if not os.path.exists(src): raise SystemExit(f'hero source missing: {src}')
+        im = Image.open(src).convert('RGB')
+        rec = {'m': [], 'd': []}
+        for kind, ratio, widths in (('m', 1.0, HERO_M_W), ('d', 3.0, HERO_D_W)):
+            c = _crop(im, ratio)
+            ws = sorted({min(w, c.width) for w in widths})   # لا تكبير: يُسقَط ما يفوق المصدر ويُستبدل بعرض المصدر
+            for w in ws:
+                v = c.copy(); v.thumbnail((w, 100000))
+                fn = f'{name}-{kind}-{v.width}.webp'; fp = os.path.join(HERO_DIR, fn)
+                if force or not os.path.exists(fp): v.save(fp, 'WEBP', quality=HERO_Q, method=6)
+                rec[kind].append([v.width, v.height, f'img/hero/{fn}'])
+        out[name] = rec
+    mp = os.path.join(ROOT, 'build', 'images-manifest.json')
+    man = json.load(open(mp, encoding='utf-8')); man['heroes'] = out
+    json.dump(man, open(mp, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    return out
+
+# ===== شعار الهيدر/الدرج/التذييل: نسخة صغيرة (يُعرض 35–40px عرضًا؛ 120px تكفي DPR3) =====
+def logo_small(force=False):
+    src = os.path.join(ROOT, 'img', 'logo-emblem.png')
+    dst = os.path.join(ROOT, 'img', 'logo-emblem-120.webp')
+    if force or not os.path.exists(dst):
+        im = Image.open(src).convert('RGBA'); im.thumbnail((120, 144)); im.save(dst, 'WEBP', quality=90, method=6)
+    return Image.open(dst).size
 
 # حظر صارم: أي ملف بحكم GOV/CAUTION لا يمر
 vet = json.load(open(os.path.join(ROOT,'build','photo-vetting.json'), encoding='utf-8'))
@@ -88,5 +142,12 @@ def build(force=False):
     return sizes
 
 if __name__ == '__main__':
-    s = build('--force' in sys.argv)
-    print(len(s), 'images ready')
+    force = '--force' in sys.argv
+    if '--heroes' in sys.argv or not os.path.isdir(SRC):
+        # بيئة بلا مستودع الإنتاج: نولّد صور الهيرو والشعار فقط من img/full (موجودة في المستودع)
+        if not os.path.isdir(SRC): print('note: production images dir not found → heroes/logo only')
+    else:
+        s = build(force); print(len(s), 'images ready')
+    hv = hero_variants(force)
+    for k, v in hv.items(): print('hero', k, 'm:', [x[0] for x in v['m']], 'd:', [x[0] for x in v['d']])
+    print('logo small', logo_small(force))

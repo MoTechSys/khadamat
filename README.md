@@ -2,6 +2,15 @@
 
 مجلد مستقل للمراجعة فقط (`noindex`). ملف واحد `index.html` + صور مصغّرة + `hero-samples.html` (عيّنات الخطوط). لا يمسّ `keif-aldiafa-web`. v4 محفوظ في git `6c2e22f`، v1 في `prototype-home-v1/` (8788).
 
+## v6.1 — أداء ≥90 على كل الصفحات + خطوط محلية + مراجعة بصرية كاملة (2026-09-04)
+- **هيرو متجاوب** لكل صفحة فرعية: `build/images.py --heroes` يولّد `img/hero/*` (1:1 جوال 480/750/1080w · 3:1 سطح مكتب 1200/1600w، q76، بلا تكبير) و`build.py` يركّب `<picture>`+srcset+`<link rel=preload imagesrcset media>`+`fetchpriority=high`. هيرو التقديمات = `pf-eq-3`.
+- **الخطوط مستضافة محليًا ومقلَّصة** (`build/fonts.py` → `fonts/amiri-700.woff2` 42KB، `noto-naskh.woff2` 21KB متغيّر 400–700، `marcellus.woff2` 9KB) + preload + `font-display:swap`. أُزيل Google Fonts بالكامل (كان سبب TBT/إعادة التخطيط).
+- **content-visibility:auto** لكل قسم كبير مع `contain-intrinsic-size` محسوب عبر `cis()` في build.py (دقة ~5%) للحفاظ على شريط التمرير والمراسي.
+- الشعار → `img/logo-emblem-120.webp` بأبعاد صحيحة (ممارسات 100 على 6 صفحات). `.item img{height:auto}` (كان height=640 يغلب aspect-ratio). تدرّج هيرو أغمق + text-shadow لقابلية القراءة على الصور الفاتحة.
+- `check_static.py`: تجاهل query-string وبادجات alt · `audit_playwright.py`: لقطات كاملة الطول + اعتراض `window.open` لاختبار النموذج.
+- **النتائج (Lighthouse 12 جوال، خادم gzip)**: services 98 · offerings 90 · portfolio 96 · index 94 · about 99 · contact 99 — إتاحة 100، ممارسات 100، SEO 63 (noindex مقصود). سطح مكتب 100. Playwright 12/12: 0 أخطاء، 0 تمرير أفقي. فحص ثابت 0.
+- ملاحظة استضافة: النتيجة تفترض ضغط gzip/brotli على الخادم (بدونه offerings ≈ 89). الأوامر: `cd build && python3 fonts.py && python3 images.py --heroes && python3 build.py`.
+
 ## v6 — كل صفحات الموقع من غلاف واحد + خطّ صور مُدقَّق (2026-09-03)
 المصدر: تفويض المالك الكامل «لا تنتظر مني أي قرار… كمل المشروع بكله» ثم «استمررر بقووه وكون وثق كلل شي» (`04-owner-messages/2026-09-03-استمر-بقوة-ووثق-كل-شي-…md`). **ملف التسليم للوكيل الجديد: `02-context-memory/HANDOFF-2026-09-03-v6.md`.**
 

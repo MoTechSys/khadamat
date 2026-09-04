@@ -13,12 +13,13 @@
 <meta property="og:description" content="قهوجيين وصبابين بزي رسمي وتقديمات فاخرة — +500 مناسبة منذ 2016.">
 <meta property="og:image" content="img/og.jpg">
 <link rel="icon" href="img/logo-emblem.webp">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;700&family=Marcellus&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;700&family=Marcellus&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;700&family=Marcellus&display=swap"></noscript>
+<link rel="preload" as="font" type="font/woff2" href="fonts/noto-naskh.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/amiri-700.woff2" crossorigin>
 <style>
+/* v6.1 — خطوط مستضافة محليًا ومقلَّصة (build/fonts.py) بدل Google Fonts: Amiri 700 ≈42KB + Noto Naskh Arabic متغيّر 400–700 ≈21KB + Marcellus ≈9KB */
+@font-face{font-family:'Amiri';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/amiri-700.woff2) format('woff2')}
+@font-face{font-family:'Noto Naskh Arabic';font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/noto-naskh.woff2) format('woff2')}
+@font-face{font-family:'Marcellus';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/marcellus.woff2) format('woff2')}
 /* =========================================================
    v5 — خامة v4 (فحمي/ذهبي) + هيكلة الكتالوج المختصرة من v1
    + هيرو الموقع الأساسي (متمركز، زجاجي) + خط ج (Amiri/Noto Naskh)
@@ -116,7 +117,7 @@ body.nav-open .scrim{opacity:1;pointer-events:auto}
 body.nav-open .drawer{transform:none;visibility:visible}
 body.nav-open{overflow:hidden}
 .drawer .d-top{display:flex;align-items:center;justify-content:space-between;padding:0 18px 14px;border-bottom:1px solid var(--line)}
-.drawer .d-top .brand img{height:38px}
+.drawer .d-top .brand img{height:38px;width:auto}
 .drawer .d-top .brand b{font-size:1.05rem}
 .drawer .close{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--gold-hi);font-size:1.3rem}
 .drawer ul{list-style:none;padding:10px 8px;overflow-y:auto;flex:1}
@@ -316,9 +317,11 @@ details p{color:var(--cream-2);padding-bottom:16px;font-size:.95rem}
 @media (min-width:900px){.contact .actions{grid-template-columns:1fr 1fr}}
 
 /* ===== الفوتر ===== */
+/* v6.1 — تأجيل تخطيط الأقسام تحت الطيّة (يقلّص TBT/Style&Layout) */
+#faq,#contact,footer{content-visibility:auto;contain-intrinsic-size:auto 800px}
 footer{background:var(--foot);padding:36px 0 100px;color:var(--cream-3);font-size:.84rem;text-align:center;border-top:1px solid rgba(184,134,11,.12)}
 footer .brand-f{display:inline-flex;align-items:center;gap:12px;margin-bottom:20px}
-footer .brand-f img{height:44px}
+footer .brand-f img{height:44px;width:auto}
 footer .brand-f b{font-family:var(--f-head);font-weight:700;font-size:1.2rem;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 footer .trust{padding:22px 0;border-block:1px solid rgba(184,134,11,.08)}
 footer .trust-lbl{display:block;color:var(--gold-2);font-weight:500;font-size:.9rem;letter-spacing:.12em;margin-bottom:18px}
@@ -380,11 +383,11 @@ body.lb-lock{overflow:hidden}
 </head>
 <body>
 
-<div class="proto">نموذج تجريبي للمراجعة — ليس الموقع الفعلي · v6 · 2026-09-03</div>
+<div class="proto">نموذج تجريبي للمراجعة — ليس الموقع الفعلي · v6.1 · 2026-09-04</div>
 <header>
   <div class="wrap nav">
     <a class="brand" href="#top" title="الرئيسية">
-      <img src="img/logo-emblem.webp" alt="" width="35" height="42">
+      <img src="img/logo-emblem-120.webp" alt="" width="35" height="42">
       <span class="word"><b>كيف الضيافة</b><small>KEIF AL-DIAFA</small></span>
     </a>
     <nav class="nav-right" aria-label="روابط سريعة">
@@ -408,7 +411,7 @@ body.lb-lock{overflow:hidden}
 <div class="scrim" id="scrim" aria-hidden="true"></div>
 <aside class="drawer" id="drawer" aria-label="قائمة الصفحة" aria-hidden="true">
   <div class="d-top">
-    <span class="brand"><img src="img/logo-emblem.webp" alt="" width="226" height="271"><span class="word"><b>كيف الضيافة</b><small>SINCE 2016</small></span></span>
+    <span class="brand"><img src="img/logo-emblem-120.webp" alt="" width="32" height="38"><span class="word"><b>كيف الضيافة</b><small>SINCE 2016</small></span></span>
     <button class="close" id="drawerClose" aria-label="إغلاق القائمة">×</button>
   </div>
   <ul>
@@ -683,7 +686,7 @@ body.lb-lock{overflow:hidden}
 
 <footer>
   <div class="wrap">
-    <div class="brand-f"><img src="img/logo-emblem.webp" alt="" width="226" height="271"><b>كيف الضيافة</b></div>
+    <div class="brand-f"><img src="img/logo-emblem-120.webp" alt="" width="37" height="44"><b>كيف الضيافة</b></div>
     <div class="links">
       <a href="services.html">خدماتنا</a>
       <a href="offerings.html">تقديماتنا</a>

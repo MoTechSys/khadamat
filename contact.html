@@ -7,17 +7,19 @@
 <meta name="description" content="تواصل مع كيف الضيافة: واتساب 0508252134، نموذج طلب عرض يُرسل عبر واتساب، البريد، وحسابات التواصل. نصل إلى جميع مناطق المملكة.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0D0D0D">
-<link rel="preload" as="image" href="img/photos/p-reception.webp" fetchpriority="high">
+<link rel="preload" as="image" href="img/hero/p-reception-m-720.webp" imagesrcset="img/hero/p-reception-m-480.webp 480w, img/hero/p-reception-m-720.webp 720w" imagesizes="100vw" media="(max-width:899px)" fetchpriority="high">
+<link rel="preload" as="image" href="img/hero/p-reception-d-1280.webp" imagesrcset="img/hero/p-reception-d-1200.webp 1200w, img/hero/p-reception-d-1280.webp 1280w" imagesizes="100vw" media="(min-width:900px)" fetchpriority="high">
 <meta property="og:title" content="تواصل معنا — كيف الضيافة">
 <meta property="og:description" content="تواصل مع كيف الضيافة: واتساب 0508252134، نموذج طلب عرض يُرسل عبر واتساب، البريد، وحسابات التواصل. نصل إلى جميع مناطق المملكة.">
 <meta property="og:image" content="img/og.jpg">
 <link rel="icon" href="img/logo-emblem.webp">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;700&family=Marcellus&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;700&family=Marcellus&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;700&family=Marcellus&display=swap"></noscript>
+<link rel="preload" as="font" type="font/woff2" href="fonts/noto-naskh.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/amiri-700.woff2" crossorigin>
 <style>
+/* v6.1 — خطوط مستضافة محليًا ومقلَّصة (build/fonts.py) بدل Google Fonts: Amiri 700 ≈42KB + Noto Naskh Arabic متغيّر 400–700 ≈21KB + Marcellus ≈9KB */
+@font-face{font-family:'Amiri';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/amiri-700.woff2) format('woff2')}
+@font-face{font-family:'Noto Naskh Arabic';font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/noto-naskh.woff2) format('woff2')}
+@font-face{font-family:'Marcellus';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/marcellus.woff2) format('woff2')}
 /* =========================================================
    v5 — خامة v4 (فحمي/ذهبي) + هيكلة الكتالوج المختصرة من v1
    + هيرو الموقع الأساسي (متمركز، زجاجي) + خط ج (Amiri/Noto Naskh)
@@ -115,7 +117,7 @@ body.nav-open .scrim{opacity:1;pointer-events:auto}
 body.nav-open .drawer{transform:none;visibility:visible}
 body.nav-open{overflow:hidden}
 .drawer .d-top{display:flex;align-items:center;justify-content:space-between;padding:0 18px 14px;border-bottom:1px solid var(--line)}
-.drawer .d-top .brand img{height:38px}
+.drawer .d-top .brand img{height:38px;width:auto}
 .drawer .d-top .brand b{font-size:1.05rem}
 .drawer .close{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--gold-hi);font-size:1.3rem}
 .drawer ul{list-style:none;padding:10px 8px;overflow-y:auto;flex:1}
@@ -315,9 +317,11 @@ details p{color:var(--cream-2);padding-bottom:16px;font-size:.95rem}
 @media (min-width:900px){.contact .actions{grid-template-columns:1fr 1fr}}
 
 /* ===== الفوتر ===== */
+/* v6.1 — تأجيل تخطيط الأقسام تحت الطيّة (يقلّص TBT/Style&Layout) */
+#faq,#contact,footer{content-visibility:auto;contain-intrinsic-size:auto 800px}
 footer{background:var(--foot);padding:36px 0 100px;color:var(--cream-3);font-size:.84rem;text-align:center;border-top:1px solid rgba(184,134,11,.12)}
 footer .brand-f{display:inline-flex;align-items:center;gap:12px;margin-bottom:20px}
-footer .brand-f img{height:44px}
+footer .brand-f img{height:44px;width:auto}
 footer .brand-f b{font-family:var(--f-head);font-weight:700;font-size:1.2rem;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 footer .trust{padding:22px 0;border-block:1px solid rgba(184,134,11,.08)}
 footer .trust-lbl{display:block;color:var(--gold-2);font-weight:500;font-size:.9rem;letter-spacing:.12em;margin-bottom:18px}
@@ -378,13 +382,15 @@ body.lb-lock{overflow:hidden}
 
 /* ===== v6 — الصفحات الداخلية ===== */
 .phero{position:relative;min-height:46svh;display:flex;align-items:flex-end;overflow:hidden;background:var(--rich);padding:0}
+.phero picture{display:contents}
 .phero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
-.phero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,13,13,.35),rgba(13,13,13,.55) 45%,var(--rich) 100%)}
+.phero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,13,13,.5),rgba(13,13,13,.8) 50%,var(--rich) 100%)}   /* v6.1: تعتيم أقوى — الصور الفاتحة (بوفيه/معرض) كانت تُضعف قراءة العنوان */
+.phero h1,.phero p,.phero .label,.phero .crumb{text-shadow:0 1px 2px rgba(0,0,0,.6),0 2px 14px rgba(0,0,0,.5)}
 .phero .wrap{position:relative;z-index:1;padding-block:28px 26px;text-align:center}
 .phero .label{display:inline-flex;align-items:center;gap:12px;font-size:.74rem;letter-spacing:.3em;color:var(--gold);margin-bottom:8px}
 .phero .label::before,.phero .label::after{content:"✦";font-size:.7rem;letter-spacing:0}
 .phero h1{font-size:clamp(1.7rem,6vw,2.7rem);color:var(--cream);text-wrap:balance;line-height:1.35}
-.phero h1 em{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.phero h1 em{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.75))}   /* v6.1: text-shadow يطمس النص المتدرّج → drop-shadow */
 .phero p{margin:10px auto 0;max-width:56ch;color:var(--cream-2);font-size:.98rem}
 .phero .cta{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
 .crumb{display:flex;justify-content:center;gap:8px;font-size:.78rem;color:var(--cream-3);margin-bottom:8px}
@@ -403,7 +409,7 @@ body.lb-lock{overflow:hidden}
 .hit{animation:hit 2.2s ease-out}
 @keyframes hit{0%,40%{box-shadow:0 0 0 2px var(--gold),0 0 40px rgba(197,160,89,.35)}100%{box-shadow:none}}
 /* بطاقة الخدمة */
-.grp{padding-block:40px}
+.grp{padding-block:40px;content-visibility:auto;contain-intrinsic-size:auto var(--cis-m,900px)}
 .grp+.grp{border-top:1px solid var(--line)}
 .card{border:1px solid var(--line-2);border-radius:20px;background:rgba(36,36,36,.55);padding:16px;margin-top:16px;scroll-margin-top:calc(var(--top) + 64px)}
 .card .latin{display:block;margin-bottom:4px}
@@ -442,13 +448,14 @@ body.lb-lock{overflow:hidden}
 .items{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .item{position:relative;border-radius:14px;overflow:hidden;background:var(--black);border:1px solid var(--line);cursor:zoom-in;transition:border-color .3s,transform .3s}
 .item:hover{border-color:var(--line-hi);transform:translateY(-3px)}
-.item img{width:100%;aspect-ratio:1;object-fit:cover}
+.item img{width:100%;height:auto;aspect-ratio:1;object-fit:cover}   /* v6.1: height:auto ضروري — سمة height="640" كانت تغلب aspect-ratio فتطول البطاقات */
 .item img[data-pos]{object-position:var(--pos)}
 #hot .item img{object-position:50% 78%}
 .item figcaption{padding:9px 10px 11px}
 .item b{display:block;font-family:var(--f-head);font-size:.95rem;color:var(--gold-hi);line-height:1.35}
 .item small{display:block;color:var(--cream-3);font-size:.78rem;line-height:1.45;margin-top:2px}
-.cat{padding-block:40px;scroll-margin-top:calc(var(--top) + 56px)}
+.cat{padding-block:40px;scroll-margin-top:calc(var(--top) + 56px);content-visibility:auto;contain-intrinsic-size:auto var(--cis-m,900px)}
+@media (min-width:900px){.grp,.cat{contain-intrinsic-size:auto var(--cis-d,900px)}}
 .cat+.cat{border-top:1px solid var(--line)}
 .cat .sec-head{margin-bottom:16px}
 .cat .cta-row{display:flex;justify-content:center;margin-top:18px}
@@ -500,11 +507,11 @@ body.lb-lock{overflow:hidden}
 </head>
 <body>
 
-<div class="proto">نموذج تجريبي للمراجعة — ليس الموقع الفعلي · v6 · 2026-09-03</div>
+<div class="proto">نموذج تجريبي للمراجعة — ليس الموقع الفعلي · v6.1 · 2026-09-04</div>
 <header>
   <div class="wrap nav">
     <a class="brand" href="index.html" title="الرئيسية">
-      <img src="img/logo-emblem.webp" alt="" width="35" height="42">
+      <img src="img/logo-emblem-120.webp" alt="" width="35" height="42">
       <span class="word"><b>كيف الضيافة</b><small>KEIF AL-DIAFA</small></span>
     </a>
     <nav class="nav-right" aria-label="روابط سريعة">
@@ -538,7 +545,7 @@ body.lb-lock{overflow:hidden}
 
 <main id="top">
 <section class="phero" aria-label="تواصل معنا">
-  <img class="bg" src="img/photos/p-reception.webp" alt="استقبال VIP بقهوة وتمور" width="480" height="640" fetchpriority="high" decoding="async">
+  <picture><source media="(min-width:900px)" srcset="img/hero/p-reception-d-1200.webp 1200w, img/hero/p-reception-d-1280.webp 1280w" sizes="100vw" width="1280" height="427"><img class="bg" src="img/hero/p-reception-m-720.webp" srcset="img/hero/p-reception-m-480.webp 480w, img/hero/p-reception-m-720.webp 720w" sizes="100vw" alt="استقبال VIP بقهوة وتمور" width="480" height="480" fetchpriority="high" decoding="async"></picture>
   <div class="wrap">
     <div class="crumb"><a href="index.html">الرئيسية</a><span>›</span><span>تواصل</span></div>
     <span class="label">تواصل معنا</span>
@@ -579,7 +586,7 @@ body.lb-lock{overflow:hidden}
 
 <footer>
   <div class="wrap">
-    <div class="brand-f"><img src="img/logo-emblem.webp" alt="" width="226" height="271"><b>كيف الضيافة</b></div>
+    <div class="brand-f"><img src="img/logo-emblem-120.webp" alt="" width="37" height="44"><b>كيف الضيافة</b></div>
     <div class="links">
       <a href="services.html">خدماتنا</a>
       <a href="offerings.html">تقديماتنا</a>

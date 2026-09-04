@@ -21,7 +21,7 @@ async def main():
                   return {hscroll:d.scrollWidth>d.clientWidth, sw:d.scrollWidth, cw:d.clientWidth,
                     fabHidden: fab?fab.classList.contains('hide'):null, scrollY:window.scrollY,
                     hit: t?t.classList.contains('hit'):null, title:document.title,
-                    imgsBroken:[...document.images].filter(i=>i.complete&&i.naturalWidth===0&&!i.hidden&&i.loading!=='lazy').length,
+                    imgsBroken:[...document.images].filter(i=>i.complete&&i.naturalWidth===0&&!i.hidden&&i.loading!=='lazy'&&i.id!=='lbImg').length,
                     pcount:(document.getElementById('pcount')||{}).textContent||null,
                     svcSel:(document.querySelector('select[name=service]')||{}).value||null}}""")
                 await page.evaluate("window.scrollTo(0,600)"); await page.wait_for_timeout(500)
@@ -29,6 +29,9 @@ async def main():
                 await page.evaluate("window.scrollTo(0,0)"); await page.wait_for_timeout(300)
                 fn=f"01-keif-aldiafa/reports/shots/v6/{name}-{pg.split('.html')[0]}.png"
                 await page.screenshot(path=fn,full_page=False)
+                # v6.1: لقطة كاملة الطول أيضًا للمراجعة البصرية — نُظهر عناصر .rv أولًا حتى لا تخرج شفافة
+                await page.evaluate("document.querySelectorAll('.rv').forEach(e=>e.classList.add('in'))"); await page.wait_for_timeout(300)
+                await page.screenshot(path=fn.replace('.png','-full.png'),full_page=True)
                 info['errors']=errs; res[f'{name} {pg}']=info
                 print(name,pg,json.dumps(info,ensure_ascii=False))
                 await ctx.close()
@@ -41,13 +44,11 @@ async def main():
         await page.goto(BASE+'portfolio.html?type=weddings',wait_until='networkidle'); await page.wait_for_timeout(500)
         print('PF alias', await page.evaluate("({url:location.search, cnt:document.getElementById('pcount')?.textContent, visible:[...document.querySelectorAll('.pgrid figure')].filter(f=>!f.hidden&&getComputedStyle(f).display!='none').length, gov:getComputedStyle(document.getElementById('govnote')||document.body).display})"))
         await page.goto(BASE+'contact.html?service=zamzam',wait_until='networkidle')
-        await page.fill('input[name=name]','تجربة'); await page.fill('input[name=phone]','0500000000')
-        got=[]
-        page.on('popup',lambda p: got.append(p.url))
-        async def onreq(r):
-            if 'wa.me' in r.url: got.append(r.url)
-        page.on('request',onreq)
-        await page.click('form button[type=submit]'); await page.wait_for_timeout(1200)
-        print('FORM', got[:1], await page.evaluate("window.dataLayer"))
+        await page.fill('input[name=name]','تجربة'); await page.fill('input[name=phone]','0500000000'); await page.fill('textarea[name=message]','تفاصيل تجريبية')   # v6.1: الرسالة إلزامية في التحقق
+        # v6.1: نعترض window.open لقراءة رابط wa.me الأصلي (إعادة توجيه wa.me→api.whatsapp تُفسد الترميز في headless)
+        await page.evaluate("window.open=(u)=>{window.__waUrl=u}")
+        await page.click('form button[type=submit]'); await page.wait_for_timeout(500)
+        import urllib.parse as U
+        wa=await page.evaluate("window.__waUrl||''"); print('FORM', wa.startswith('https://wa.me/966508252134?text='), U.unquote(wa).replace('\n',' | ')[:160], await page.evaluate("window.dataLayer"))
         await b.close()
 asyncio.run(main())

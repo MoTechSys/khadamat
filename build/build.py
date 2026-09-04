@@ -12,6 +12,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IDX = open(os.path.join(ROOT, 'index.html'), encoding='utf-8').read()
 MAN = json.load(open(os.path.join(ROOT, 'build', 'images-manifest.json'), encoding='utf-8'))
 SIZES = MAN['sizes']
+HEROES = MAN.get('heroes', {})   # من images.py hero_variants(): name → {'m':[[w,h,path]..], 'd':[[w,h,path]..]}
 def sz(name):
     w, h = SIZES.get(name) or _probe(name); return f'width="{w}" height="{h}"'
 def _probe(name):
@@ -21,7 +22,7 @@ def _probe(name):
 def cut(s, a, b):
     i = s.index(a); j = s.index(b, i) + len(b); return s[i:j]
 CSS = cut(IDX, '<style>', '</style>')
-FONTS = cut(IDX, '<link rel="preconnect" href="https://fonts.googleapis.com">', '</noscript>')
+FONTS = cut(IDX, '<link rel="preload" as="font"', 'amiri-700.woff2" crossorigin>')   # v6.1: خطوط محلية (preload ×2)؛ الـ@font-face داخل CSS
 HEADER = cut(IDX, '<header>', '</header>')
 FOOTER = cut(IDX, '<footer>', '</footer>')
 FAB = cut(IDX, '<a class="fab"', '</a>')
@@ -33,7 +34,7 @@ assert "if(fab && hero){" in SCRIPT, 'fab patch failed'
 WA_SVG = re.search(r'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17\.5[^<]*</svg>', IDX).group(0)
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>'
 HINT = '<span class="hint rv">اسحب لليسار<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m7-7-7 7 7 7"/></svg></span>'
-STAMP = 'v6 · 2026-09-03'
+STAMP = 'v6.1 · 2026-09-04'
 
 def wa(text, cls='btn btn-wa', label='تواصل عبر واتساب', ev='wa'):
     return f'<a class="{cls}" href="https://wa.me/{WA_NUM}?text={U.quote(text)}" target="_blank" rel="noopener" data-ev="{ev}">{WA_SVG}{label}</a>'
@@ -70,13 +71,15 @@ def drawer(cur, sections):
 PAGE_CSS = '''
 /* ===== v6 — الصفحات الداخلية ===== */
 .phero{position:relative;min-height:46svh;display:flex;align-items:flex-end;overflow:hidden;background:var(--rich);padding:0}
+.phero picture{display:contents}
 .phero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
-.phero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,13,13,.35),rgba(13,13,13,.55) 45%,var(--rich) 100%)}
+.phero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,13,13,.5),rgba(13,13,13,.8) 50%,var(--rich) 100%)}   /* v6.1: تعتيم أقوى — الصور الفاتحة (بوفيه/معرض) كانت تُضعف قراءة العنوان */
+.phero h1,.phero p,.phero .label,.phero .crumb{text-shadow:0 1px 2px rgba(0,0,0,.6),0 2px 14px rgba(0,0,0,.5)}
 .phero .wrap{position:relative;z-index:1;padding-block:28px 26px;text-align:center}
 .phero .label{display:inline-flex;align-items:center;gap:12px;font-size:.74rem;letter-spacing:.3em;color:var(--gold);margin-bottom:8px}
 .phero .label::before,.phero .label::after{content:"✦";font-size:.7rem;letter-spacing:0}
 .phero h1{font-size:clamp(1.7rem,6vw,2.7rem);color:var(--cream);text-wrap:balance;line-height:1.35}
-.phero h1 em{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.phero h1 em{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.75))}   /* v6.1: text-shadow يطمس النص المتدرّج → drop-shadow */
 .phero p{margin:10px auto 0;max-width:56ch;color:var(--cream-2);font-size:.98rem}
 .phero .cta{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
 .crumb{display:flex;justify-content:center;gap:8px;font-size:.78rem;color:var(--cream-3);margin-bottom:8px}
@@ -95,7 +98,7 @@ PAGE_CSS = '''
 .hit{animation:hit 2.2s ease-out}
 @keyframes hit{0%,40%{box-shadow:0 0 0 2px var(--gold),0 0 40px rgba(197,160,89,.35)}100%{box-shadow:none}}
 /* بطاقة الخدمة */
-.grp{padding-block:40px}
+.grp{padding-block:40px;content-visibility:auto;contain-intrinsic-size:auto var(--cis-m,900px)}
 .grp+.grp{border-top:1px solid var(--line)}
 .card{border:1px solid var(--line-2);border-radius:20px;background:rgba(36,36,36,.55);padding:16px;margin-top:16px;scroll-margin-top:calc(var(--top) + 64px)}
 .card .latin{display:block;margin-bottom:4px}
@@ -134,13 +137,14 @@ PAGE_CSS = '''
 .items{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .item{position:relative;border-radius:14px;overflow:hidden;background:var(--black);border:1px solid var(--line);cursor:zoom-in;transition:border-color .3s,transform .3s}
 .item:hover{border-color:var(--line-hi);transform:translateY(-3px)}
-.item img{width:100%;aspect-ratio:1;object-fit:cover}
+.item img{width:100%;height:auto;aspect-ratio:1;object-fit:cover}   /* v6.1: height:auto ضروري — سمة height="640" كانت تغلب aspect-ratio فتطول البطاقات */
 .item img[data-pos]{object-position:var(--pos)}
 #hot .item img{object-position:50% 78%}
 .item figcaption{padding:9px 10px 11px}
 .item b{display:block;font-family:var(--f-head);font-size:.95rem;color:var(--gold-hi);line-height:1.35}
 .item small{display:block;color:var(--cream-3);font-size:.78rem;line-height:1.45;margin-top:2px}
-.cat{padding-block:40px;scroll-margin-top:calc(var(--top) + 56px)}
+.cat{padding-block:40px;scroll-margin-top:calc(var(--top) + 56px);content-visibility:auto;contain-intrinsic-size:auto var(--cis-m,900px)}
+@media (min-width:900px){.grp,.cat{contain-intrinsic-size:auto var(--cis-d,900px)}}
 .cat+.cat{border-top:1px solid var(--line)}
 .cat .sec-head{margin-bottom:16px}
 .cat .cta-row{display:flex;justify-content:center;margin-top:18px}
@@ -213,7 +217,7 @@ PAGE_JS = '''
 </script>'''
 
 def shell(cur, title, desc, sections, body, extra_css='', extra_js='', hero_img=None):
-    pre = f'<link rel="preload" as="image" href="img/photos/{hero_img}.webp" fetchpriority="high">' if hero_img else ''
+    pre = hero_preload(hero_img) if hero_img else ''
     css = CSS.replace('</style>', PAGE_CSS + extra_css + '</style>')
     return f'''<!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -255,9 +259,47 @@ def shell(cur, title, desc, sections, body, extra_css='', extra_js='', hero_img=
 </body>
 </html>'''
 
+def _hero_sets(img):
+    """يعيد (m_srcset, m_fallback, d_srcset, m_w, m_h, d_w, d_h) من manifest['heroes']؛ None إن لم تُولَّد نسخ."""
+    h = HEROES.get(img)
+    if not h: return None
+    m, d = h['m'], h['d']
+    ms = ', '.join(f'{pth} {w}w' for w, _, pth in m); ds = ', '.join(f'{pth} {w}w' for w, _, pth in d)
+    mf = next((pth for w, _, pth in m if w >= 750), m[-1][2])   # الافتراضي للجوال ≈ DPR2
+    return ms, mf, ds, m[0][0], m[0][1], d[-1][0], d[-1][1]
+
+def hero_preload(img):
+    """preload مشروط بـ media (كما v5.3 للرئيسية): نسخة الجوال بـ imagesrcset، ونسخة الديسكتوب ≥900px."""
+    hs = _hero_sets(img)
+    if not hs:
+        return f'<link rel="preload" as="image" href="img/photos/{img}.webp" fetchpriority="high">'
+    ms, mf, ds, *_ = hs
+    df = HEROES[img]['d'][-1][2]
+    return (f'<link rel="preload" as="image" href="{mf}" imagesrcset="{ms}" imagesizes="100vw" media="(max-width:899px)" fetchpriority="high">\n'
+            f'<link rel="preload" as="image" href="{df}" imagesrcset="{ds}" imagesizes="100vw" media="(min-width:900px)" fetchpriority="high">')
+
+def hero_img(img, alt):
+    """<picture>: مصدر ديسكتوب 3:1 (≥900px) + جوال 1:1 بثلاث كثافات. الأبعاد الصريحة تمنع CLS؛ CSS يغطي الصندوق (object-fit:cover)."""
+    hs = _hero_sets(img)
+    if not hs:
+        return f'<img class="bg" src="img/photos/{img}.webp" alt="{esc(alt)}" {sz(img)} fetchpriority="high" decoding="async">'
+    ms, mf, ds, mw, mh, dw, dh = hs
+    return (f'<picture><source media="(min-width:900px)" srcset="{ds}" sizes="100vw" width="{dw}" height="{dh}">'
+            f'<img class="bg" src="{mf}" srcset="{ms}" sizes="100vw" alt="{esc(alt)}" width="{mw}" height="{mh}" fetchpriority="high" decoding="async"></picture>')
+
+def cis(n_items, kind='cat'):
+    """v6.1 — تقدير ارتفاع القسم لـcontain-intrinsic-size (content-visibility:auto): يحفظ دقّة شريط التمرير والمراسي قبل تخطيط القسم.
+    بطاقات .item: ≈(عرض العمود + 62px تعليق) لكل صف؛ جوال عمودان بعرض ≈170 → 232/صف، ديسكتوب 4 أعمدة ≈250 → 312/صف. بطاقات .card: ≈600/450 لكل بطاقة."""
+    import math
+    if kind == 'cat':
+        m = 160 + math.ceil(n_items/2)*242; d = 180 + math.ceil(n_items/4)*328
+    else:
+        m = 130 + n_items*600; d = 150 + n_items*450
+    return f'style="--cis-m:{m}px;--cis-d:{d}px"'
+
 def phero(label, h1, p, img, alt, ctas='', crumb=''):
     return f'''<section class="phero" aria-label="{esc(label)}">
-  <img class="bg" src="img/photos/{img}.webp" alt="{esc(alt)}" {sz(img)} fetchpriority="high" decoding="async">
+  {hero_img(img, alt)}
   <div class="wrap">
     <div class="crumb"><a href="index.html">الرئيسية</a><span>›</span><span>{crumb or label}</span></div>
     <span class="label">{label}</span>
@@ -317,7 +359,7 @@ def build_services():
   {outfits}
   <div class="acts">{wa(wa_txt, 'btn btn-gold', 'اطلب هذه الخدمة', f'wa_svc_{sid}')}<a class="btn btn-glass" href="contact.html?service={sid}">نموذج طلب عرض</a></div>
 </article>'''
-        body += f'''<section class="grp {'on-rich' if gi%2==0 else 'on-deep'}" id="g-{g['key']}"><div class="wrap"><div class="sec-head"><span class="label rv">{g['hint']}</span><h2 class="rv">{g['label']}</h2></div>{cards}</div></section>'''
+        body += f'''<section class="grp {'on-rich' if gi%2==0 else 'on-deep'}" id="g-{g['key']}" {cis(len(g['ids']), 'grp')}><div class="wrap"><div class="sec-head"><span class="label rv">{g['hint']}</span><h2 class="rv">{g['label']}</h2></div>{cards}</div></section>'''
     body += faq_block(FAQ_SERVICES, 'قبل أن تختار الخدمة')
     body += contact_block('لم تجد ما تبحث عنه؟ <em>أخبرنا بمناسبتك</em>', 'نقترح عليك الطاقم والزي والتقديمات المناسبة — بلا التزام.', 'السلام عليكم، أرغب باستشارة حول الخدمة المناسبة لمناسبة:\nالمدينة: \nالتاريخ: \nعدد الضيوف: ')
     secs = [(f'g-{g["key"]}', g['label'], g['hint']) for g in SERVICE_GROUPS] + [('faq','أسئلة شائعة',''),('contact','تواصل','')]
@@ -329,7 +371,7 @@ def build_offerings():
     pd = json.load(open(os.path.join(ROOT,'build','prod-data.json'), encoding='utf-8'))
     cats = pd['offerings']
     chips = ''.join(f'<a href="#{c["id"]}">{c["label"]}<b>{len(c["items"])}</b></a>' for c in cats) + f'<a href="#equipment">المعدات<b>{len([k for k in SIZES if k.startswith("of-equipment-")])}</b></a><a href="#distributions">التوزيعات<b>5</b></a>'
-    body = phero('التقديمات والمعدات', 'ما الذي يصل إلى <em>ضيوفك؟</em>', 'قهوة سعودية وشاي، مشروبات باردة، تمور محشية، حلويات ومعجنات، سناكات وسندوتشات وفواكه ومكسرات — ودلال وفناجين تليق بها. اختر ما تريد ونرتّبه لك.', 'o-dallah', 'دلة ذهبية وتمور على طاولة تقديم',
+    body = phero('التقديمات والمعدات', 'ما الذي يصل إلى <em>ضيوفك؟</em>', 'قهوة سعودية وشاي، مشروبات باردة، تمور محشية، حلويات ومعجنات، سناكات وسندوتشات وفواكه ومكسرات — ودلال وفناجين تليق بها. اختر ما تريد ونرتّبه لك.', 'pf-eq-3', 'بوفيه تقديمات كيف الضيافة: معجنات وكانابيه على حوامل ذهبية',
         wa('السلام عليكم، أرغب بعرض سعر لتقديمات ضيافة لمناسبة:\nالمدينة: \nالتاريخ: \nعدد الضيوف: \nالأصناف المطلوبة: ', 'btn btn-gold', 'اطلب قائمة تقديمات', 'wa_hero') + '<a class="btn btn-glass" href="#hot">استعرض الأصناف</a>', crumb='التقديمات')
     body += f'<nav class="chips" aria-label="فئات التقديمات"><div class="wrap">{chips}</div></nav>'
     def grid(cid, items):
@@ -343,19 +385,19 @@ def build_offerings():
             nm = NAME_FIX.get(nm, nm)
             items.append((f"of-{c['id']}-{i}", nm, d))
         extra = '<p class="rv" style="text-align:center;color:var(--cream-3);font-size:.82rem;margin-top:-6px;margin-bottom:12px">المكسرات والغرانولا من منتجات شركة شريكة معتمدة، وتُقدَّم بتغليفها الأصلي أو في صحون التقديم.</p>' if c['id']=='nuts' else ''
-        body += f'''<section class="cat {'on-rich' if ci%2==0 else 'on-deep'}" id="{c['id']}"><div class="wrap"><div class="sec-head"><span class="label rv">{len(items)} أصناف</span><h2 class="rv">{c['label']}</h2><p class="rv">{c['desc']}</p></div>{extra}{grid(c['id'], items)}
+        body += f'''<section class="cat {'on-rich' if ci%2==0 else 'on-deep'}" id="{c['id']}" {cis(len(items))}><div class="wrap"><div class="sec-head"><span class="label rv">{len(items)} أصناف</span><h2 class="rv">{c['label']}</h2><p class="rv">{c['desc']}</p></div>{extra}{grid(c['id'], items)}
 <div class="cta-row rv">{wa(f"السلام عليكم، أرغب بإضافة «{c['label']}» لتقديمات مناسبة:\nالمدينة: \nالتاريخ: \nعدد الضيوف: ", 'btn btn-glass btn-sm', f'اطلب {c["label"]}', f'wa_off_{c["id"]}')}</div></div></section>'''
     # المعدات
     eq = [(k, equipment_caption(MAN['map'][k]), 'ضمن الحزمة أو بحسب الطلب') for k in sorted((k for k in SIZES if k.startswith('of-equipment-')), key=lambda x:int(x.split('-')[-1]))]
-    body += f'''<section class="cat on-rich" id="equipment"><div class="wrap"><div class="sec-head"><span class="label rv">{len(eq)} قطعة</span><h2 class="rv">معدات التقديم</h2><p class="rv">دلال ذهبية وفضية، فناجين وكاسات، استاندات وصواني — كلها من مخزوننا وتصل مع الطاقم.</p></div>{grid('equipment', eq)}
+    body += f'''<section class="cat on-rich" id="equipment" {cis(len(eq))}><div class="wrap"><div class="sec-head"><span class="label rv">{len(eq)} قطعة</span><h2 class="rv">معدات التقديم</h2><p class="rv">دلال ذهبية وفضية، فناجين وكاسات، استاندات وصواني — كلها من مخزوننا وتصل مع الطاقم.</p></div>{grid('equipment', eq)}
 <div class="cta-row rv">{wa('السلام عليكم، أرغب بالاستفسار عن معدات التقديم (دلال، فناجين، استاندات) لمناسبة:\nالمدينة: \nالتاريخ: ', 'btn btn-glass btn-sm', 'اسأل عن المعدات', 'wa_off_equipment')}</div></div></section>'''
     di = [(f'of-distributions-{i}', DIST_CAPS[i-1], 'تغليف فاخر · إمكانية طباعة الشعار') for i in range(1,6)]
-    body += f'''<section class="cat on-deep" id="distributions"><div class="wrap"><div class="sec-head"><span class="label rv">هدايا الضيوف</span><h2 class="rv">التوزيعات</h2><p class="rv">صواني توزيعات VIP — تمر وحلا وقهوة — بتغليف فاخر يمكن طباعة شعار الجهة عليه.</p></div>{grid('distributions', di)}
+    body += f'''<section class="cat on-deep" id="distributions" {cis(len(di))}><div class="wrap"><div class="sec-head"><span class="label rv">هدايا الضيوف</span><h2 class="rv">التوزيعات</h2><p class="rv">صواني توزيعات VIP — تمر وحلا وقهوة — بتغليف فاخر يمكن طباعة شعار الجهة عليه.</p></div>{grid('distributions', di)}
 <div class="cta-row rv">{wa('السلام عليكم، أرغب بعرض سعر لتوزيعات VIP لمناسبة:\nالمدينة: \nالتاريخ: \nالعدد: ', 'btn btn-glass btn-sm', 'اطلب توزيعات', 'wa_off_distributions')}</div></div></section>'''
     body += faq_block(FAQ_OFFERINGS, 'عن التقديمات والمعدات')
     body += contact_block('أرسل قائمتك <em>ونعود إليك بعرض</em>', 'اختر الأصناف، وأخبرنا بالمدينة والتاريخ وعدد الضيوف.', 'السلام عليكم، أرغب بعرض سعر لتقديمات ضيافة:\nالمدينة: \nالتاريخ: \nعدد الضيوف: \nالأصناف: ')
     secs = [(c['id'], c['label'], '') for c in cats] + [('equipment','معدات التقديم',''),('distributions','التوزيعات',''),('contact','تواصل','')]
-    return shell('offerings.html', 'التقديمات والمعدات', 'تقديمات كيف الضيافة: مشروبات حارة وباردة، تمور فاخرة، حلويات، معجنات، سناكات، سندوتشات، فواكه، مكسرات، معدات تقديم وتوزيعات VIP.', secs, body, hero_img='o-dallah')
+    return shell('offerings.html', 'التقديمات والمعدات', 'تقديمات كيف الضيافة: مشروبات حارة وباردة، تمور فاخرة، حلويات، معجنات، سناكات، سندوتشات، فواكه، مكسرات، معدات تقديم وتوزيعات VIP.', secs, body, hero_img='pf-eq-3')
 
 # ======================= portfolio.html =======================
 def build_portfolio():
