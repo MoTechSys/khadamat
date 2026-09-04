@@ -2,6 +2,12 @@
 
 مجلد مستقل للمراجعة فقط (`noindex`). ملف واحد `index.html` + صور مصغّرة + `hero-samples.html` (عيّنات الخطوط). لا يمسّ `keif-aldiafa-web`. v4 محفوظ في git `6c2e22f`، v1 في `prototype-home-v1/` (8788).
 
+## v6.2 — 2026-09-04 (طلب المالك: إزالة القائمة الجانبية)
+- حُذف الدرج الجانبي/البرجر/السكريم (HTML+CSS+JS) من `index.html` و`build.py` (D51–D54).
+- الهيدر على الجوال صفّان: الشعار + واتساب، ثم صف الصفحات الست (تمرير أفقي داخل الصف فقط، الصفحة الحالية `aria-current`). `--header` = 106px جوال / 64px من 900px.
+- `header(cur)` في build.py يولّد الروابط الست لكل صفحة مع `aria-current`.
+- نتائج: Playwright 12/12 نظيفة، Lighthouse mobile 95/96/95/96/99/98، a11y 100.
+
 ## v6.1 — أداء ≥90 على كل الصفحات + خطوط محلية + مراجعة بصرية كاملة (2026-09-04)
 - **هيرو متجاوب** لكل صفحة فرعية: `build/images.py --heroes` يولّد `img/hero/*` (1:1 جوال 480/750/1080w · 3:1 سطح مكتب 1200/1600w، q76، بلا تكبير) و`build.py` يركّب `<picture>`+srcset+`<link rel=preload imagesrcset media>`+`fetchpriority=high`. هيرو التقديمات = `pf-eq-3`.
 - **الخطوط مستضافة محليًا ومقلَّصة** (`build/fonts.py` → `fonts/amiri-700.woff2` 42KB، `noto-naskh.woff2` 21KB متغيّر 400–700، `marcellus.woff2` 9KB) + preload + `font-display:swap`. أُزيل Google Fonts بالكامل (كان سبب TBT/إعادة التخطيط).

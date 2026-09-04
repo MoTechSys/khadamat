@@ -38,7 +38,7 @@
   --glow-gold:0 4px 20px rgba(197,160,89,.35);--glow-gold-2:0 8px 30px rgba(197,160,89,.5);
   --wa:#25D366;
   --r:16px;--pad:20px;
-  --ribbon:22px;--header:64px;
+  --ribbon:22px;--header:106px;   /* جوال: صف العلامة 64 + صف الصفحات 42 (القائمة الجانبية أُزيلت بطلب المالك 2026-09-04) */
   --top:calc(var(--ribbon) + var(--header));
   --f-head:'Amiri','Noto Naskh Arabic',serif;
   --f-body:'Noto Naskh Arabic','Amiri',serif;
@@ -91,46 +91,30 @@ section{padding-block:48px}
 
 /* ===== الهيدر النحيف (D29) ===== */
 header{position:sticky;top:var(--ribbon);z-index:70;background:rgba(13,13,13,.82);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;height:var(--header)}
+.nav{display:flex;flex-direction:column;height:var(--header)}
+.nav-row{display:flex;align-items:center;justify-content:space-between;height:64px;flex:none}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
 .brand img{height:42px;width:auto}
 .brand .word{display:flex;flex-direction:column;line-height:1.1}
 .brand .word b{font-family:var(--f-head);font-weight:700;font-size:1.15rem;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .brand .word small{font-family:var(--f-latin);font-size:.54rem;letter-spacing:.26em;color:var(--gold-hi);margin-top:3px;direction:ltr;unicode-bidi:isolate}
-.nav-right{display:flex;align-items:center;gap:8px}
-.nav-link{display:none}
-.burger{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--line-2);color:var(--gold-hi);background:rgba(197,160,89,.06);transition:.25s}
-.burger:hover{border-color:var(--line-hi);background:rgba(197,160,89,.12)}
-.burger svg{width:20px;height:20px}
+/* صف الصفحات (جوال): 6 روابط منفصلة قابلة للتمرير أفقيًا داخل الصف فقط */
+.pages{display:flex;align-items:center;gap:6px;height:42px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:0 calc(-1*var(--pad));padding:0 var(--pad);border-top:1px solid var(--line)}
+.pages::-webkit-scrollbar{display:none}
+.nav-link{flex:none;font-weight:500;font-size:.92rem;color:var(--cream-2);padding:5px 12px;border-radius:999px;border:1px solid transparent;transition:.25s;white-space:nowrap}
+.nav-link:hover{color:var(--gold-hi)}
+.nav-link[aria-current]{color:var(--gold-hi);border-color:var(--line-hi);background:rgba(197,160,89,.1)}
 @media (min-width:900px){
-  .brand img{height:48px}
-  .nav-right{gap:22px}
-  .nav-link{display:inline-block;font-weight:500;font-size:.98rem;color:var(--cream-2);padding:6px 2px;border-bottom:1px solid transparent;transition:.25s}
-  .nav-link:hover{color:var(--gold-hi);border-color:var(--gold)}
-  .burger{display:none}
+  :root{--header:64px}
+  .nav{flex-direction:row;align-items:center;justify-content:space-between}
+  .nav-row{display:contents}
+  .brand{order:1}.brand img{height:48px}
+  .pages{order:2;flex:1;justify-content:flex-end;gap:22px;height:auto;overflow:visible;margin:0 26px;padding:0;border:0}
+  .nav-row>.btn{order:3}
+  .nav-link{font-size:.98rem;padding:6px 2px;border-radius:0;border:0;border-bottom:1px solid transparent;background:none}
+  .nav-link:hover{border-color:var(--gold)}
+  .nav-link[aria-current]{background:none;border-color:var(--gold)}
 }
-
-/* ===== الدرج الجانبي (من اليمين) ===== */
-.scrim{position:fixed;inset:0;z-index:85;background:rgba(0,0,0,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .35s}
-.drawer{position:fixed;top:0;bottom:0;inset-inline-start:0;inset-inline-end:auto;z-index:86;width:min(82vw,340px);background:linear-gradient(180deg,#161616,#0D0D0D);border-inline-end:1px solid var(--line-2);box-shadow:-20px 0 60px rgba(0,0,0,.6);transform:translateX(100%);transition:transform .42s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;padding:calc(var(--ribbon) + 12px) 0 calc(18px + env(safe-area-inset-bottom));visibility:hidden}
-body.nav-open .scrim{opacity:1;pointer-events:auto}
-body.nav-open .drawer{transform:none;visibility:visible}
-body.nav-open{overflow:hidden}
-.drawer .d-top{display:flex;align-items:center;justify-content:space-between;padding:0 18px 14px;border-bottom:1px solid var(--line)}
-.drawer .d-top .brand img{height:38px;width:auto}
-.drawer .d-top .brand b{font-size:1.05rem}
-.drawer .close{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--gold-hi);font-size:1.3rem}
-.drawer ul{list-style:none;padding:10px 8px;overflow-y:auto;flex:1}
-.drawer li a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 12px;border-radius:12px;font-family:var(--f-head);font-size:1.12rem;font-weight:700;color:var(--cream);transition:.25s}
-.drawer li a small{font-family:var(--f-body);font-weight:400;font-size:.76rem;color:var(--cream-3);display:block;line-height:1.3}
-.drawer li a span{display:flex;flex-direction:column;line-height:1.3}
-.drawer li a svg{width:16px;height:16px;color:var(--gold);transform:scaleX(-1);flex:none;opacity:.7}
-.drawer li a:hover,.drawer li a:focus-visible{background:rgba(197,160,89,.08);color:var(--gold-hi)}
-.drawer .d-sep{padding:14px 12px 4px;font-size:.7rem;letter-spacing:.25em;color:var(--gold);border-top:1px solid var(--line);margin-top:6px}
-.drawer .d-foot{padding:14px 18px 0;border-top:1px solid var(--line);display:grid;gap:10px}
-.drawer .d-foot .tel{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.9rem;color:var(--cream-2)}
-.drawer .d-foot .tel b{font-family:var(--f-latin);font-weight:400;color:var(--gold-hi);letter-spacing:.06em;direction:ltr;unicode-bidi:embed}
-.drawer .d-foot .since{text-align:center;font-family:var(--f-latin);font-size:.62rem;letter-spacing:.25em;color:rgba(197,160,89,.55);direction:ltr}
 
 /* ===== الأزرار ===== */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:0 26px;height:52px;font-family:var(--f-head);font-weight:700;font-size:1rem;letter-spacing:.01em;white-space:nowrap;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s,background .3s,color .3s,filter .3s}
@@ -507,41 +491,29 @@ body.lb-lock{overflow:hidden}
 </head>
 <body>
 
-<div class="proto">نموذج تجريبي للمراجعة — ليس الموقع الفعلي · v6.1 · 2026-09-04</div>
+<div class="proto">نموذج تجريبي للمراجعة — ليس الموقع الفعلي · v6.2 · 2026-09-04</div>
 <header>
   <div class="wrap nav">
+    <div class="nav-row">
     <a class="brand" href="index.html" title="الرئيسية">
       <img src="img/logo-emblem-120.webp" alt="" width="35" height="42">
       <span class="word"><b>كيف الضيافة</b><small>KEIF AL-DIAFA</small></span>
     </a>
-    <nav class="nav-right" aria-label="روابط سريعة">
-      <a class="nav-link" href="services.html">الخدمات</a><a class="nav-link" href="offerings.html">التقديمات</a><a class="nav-link" href="portfolio.html" aria-current="page">أعمالنا</a><a class="nav-link" href="about.html">من نحن</a><a class="nav-link" href="contact.html">تواصل</a><a class="btn btn-gold btn-sm" href="https://wa.me/966508252134?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%20%D9%83%D9%8A%D9%81%20%D8%A7%D9%84%D8%B6%D9%8A%D8%A7%D9%81%D8%A9%20%D9%84%D9%85%D9%86%D8%A7%D8%B3%D8%A8%D8%A9" target="_blank" rel="noopener">
+      <a class="btn btn-gold btn-sm" href="https://wa.me/966508252134?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%20%D9%83%D9%8A%D9%81%20%D8%A7%D9%84%D8%B6%D9%8A%D8%A7%D9%81%D8%A9%20%D9%84%D9%85%D9%86%D8%A7%D8%B3%D8%A8%D8%A9" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.3M12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.7 2.2 14 2.2 12.1 2.2 6.7 6.6 2.3 12 2.3c2.6 0 5.1 1 6.9 2.9 1.9 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.7-9.8 9.7M20.3 3.7C18.1 1.5 15.1.3 12 .3 5.5.3.3 5.5.3 12c0 2.1.5 4.1 1.6 5.9L.2 24l6.3-1.6c1.7.9 3.6 1.4 5.5 1.4 6.5 0 11.7-5.2 11.7-11.7 0-3.1-1.2-6.1-3.4-8.4"/></svg>
         تواصل الآن
       </a>
-      <button class="burger" id="burger" aria-label="القائمة" aria-expanded="false" aria-controls="drawer">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
-      </button>
+    </div>
+    <nav class="pages" aria-label="صفحات الموقع">
+      <a class="nav-link" href="index.html">الرئيسية</a>
+      <a class="nav-link" href="services.html">الخدمات</a>
+      <a class="nav-link" href="offerings.html">التقديمات</a>
+      <a class="nav-link" href="portfolio.html" aria-current="page">أعمالنا</a>
+      <a class="nav-link" href="about.html">من نحن</a>
+      <a class="nav-link" href="contact.html">تواصل</a>
     </nav>
   </div>
 </header>
-
-<div class="scrim" id="scrim" aria-hidden="true"></div>
-<aside class="drawer" id="drawer" aria-label="قائمة الصفحة" aria-hidden="true">
-  <div class="d-top">
-    <span class="brand"><img src="img/logo-emblem.webp" alt="" width="226" height="271"><span class="word"><b>كيف الضيافة</b><small>SINCE 2016</small></span></span>
-    <button class="close" id="drawerClose" aria-label="إغلاق القائمة">×</button>
-  </div>
-  <ul>
-    <li class="d-sep">في هذه الصفحة</li><li><a href="#gallery"><span>المعرض<small>تصفية: جهات · شركات · خاصة · تجهيزات</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a></li><li><a href="#contact"><span>تواصل</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a></li>
-    <li class="d-sep">الصفحات</li><li><a href="index.html"><span>الرئيسية</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a></li><li><a href="services.html"><span>الخدمات</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a></li><li><a href="offerings.html"><span>التقديمات</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a></li><li><a href="about.html"><span>من نحن</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a></li><li><a href="contact.html"><span>تواصل</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a></li>
-  </ul>
-  <div class="d-foot">
-    <a class="btn btn-gold btn-block" href="https://wa.me/966508252134?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%20%D9%83%D9%8A%D9%81%20%D8%A7%D9%84%D8%B6%D9%8A%D8%A7%D9%81%D8%A9%20%D9%84%D9%85%D9%86%D8%A7%D8%B3%D8%A8%D8%A9" target="_blank" rel="noopener" data-ev="wa_drawer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.3M12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.7 2.2 14 2.2 12.1 2.2 6.7 6.6 2.3 12 2.3c2.6 0 5.1 1 6.9 2.9 1.9 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.7-9.8 9.7M20.3 3.7C18.1 1.5 15.1.3 12 .3 5.5.3.3 5.5.3 12c0 2.1.5 4.1 1.6 5.9L.2 24l6.3-1.6c1.7.9 3.6 1.4 5.5 1.4 6.5 0 11.7-5.2 11.7-11.7 0-3.1-1.2-6.1-3.4-8.4"/></svg>تواصل عبر واتساب</a>
-    <a class="tel" href="tel:+966508252134">اتصال مباشر <b>0508252134</b></a>
-    <span class="since">Keif Al-Diafa · Luxury Hospitality</span>
-  </div>
-</aside>
 
 <main id="top">
 <section class="phero" aria-label="أعمالنا">
@@ -638,18 +610,6 @@ body.lb-lock{overflow:hidden}
     const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}}),{rootMargin:'0px 0px 140px 0px',threshold:.04});
     rvs.forEach((e,i)=>{e.style.transitionDelay=((i%4)*50)+'ms';ro.observe(e);});
   }
-
-  // 2) الدرج الجانبي (D29)
-  const drawer=$('#drawer'), scrim=$('#scrim'), burger=$('#burger');
-  let lastNavFocus=null;
-  function openNav(){ lastNavFocus=document.activeElement; document.body.classList.add('nav-open'); drawer.setAttribute('aria-hidden','false'); burger.setAttribute('aria-expanded','true'); setTimeout(()=>$('#drawerClose').focus(),60); }
-  function closeNav(){ document.body.classList.remove('nav-open'); drawer.setAttribute('aria-hidden','true'); burger.setAttribute('aria-expanded','false'); if(lastNavFocus&&lastNavFocus.focus) lastNavFocus.focus(); }
-  burger.addEventListener('click',()=>document.body.classList.contains('nav-open')?closeNav():openNav());
-  $('#drawerClose').addEventListener('click',closeNav);
-  scrim.addEventListener('click',closeNav);
-  $$('#drawer a').forEach(a=>a.addEventListener('click',()=>closeNav()));
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&document.body.classList.contains('nav-open')) closeNav(); });
-  matchMedia('(min-width:900px)').addEventListener('change',e=>{ if(e.matches) closeNav(); });
 
   // 3) شركاء النجاح: 12 ظاهرة على الجوال ثم «عرض الكل»
   const logos=$('#logos'), moreBtn=$('#logosMore');

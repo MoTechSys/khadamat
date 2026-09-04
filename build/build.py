@@ -34,7 +34,7 @@ assert "if(fab && hero){" in SCRIPT, 'fab patch failed'
 WA_SVG = re.search(r'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17\.5[^<]*</svg>', IDX).group(0)
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>'
 HINT = '<span class="hint rv">اسحب لليسار<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m7-7-7 7 7 7"/></svg></span>'
-STAMP = 'v6.1 · 2026-09-04'
+STAMP = 'v6.2 · 2026-09-04'
 
 def wa(text, cls='btn btn-wa', label='تواصل عبر واتساب', ev='wa'):
     return f'<a class="{cls}" href="https://wa.me/{WA_NUM}?text={U.quote(text)}" target="_blank" rel="noopener" data-ev="{ev}">{WA_SVG}{label}</a>'
@@ -43,30 +43,10 @@ def esc(s): return html.escape(s, quote=True)
 PAGES = [('index.html','الرئيسية'),('services.html','الخدمات'),('offerings.html','التقديمات'),('portfolio.html','أعمالنا'),('about.html','من نحن'),('contact.html','تواصل')]
 
 def header(cur):
-    h = HEADER.replace('href="#top" title="الرئيسية"', 'href="index.html" title="الرئيسية"')
-    links = ''.join(f'<a class="nav-link" href="{p}"{" aria-current=\"page\"" if p==cur else ""}>{t}</a>' for p, t in PAGES if p != 'index.html')
-    h = re.sub(r'(<a class="nav-link"[^>]*>[^<]*</a>\s*)+', links, h, count=1)
+    # القائمة الجانبية أُزيلت (طلب المالك 2026-09-04): صف صفحات ثابت في الهيدر، الصفحة الحالية aria-current
+    links = '\n      '.join(f'<a class="nav-link" href="{p}"{" aria-current=\"page\"" if p==cur else ""}>{t}</a>' for p, t in PAGES)
+    h = re.sub(r'(<a class="nav-link"[^>]*>[^<]*</a>\s*)+', links + '\n    ', HEADER, count=1)
     return h
-
-def drawer(cur, sections):
-    li = ''.join(f'<li><a href="#{i}"><span>{t}{f"<small>{s}</small>" if s else ""}</span>{ARROW}</a></li>' for i, t, s in sections)
-    pg = ''.join(f'<li><a href="{p}"{" aria-current=\"page\"" if p==cur else ""}><span>{t}</span>{ARROW}</a></li>' for p, t in PAGES if p != cur)
-    return f'''<div class="scrim" id="scrim" aria-hidden="true"></div>
-<aside class="drawer" id="drawer" aria-label="قائمة الصفحة" aria-hidden="true">
-  <div class="d-top">
-    <span class="brand"><img src="img/logo-emblem.webp" alt="" width="226" height="271"><span class="word"><b>كيف الضيافة</b><small>SINCE 2016</small></span></span>
-    <button class="close" id="drawerClose" aria-label="إغلاق القائمة">×</button>
-  </div>
-  <ul>
-    <li class="d-sep">في هذه الصفحة</li>{li}
-    <li class="d-sep">الصفحات</li>{pg}
-  </ul>
-  <div class="d-foot">
-    {wa('السلام عليكم، أرغب بالاستفسار عن خدمات كيف الضيافة لمناسبة', 'btn btn-gold btn-block', 'تواصل عبر واتساب', 'wa_drawer')}
-    <a class="tel" href="tel:+966508252134">اتصال مباشر <b>{WA_DISPLAY}</b></a>
-    <span class="since">Keif Al-Diafa · Luxury Hospitality</span>
-  </div>
-</aside>'''
 
 PAGE_CSS = '''
 /* ===== v6 — الصفحات الداخلية ===== */
@@ -240,8 +220,6 @@ def shell(cur, title, desc, sections, body, extra_css='', extra_js='', hero_img=
 
 <div class="proto">نموذج تجريبي للمراجعة — ليس الموقع الفعلي · {STAMP}</div>
 {header(cur)}
-
-{drawer(cur, sections)}
 
 <main id="top">
 {body}
