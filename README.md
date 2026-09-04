@@ -1,6 +1,14 @@
-# prototype-home — نموذج الموقع الكامل (v6: الرئيسية + 5 صفحات)
+# prototype-home — نموذج الموقع الكامل (v6.3: الرئيسية + 41 صفحة)
 
 مجلد مستقل للمراجعة فقط (`noindex`). ملف واحد `index.html` + صور مصغّرة + `hero-samples.html` (عيّنات الخطوط). لا يمسّ `keif-aldiafa-web`. v4 محفوظ في git `6c2e22f`، v1 في `prototype-home-v1/` (8788).
+
+## v6.3 — 2026-09-04 (طلب المالك: سحب الصفحات الفرعية من keif-aldiafa-web)
+- **36 صفحة جديدة** مولَّدة من `build/build.py` + `build/local.py`: `locations.html` (المدن) · `city-<slug>.html` ×8 (jeddah, makkah, madinah, riyadh, taif, dammam, abha, yanbu) · `sababin-qahwa-<city>` / `qahwajiin-<city>` / `diyafa-munasabat-<city>` ×24 · `mubashirin-qahwa-jeddah.html` · `social.html` (QR واتساب + 5 منصّات) · `legal.html`.
+- **الهيكل:** هيرو بمسار تنقّل (الرئيسية › المدن › المدينة › الصفحة) + شارات → مقدّمة → تفاصيل متعرّجة (zig) → تشكيلات (بلا أرقام) → شريط أدوات (قصاصات دلال/فناجين) → لماذا نحن → معرض 4 → أسئلة → أحياء → تواصل → روابط ذات صلة. صفحات المدن: نبذة + 3 خدمات + معرض 5.
+- **الغلاف:** «المدن» في الهيدر (aria-current="true" للصفحات المحلية) · فوتر: المدن / حساباتنا / الحقوق القانونية · شريط المدن في الرئيسية → صفحات المدن + «كل المدن ›».
+- **السياسات:** لا أسعار، رقم واحد 0508252134، الأرقام المسموحة فقط (+500 / 2016 / س.ت 7033069720)، لا أسماء جهات حكومية. القرارات D55–D62 في `04-owner-messages/2026-09-04-اسحب-الصفحات-الفرعية-من-keif-aldiafa-web.md`.
+- **النتائج:** check_static BAD 0 · Playwright 15 صفحة × 390/1440: 0 أخطاء، 0 تمرير أفقي · Lighthouse جوال: sababin-qahwa-jeddah 99 · city-jeddah 98 · locations 98 · social 96 · legal 99 — إتاحة 100 · ممارسات 100 · SEO 63 (noindex مقصود).
+- **التشغيل:** `cd build && python3 build.py && python3 review.py` ثم `python3 build/check_static.py` من `prototype-home/`.
 
 ## v6.2 — 2026-09-04 (طلب المالك: إزالة القائمة الجانبية)
 - حُذف الدرج الجانبي/البرجر/السكريم (HTML+CSS+JS) من `index.html` و`build.py` (D51–D54).
