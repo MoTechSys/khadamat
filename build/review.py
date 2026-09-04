@@ -16,15 +16,20 @@ from html.parser import HTMLParser
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 OUT = os.path.join(ROOT, 'review')
 PAGES = [('index', 'الرئيسية'), ('services', 'الخدمات'), ('offerings', 'التقديمات والمعدات'),
-         ('portfolio', 'أعمالنا'), ('about', 'من نحن'), ('contact', 'تواصل معنا')]
+         ('portfolio', 'أعمالنا'), ('about', 'من نحن'), ('contact', 'تواصل معنا'),
+         # v6.3 (D62): الصفحات المحلية — عيّنة تمثيلية (الصور تتكرر عبر المدن بالتدوير؛ dHash يزيل التكرار)
+         ('locations', 'المدن'), ('city-jeddah', 'مدينة جدة'), ('sababin-qahwa-jeddah', 'صبابين قهوة جدة'),
+         ('qahwajiin-riyadh', 'قهوجيين الرياض'), ('diyafa-munasabat-makkah', 'ضيافة مناسبات مكة'), ('mubashirin-qahwa-jeddah', 'مباشرين قهوة جدة')]
 SEC_AR = {'hero': 'غلاف الصفحة', 'who': 'لمن نعمل', 'works': 'من أعمالنا', 'partners': 'شركاء النجاح', 'staff': 'الطاقم والزي',
           'offerings': 'التقديمات', 'services': 'الخدمات', 'faq': 'الأسئلة الشائعة', 'contact': 'تواصل',
           'g-male': 'الطاقم الرجالي', 'g-female': 'الطاقم النسائي', 'g-heritage': 'تراث وفنون', 'g-setup': 'أركان وتجهيز',
           'hot': 'المشروبات الحارة', 'cold': 'المشروبات الباردة', 'dates': 'التمور', 'sweets': 'الحلويات', 'pastry': 'المعجنات',
           'snacks': 'السناكات', 'sandwiches': 'الساندويتشات', 'fruits': 'الفواكه', 'nuts': 'المكسرات', 'equipment': 'المعدات',
-          'distributions': 'التوزيعات', 'gallery': 'معرض الأعمال', 'story': 'قصتنا', 'values': 'قيمنا', 'trust': 'الثقة والاعتمادات', 'cities': 'المدن'}
+          'distributions': 'التوزيعات', 'gallery': 'معرض الأعمال', 'story': 'قصتنا', 'values': 'قيمنا', 'trust': 'الثقة والاعتمادات', 'cities': 'المدن',
+          'intro': 'مقدمة', 'detail': 'التفاصيل', 'pk': 'الترتيبات', 'kit': 'عدّة الضيافة', 'why': 'لماذا نحن', 'gal': 'المعرض', 'areas': 'الأحياء', 'rel': 'صفحات ذات صلة',
+          'about': 'عن المدينة', 'svcs': 'الخدمات', 'grid': 'شبكة المدن', 'matrix': 'الخدمات بالمدن', 'qr': 'الحسابات', 'terms': 'الشروط'}
 SKIP_SRC = ('logo-emblem', '-crop.svg')
-ORDER = ['services', 'offerings', 'portfolio', 'about', 'contact', 'index']  # أولوية إزالة التكرار
+ORDER = ['services', 'offerings', 'portfolio', 'about', 'contact', 'index', 'locations', 'city-jeddah', 'sababin-qahwa-jeddah', 'qahwajiin-riyadh', 'diyafa-munasabat-makkah', 'mubashirin-qahwa-jeddah']  # أولوية إزالة التكرار
 TH_W, TH_Q = 400, 60
 
 class P(HTMLParser):

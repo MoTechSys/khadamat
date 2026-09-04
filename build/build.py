@@ -34,17 +34,22 @@ assert "if(fab && hero){" in SCRIPT, 'fab patch failed'
 WA_SVG = re.search(r'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17\.5[^<]*</svg>', IDX).group(0)
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>'
 HINT = '<span class="hint rv">اسحب لليسار<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m7-7-7 7 7 7"/></svg></span>'
-STAMP = 'v6.2 · 2026-09-04'
+STAMP = 'v6.3 · 2026-09-04'
 
 def wa(text, cls='btn btn-wa', label='تواصل عبر واتساب', ev='wa'):
     return f'<a class="{cls}" href="https://wa.me/{WA_NUM}?text={U.quote(text)}" target="_blank" rel="noopener" data-ev="{ev}">{WA_SVG}{label}</a>'
 def esc(s): return html.escape(s, quote=True)
 
-PAGES = [('index.html','الرئيسية'),('services.html','الخدمات'),('offerings.html','التقديمات'),('portfolio.html','أعمالنا'),('about.html','من نحن'),('contact.html','تواصل')]
+PAGES = [('index.html','الرئيسية'),('services.html','الخدمات'),('offerings.html','التقديمات'),('portfolio.html','أعمالنا'),('locations.html','المدن'),('about.html','من نحن'),('contact.html','تواصل')]
 
-def header(cur):
-    # القائمة الجانبية أُزيلت (طلب المالك 2026-09-04): صف صفحات ثابت في الهيدر، الصفحة الحالية aria-current
-    links = '\n      '.join(f'<a class="nav-link" href="{p}"{" aria-current=\"page\"" if p==cur else ""}>{t}</a>' for p, t in PAGES)
+def header(cur, section=None):
+    # القائمة الجانبية أُزيلت (طلب المالك 2026-09-04): صف صفحات ثابت في الهيدر، الصفحة الحالية aria-current="page"
+    # v6.3 (D60): الصفحات الفرعية (مدينة/خدمة×مدينة) تُبرز قسمها «المدن» بـ aria-current="true"
+    def cur_attr(p):
+        if p == cur: return ' aria-current="page"'
+        if section and p == section: return ' aria-current="true"'
+        return ''
+    links = '\n      '.join(f'<a class="nav-link" href="{p}"{cur_attr(p)}>{t}</a>' for p, t in PAGES)
     h = re.sub(r'(<a class="nav-link"[^>]*>[^<]*</a>\s*)+', links + '\n    ', HEADER, count=1)
     return h
 
@@ -196,7 +201,7 @@ PAGE_JS = '''
 })();
 </script>'''
 
-def shell(cur, title, desc, sections, body, extra_css='', extra_js='', hero_img=None):
+def shell(cur, title, desc, sections, body, extra_css='', extra_js='', hero_img=None, section=None):
     pre = hero_preload(hero_img) if hero_img else ''
     css = CSS.replace('</style>', PAGE_CSS + extra_css + '</style>')
     return f'''<!DOCTYPE html>
@@ -219,7 +224,7 @@ def shell(cur, title, desc, sections, body, extra_css='', extra_js='', hero_img=
 <body>
 
 <div class="proto">نموذج تجريبي للمراجعة — ليس الموقع الفعلي · {STAMP}</div>
-{header(cur)}
+{header(cur, section)}
 
 <main id="top">
 {body}
@@ -275,14 +280,18 @@ def cis(n_items, kind='cat'):
         m = 130 + n_items*600; d = 150 + n_items*450
     return f'style="--cis-m:{m}px;--cis-d:{d}px"'
 
-def phero(label, h1, p, img, alt, ctas='', crumb=''):
-    return f'''<section class="phero" aria-label="{esc(label)}">
-  {hero_img(img, alt)}
+def phero(label, h1, p, img, alt, ctas='', crumb='', crumbs=None, after=''):
+    """v6.3: crumbs=[(نص, رابط|None)..] لمسار متعدّد؛ img=None → هيرو بلا صورة (social/legal)؛ after = HTML بعد الفقرة (شارات)."""
+    if crumbs: cr = '<span>›</span>'.join(f'<a href="{h}">{t}</a>' if h else f'<span>{t}</span>' for t, h in crumbs)
+    else: cr = f'<span>{crumb or label}</span>'
+    return f'''<section class="phero{'' if img else ' noimg'}" aria-label="{esc(label)}">
+  {hero_img(img, alt) if img else ''}
   <div class="wrap">
-    <div class="crumb"><a href="index.html">الرئيسية</a><span>›</span><span>{crumb or label}</span></div>
+    <div class="crumb"><a href="index.html">الرئيسية</a><span>›</span>{cr}</div>
     <span class="label">{label}</span>
     <h1>{h1}</h1>
     <p>{p}</p>
+    {after}
     {f'<div class="cta">{ctas}</div>' if ctas else ''}
   </div>
 </section>'''
@@ -487,7 +496,7 @@ def build_contact():
     {ways}
   </div>
 </div></div></section>
-<section class="cities on-black" id="cities" aria-label="المدن التي نخدمها"><div class="wrap rv"><span class="lbl">نصل إليكم في:</span>{''.join(f'<a{" class=\"main\"" if c=="جدة" else ""} href="https://wa.me/{WA_NUM}?text={U.quote(f"السلام عليكم، أرغب بالاستفسار عن خدمات كيف الضيافة لمناسبة في {c}")}" target="_blank" rel="noopener" data-ev="wa_city">{c}</a>' for c in cities)}<span class="lbl" style="margin-inline-start:6px">وجميع مناطق المملكة</span></div></section>'''
+<section class="cities on-black" id="cities" aria-label="المدن التي نخدمها"><div class="wrap rv"><span class="lbl">نصل إليكم في:</span>{''.join(f'<a{" class=\"main\"" if c["slug"]=="jeddah" else ""} href="{city_page(c["slug"])}">{c["ar"]}</a>' for c in CITIES)}<a href="locations.html">كل المدن ›</a><span class="lbl" style="margin-inline-start:6px">وجميع مناطق المملكة</span></div></section>'''
     js = f'''<script>
 (function(){{
   const f=document.getElementById('leadForm'), err=document.getElementById('formErr'), sel=document.getElementById('svcSel');
@@ -503,7 +512,412 @@ def build_contact():
     secs = [('form','نموذج طلب عرض',''),('cities','المدن','')]
     return shell('contact.html', 'تواصل معنا', 'تواصل مع كيف الضيافة: واتساب 0508252134، نموذج طلب عرض يُرسل عبر واتساب، البريد، وحسابات التواصل. نصل إلى جميع مناطق المملكة.', secs, body, extra_js=js, hero_img='p-reception')
 
+
+# ======================= v6.3 — الصفحات المحلية (D55–D62) =======================
+# locations.html · city-<slug>.html ×8 · <service>-<city>.html ×24 · mubashirin-qahwa-jeddah.html · social.html · legal.html
+LOCAL_CSS = """
+/* ===== v6.3 — الصفحات المحلية ===== */
+.phero.noimg{min-height:0;background:radial-gradient(ellipse at 50% 0%,rgba(197,160,89,.14),transparent 60%),var(--rich)}
+.phero.noimg::before{display:none}
+.phero.noimg .wrap{padding-block:34px 30px}
+.phero h1 small{display:block;font-size:.55em;font-weight:500;color:var(--cream-2);margin-top:6px}
+.badges-l{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.badges-l span{border:1px solid rgba(197,160,89,.35);border-radius:999px;padding:5px 13px;font-size:.78rem;color:var(--gold-hi);background:rgba(13,13,13,.45);backdrop-filter:blur(6px)}
+.badges-l span::before{content:"✦ ";font-size:.65rem}
+.intro{padding-block:36px}
+.intro p{font-size:1.02rem;color:var(--cream-2);max-width:70ch;margin-inline:auto;text-align:center;line-height:1.9}
+/* أقسام متعرّجة */
+.zig{display:grid;gap:16px;align-items:center;padding-block:22px}
+.zig+.zig{border-top:1px solid var(--line)}
+.zig .kick{display:inline-block;font-size:.74rem;letter-spacing:.25em;color:var(--gold);margin-bottom:6px}
+.zig h2{font-size:clamp(1.3rem,4.6vw,1.9rem);color:var(--gold-hi);line-height:1.4}
+.zig p{margin-top:10px;color:var(--cream-2);font-size:.96rem;line-height:1.85}
+.zig .btn{margin-top:14px}
+.zig figure{border-radius:18px;overflow:hidden;border:1px solid var(--line-2);aspect-ratio:4/3;cursor:zoom-in;background:var(--black);position:relative}
+.zig img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1)}
+.zig figure:hover img{transform:scale(1.04)}
+.zig .zoom{position:absolute;bottom:10px;inset-inline-end:10px;width:30px;height:30px;border-radius:50%;background:rgba(13,13,13,.6);border:1px solid var(--line-2);display:grid;place-items:center;color:var(--gold-hi);font-size:.8rem;pointer-events:none}
+@media (min-width:900px){.zig{grid-template-columns:1fr 1fr;gap:44px;padding-block:34px}.zig:nth-child(even) figure{order:-1}}
+/* الترتيبات */
+.pk{display:grid;gap:12px}
+.pk article{border:1px solid var(--line-2);border-radius:18px;padding:20px;background:rgba(36,36,36,.55);display:flex;flex-direction:column}
+.pk article.hi{border-color:var(--line-hi);box-shadow:0 0 40px rgba(197,160,89,.12)}
+.pk h3{font-size:1.15rem;color:var(--gold-hi)}
+.pk .d{color:var(--cream-2);font-size:.92rem;margin-top:6px}
+.pk .feats{grid-template-columns:1fr;margin-top:12px;flex:1}
+.pk .btn{margin-top:16px;width:100%}
+@media (min-width:900px){.pk{grid-template-columns:repeat(3,1fr);gap:18px}}
+/* عدّة الضيافة (قصاصات) */
+.kit{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kit figure{text-align:center;border:1px solid var(--line);border-radius:16px;padding:14px 8px 10px;background:radial-gradient(ellipse at 50% 30%,rgba(197,160,89,.14),transparent 70%),rgba(36,36,36,.4)}
+.kit img{width:100%;height:auto;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5))}
+.kit figcaption{margin-top:8px;font-family:var(--f-head);font-size:.86rem;color:var(--gold-hi)}
+@media (min-width:900px){.kit{grid-template-columns:repeat(6,1fr);gap:16px}.kit figcaption{font-size:.95rem}}
+/* لماذا نحن */
+.why{display:grid;gap:10px}
+.why li{list-style:none;display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:rgba(36,36,36,.45);color:var(--cream);font-size:.94rem;line-height:1.6}
+.why li::before{content:"✦";color:var(--gold);flex:none;margin-top:.3em;font-size:.75rem}
+@media (min-width:900px){.why{grid-template-columns:repeat(3,1fr);gap:14px}}
+/* الأحياء + الروابط */
+.tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.tags span,.tags a{border:1px solid rgba(197,160,89,.3);border-radius:999px;padding:6px 14px;font-size:.86rem;color:var(--cream-2);transition:.25s}
+.tags a{color:var(--gold-hi)}
+.tags a:hover{background:rgba(197,160,89,.1);border-color:var(--line-hi)}
+.tags a.main{background:var(--grad-gold);color:var(--black);border-color:transparent;font-weight:700}
+.rel{display:grid;gap:22px}
+.rel h3{font-size:1rem;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.rel h3::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(197,160,89,.45),transparent)}
+.rel .tags{justify-content:flex-start}
+@media (min-width:900px){.rel{grid-template-columns:1fr 1fr;gap:40px}}
+/* شبكة المدن (locations) */
+.cgrid-l{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cgrid-l a{position:relative;display:block;border-radius:18px;overflow:hidden;aspect-ratio:1;border:1px solid var(--line);background:var(--black);transition:transform .35s,border-color .35s}
+.cgrid-l a:hover{transform:translateY(-4px);border-color:var(--line-hi)}
+.cgrid-l img{width:100%;height:100%;object-fit:cover;opacity:.75;transition:transform .8s cubic-bezier(.22,1,.36,1)}
+.cgrid-l a:hover img{transform:scale(1.05)}
+.cgrid-l .t{position:absolute;inset-inline:0;bottom:0;padding:40px 14px 14px;background:linear-gradient(180deg,transparent,rgba(13,13,13,.95))}
+.cgrid-l b{display:block;font-family:var(--f-head);font-size:1.3rem;color:var(--gold-hi)}
+.cgrid-l small{display:block;color:var(--cream-2);font-size:.8rem;margin-top:2px}
+.cgrid-l .main b::after{content:" ✦";font-size:.7em;color:var(--gold)}
+@media (min-width:900px){.cgrid-l{grid-template-columns:repeat(4,1fr);gap:16px}.cgrid-l a{aspect-ratio:4/5}}
+.svc3{display:grid;gap:12px}
+.svc3 a{display:block;border:1px solid var(--line-2);border-radius:18px;padding:20px;background:rgba(36,36,36,.55);transition:.3s}
+.svc3 a:hover{border-color:var(--line-hi);transform:translateY(-3px)}
+.svc3 b{display:block;font-family:var(--f-head);font-size:1.15rem;color:var(--gold-hi)}
+.svc3 p{color:var(--cream-2);font-size:.9rem;margin-top:6px}
+.svc3 span{display:inline-flex;align-items:center;gap:6px;margin-top:12px;color:var(--gold);font-size:.86rem;font-weight:500}
+.svc3 span svg{width:16px;height:16px;transform:scaleX(-1)}
+@media (min-width:900px){.svc3{grid-template-columns:repeat(3,1fr);gap:18px}}
+.hl{display:grid;gap:10px;margin-top:18px}
+.hl li{list-style:none;display:flex;gap:10px;align-items:flex-start;color:var(--cream);font-size:.95rem;line-height:1.6}
+.hl li::before{content:"✦";color:var(--gold);font-size:.7rem;margin-top:.4em}
+/* social */
+.qr{display:grid;gap:22px;align-items:center;text-align:center}
+.qr .card-q{background:var(--cream);border-radius:22px;padding:22px;display:inline-grid;gap:10px;justify-items:center;margin-inline:auto;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.qr .card-q img{width:224px;height:224px}
+.qr .card-q b{font-family:var(--f-head);color:var(--black);font-size:1.05rem}
+.qr .card-q small{color:#5a4a2a;font-size:.8rem;font-family:var(--f-latin);direction:ltr}
+.nets{display:grid;gap:10px}
+.net{display:flex;align-items:center;gap:14px;border:1px solid var(--line-2);border-radius:16px;padding:14px 16px;background:rgba(36,36,36,.55);text-align:start;transition:.3s}
+.net:hover{border-color:var(--line-hi);transform:translateX(-3px)}
+.net svg{width:28px;height:28px;color:var(--gold-hi);flex:none}
+.net b{display:block;font-family:var(--f-head);color:var(--cream);font-size:1rem}
+.net small{display:block;color:var(--cream-3);font-size:.8rem;line-height:1.5}
+.net .h{font-family:var(--f-latin);direction:ltr;unicode-bidi:isolate;color:var(--gold-hi);font-size:.82rem}
+@media (min-width:900px){.qr{grid-template-columns:auto 1fr;gap:48px;text-align:start}.qr .card-q{margin-inline:0}}
+/* legal */
+.legal-b{max-width:760px;margin-inline:auto;display:grid;gap:14px}
+.legal-b article{border:1px solid var(--line);border-radius:18px;padding:22px;background:rgba(36,36,36,.45)}
+.legal-b h2{font-size:1.2rem;color:var(--gold-hi);margin-bottom:10px}
+.legal-b h2::before{content:"✦ ";color:var(--gold);font-size:.75rem}
+.legal-b p{color:var(--cream-2);font-size:.95rem;line-height:1.9}
+.legal-b p+p{margin-top:8px}
+.legal-b a{color:var(--gold-hi);text-decoration:underline;text-underline-offset:3px}
+.legal-b .upd{text-align:center;color:var(--cream-3);font-size:.82rem}
+"""
+ZOOM = '<span class="zoom" aria-hidden="true">⤢</span>'
+
+def sec_head(label, h2, p=''):
+    pp = f'<p class="rv">{p}</p>' if p else ''
+    return f'<div class="sec-head"><span class="label rv">{label}</span><h2 class="rv">{h2}</h2>{pp}</div>'
+
+def tags(items, main=None):
+    """items: [(label, href|None)] — رابط أو شارة نصية"""
+    out = []
+    for l, h in items:
+        if h: out.append(f'<a{" class=\"main\"" if l == main else ""} href="{h}">{l}</a>')
+        else: out.append(f'<span>{l}</span>')
+    return '<div class="tags rv">' + ''.join(out) + '</div>'
+
+def kit_block():
+    figs = ''.join(f'<figure class="rv"><img src="img/cutouts/{f}.webp" alt="{esc(n)} من عدّة كيف الضيافة" width="480" height="480" loading="lazy" decoding="async"><figcaption>{n}</figcaption></figure>' for f, n in CUTOUT_ITEMS)
+    return f'<section class="on-black grain" id="kit"><div class="wrap">{sec_head("العدّة", "عدّة الضيافة <em>تصل معنا</em>", "دلال نحاسية وذهبية وفضية، فناجين منقوشة وأطقم تقديم — كل ما تحتاجه المناسبة يصل مع الطاقم.")}<div class="kit">{figs}</div></div></section>'
+
+def zig(h2, txt, kick, n, cap, sub, g, ar):
+    ask = wa(f'السلام عليكم، أسأل عن «{h2}» في {ar}', 'btn btn-glass btn-sm', 'اسأل عن هذا', 'wa_sec')
+    return (f'<div class="zig"><div class="rv"><span class="kick">{kick}</span><h2>{h2}</h2><p>{txt}</p>{ask}</div>'
+            f'<figure class="rv" data-g="{g}"><img src="img/photos/{n}.webp" alt="{esc(cap)} — {esc(sub)}" {sz(n)} loading="lazy" decoding="async" data-cap="{esc(cap)}" data-sub="{esc(sub)}">{ZOOM}</figure></div>')
+
+def local_page(r):
+    """صفحة خدمة×مدينة أو صفحة نية — من local_content()/intent_content() (D56: تخطيط الإنتاج 11 قسمًا، بلا أسعار D57)."""
+    c = r['city']; ar = c['ar']; svc = r['service']; slug = r['slug']; cur = slug + '.html'
+    h1 = f'{r["h1"][0]}<small>{r["h1"][1]}</small>'
+    badges = f'<div class="badges-l"><span>خبرة +500 مناسبة</span><span>جاهزية بنفس اليوم</span><span>كل أحياء {ar}</span></div>'
+    ctas = wa(r['wa'], 'btn btn-gold', 'احجز عبر واتساب', 'wa_hero') + '<a class="btn btn-glass" href="#detail">تفاصيل الخدمة</a>'
+    body = phero(f'{svc["ar"]} · {ar}', h1, r['intro'].split('. ')[0].rstrip('.') + '.', r['hero'], f'{svc["ar"]} في {ar} — كيف الضيافة', ctas,
+                 crumbs=[('المدن', 'locations.html'), (ar, city_page(c['slug'])), (f'{svc["ar"]} {ar}', None)], after=badges)
+    body += f'<section class="intro on-rich" id="intro"><div class="wrap"><p class="rv">{r["intro"]}</p></div></section>'
+    zz = ''.join(zig(h2, txt, kick, *r['imgs'][i], slug, ar) for i, (h2, txt, kick) in enumerate(r['sections']))
+    body += f'<section class="on-deep" id="detail"><div class="wrap">{zz}</div></section>'
+    if r['packages']:
+        arts = []
+        for i, (nm, d, fs) in enumerate(r['packages']):
+            feats = ''.join(f'<li>{f}</li>' for f in fs)
+            btn = wa(f'السلام عليكم، أرغب بالاستفسار عن «{nm}» في {ar}:\nالتاريخ: \nعدد الضيوف: ', 'btn btn-gold btn-sm', 'اطلب هذا الترتيب', 'wa_pk')
+            arts.append(f'<article class="rv{" hi" if i == 1 else ""}"><h3>{nm}</h3><p class="d">{d}</p><ul class="feats">{feats}</ul>{btn}</article>')
+        body += f'<section class="on-rich glow" id="pk"><div class="wrap">{sec_head("الترتيبات", f"ترتيبات {svc["ar"]} في <em>{ar}</em>", "ثلاثة أشكال شائعة — ونفصّل أيّها على مقاس مناسبتك.")}<div class="pk">{"".join(arts)}</div></div></section>'
+    body += kit_block()
+    why = ''.join(f'<li class="rv">{w}</li>' for w in r['why'])
+    body += f'<section class="on-deep" id="why"><div class="wrap">{sec_head("لماذا نحن", f"لماذا كيف الضيافة في <em>{ar}</em>؟")}<ul class="why">{why}</ul></div></section>'
+    k = len(r['sections'])
+    g = ''.join(fig(n, f'{cap} — {sub}', cap, sub, g=slug, cls='rv') for n, cap, sub in r['imgs'][k:k + 4])
+    body += f'<section class="on-rich" id="gal"><div class="wrap">{sec_head("من أعمالنا", f"لقطات من مناسبات <em>{svc["ar"]}</em>")}<div class="gal">{g}</div><p class="pnote rv">المزيد في <a href="portfolio.html" style="color:var(--gold-hi)">معرض الأعمال</a>.</p></div></section>'
+    body += faq_block(r['faqs'], f'أسئلة عن {svc["ar"]} في {ar}')
+    body += f'<section class="on-black" id="areas"><div class="wrap">{sec_head("التغطية", f"نصل إلى كل أحياء <em>{ar}</em>", f"{c["region"]} — وأي موقع آخر بالتنسيق المسبق.")}{tags([(d, None) for d in r["districts"]])}</div></section>'
+    body += contact_block(f'احجز {svc["ar"]} في <em>{ar}</em>', 'أرسل التاريخ والمكان وعدد الضيوف — ونعود إليك بالترتيب المناسب.', r['wa'])
+    rel = f'<div><h3>خدمات أخرى في {ar}</h3>{tags([(o["label"], o["href"]) for o in r["others"]] + [(f"صفحة {ar}", city_page(c["slug"]))])}</div>'
+    if r['other_cities']:
+        rel += f'<div><h3>{svc["ar"]} في مدن أخرى</h3>{tags([(o["label"], o["href"]) for o in r["other_cities"]] + [("كل المدن", "locations.html")])}</div>'
+    body += f'<section class="on-deep" id="rel" aria-label="صفحات ذات صلة"><div class="wrap"><div class="rel">{rel}</div></div></section>'
+    secs = [('intro','مقدمة',''),('detail','التفاصيل',''),('pk','الترتيبات',''),('kit','العدّة',''),('why','لماذا نحن',''),('gal','المعرض',''),('faq','أسئلة',''),('areas','الأحياء',''),('contact','تواصل',''),('rel','صفحات ذات صلة','')]
+    return shell(cur, r['title'], r['desc'], secs, body, extra_css=LOCAL_CSS, hero_img=r['hero'], section='locations.html')
+
+def build_city(c):
+    ci = [x['slug'] for x in CITIES].index(c['slug']); ar = c['ar']; cur = city_page(c['slug']); hero = CITY_HERO[ci]
+    wa_t = f'السلام عليكم، أرغب بالاستفسار عن خدمات كيف الضيافة لمناسبة في {ar}:\nالتاريخ: \nعدد الضيوف: '
+    ctas = wa(wa_t, 'btn btn-gold', 'احجز عبر واتساب', 'wa_hero') + f'<a class="btn btn-glass" href="#svcs">خدماتنا في {ar}</a>'
+    badges = f'<div class="badges-l"><span>{c["region"]}</span><span>خبرة +500 مناسبة</span><span>طاقم رجالي ونسائي</span></div>'
+    body = phero(f'المدن · {ar}', f'ضيافة فاخرة في <em>{ar}</em>', c['lead'], hero, f'خدمات الضيافة في {ar} — كيف الضيافة', ctas, crumbs=[('المدن', 'locations.html'), (ar, None)], after=badges)
+    sn, scap, _ = POOL['diyafa-munasabat'][(ci * 3) % 12]
+    hl = ''.join(f'<li>{h}</li>' for h in c['highlights'])
+    body += (f'<section class="on-rich" id="about"><div class="wrap"><div class="story"><div class="rv"><p>{c["body"]}</p><p>{c["intro"]}</p><ul class="hl">{hl}</ul></div>'
+             f'<img class="rv" src="img/photos/{sn}.webp" alt="{esc(scap)}" {sz(sn)} loading="lazy" decoding="async"></div></div></section>')
+    sv = ''.join(f'<a class="rv" href="{page_of(s["slug"], c["slug"])}"><b>{s["ar"]} {ar}</b><p>{s["short"]}</p><span>الصفحة الكاملة {ARROW}</span></a>' for s in LOCAL_SERVICES)
+    sv += ''.join(f'<a class="rv" href="{p["slug"]}.html"><b>{p["ar"]}</b><p>{p["short"]}</p><span>الصفحة الكاملة {ARROW}</span></a>' for p in INTENT_PAGES if p['city'] == c['slug'])
+    body += f'<section class="on-deep glow" id="svcs"><div class="wrap">{sec_head("خدماتنا", f"ما نقدّمه في <em>{ar}</em>", "ثلاث صفحات مفصّلة لكل خدمة في مدينتك — وتقديمات وأعمال في الصفحات العامة.")}<div class="svc3">{sv}</div></div></section>'
+    imgs = pick('sababin-qahwa', ci, 3) + pick('qahwajiin', ci, 2)
+    g = ''.join(fig(n, f'{cap} — {sub}', cap, sub, g='city', cls='rv') for n, cap, sub in imgs)
+    body += f'<section class="on-rich" id="gal"><div class="wrap">{sec_head("من أعمالنا", f"لقطات تناسب مناسبات <em>{ar}</em>")}<div class="gal">{g}</div><p class="pnote rv">المزيد في <a href="portfolio.html" style="color:var(--gold-hi)">معرض الأعمال</a>.</p></div></section>'
+    body += kit_block()
+    faqs = c['faqs'] + [(f'كيف أحجز طاقم ضيافة في {ar}؟', f'أرسل لنا على واتساب {WA_DISPLAY} تاريخ المناسبة ومكانها في {ar} وعدد الضيوف ونوعها، ونعود إليك بالترتيب المقترح كاملاً.'),
+                        (f'هل تصلون إلى كل أحياء {ar}؟', f'نعم — نغطي {ar} بالكامل وما حولها في {c["region"]}، وننسّق الانتقال لأي موقع آخر.')]
+    body += faq_block(faqs, f'أسئلة شائعة عن الضيافة في {ar}')
+    body += f'<section class="on-black" id="areas"><div class="wrap">{sec_head("التغطية", f"أحياء <em>{ar}</em> التي نخدمها", "وأي موقع آخر بالتنسيق المسبق.")}{tags([(d, None) for d in c["districts"]])}</div></section>'
+    body += contact_block(f'مناسبتك في <em>{ar}</em> تبدأ برسالة', 'أرسل التاريخ والمكان وعدد الضيوف — ونعود إليك بالترتيب المناسب.', wa_t)
+    other = tags([(o['ar'], city_page(o['slug'])) for o in CITIES if o['slug'] != c['slug']] + [('كل المدن', 'locations.html')])
+    gen = tags([('الخدمات', 'services.html'), ('التقديمات', 'offerings.html'), ('أعمالنا', 'portfolio.html'), ('من نحن', 'about.html'), ('تواصل', 'contact.html')])
+    body += f'<section class="on-deep" id="rel" aria-label="مدن أخرى"><div class="wrap"><div class="rel"><div><h3>مدن أخرى نخدمها</h3>{other}</div><div><h3>الصفحات العامة</h3>{gen}</div></div></div></section>'
+    secs = [('about','عن المدينة',''),('svcs','الخدمات',''),('gal','المعرض',''),('kit','العدّة',''),('faq','أسئلة',''),('areas','الأحياء',''),('contact','تواصل',''),('rel','مدن أخرى','')]
+    return shell(cur, f'ضيافة فاخرة في {ar}', f'كيف الضيافة في {ar}: صبابين قهوة، قهوجيين ومباشرين، وضيافة مناسبات للأعراس والمؤتمرات — {c["region"]}. واتساب {WA_DISPLAY}', secs, body, extra_css=LOCAL_CSS, hero_img=hero, section='locations.html')
+
+def build_locations():
+    wa_t = 'السلام عليكم، أرغب بالاستفسار عن خدمات كيف الضيافة لمناسبة:\nالمدينة: \nالتاريخ: \nعدد الضيوف: '
+    body = phero('المدن', 'نصل إليكم في <em>ثماني مدن</em> — وأكثر', 'جدة مقرّنا، ومنها ننطلق إلى مكة والمدينة والرياض والطائف والدمام وأبها وينبع — بطاقم كامل وعدّة تصل معنا.', 'p-hall', 'قاعة استقبال جاهزة بطاقم كيف الضيافة',
+                 wa(wa_t, 'btn btn-gold', 'اطلب لمدينتك', 'wa_hero') + '<a class="btn btn-glass" href="#grid">اختر مدينتك</a>')
+    cards = ''.join(f'<a class="rv{" main" if c["slug"] == "jeddah" else ""}" href="{city_page(c["slug"])}"><img src="img/photos/{CITY_HERO[i]}.webp" alt="" {sz(CITY_HERO[i])} loading="lazy" decoding="async"><div class="t"><b>{c["ar"]}</b><small>{c["region"]}</small></div></a>' for i, c in enumerate(CITIES))
+    body += f'<section class="on-rich" id="grid"><div class="wrap">{sec_head("اختر مدينتك", "صفحة لكل <em>مدينة</em>", "الأحياء التي نغطيها، وخدماتنا فيها، وأسئلة أهلها الشائعة.")}<div class="cgrid-l">{cards}</div><p class="pnote rv">مدينتك غير مذكورة؟ نصل إلى جميع مناطق المملكة بالتنسيق المسبق — <a href="contact.html" style="color:var(--gold-hi)">تواصل معنا</a>.</p></div></section>'
+    rows = ''.join(f'<div><h3>{s["ar"]}</h3>{tags([(c["ar"], page_of(s["slug"], c["slug"])) for c in CITIES], main="جدة")}</div>' for s in LOCAL_SERVICES)
+    rows += f'<div><h3>صفحات متخصّصة</h3>{tags([(p["ar"], p["slug"] + ".html") for p in INTENT_PAGES])}</div>'
+    body += f'<section class="on-deep glow" id="matrix"><div class="wrap">{sec_head("الخدمات بالمدن", "كل خدمة في <em>كل مدينة</em>", "صفحات مفصّلة لصبابين القهوة والقهوجيين وضيافة المناسبات في كل مدينة نخدمها.")}<div class="rel" style="grid-template-columns:1fr">{rows}</div></div></section>'
+    body += kit_block()
+    body += contact_block('أخبرنا <em>أين</em> مناسبتك', 'نرتّب الطاقم والعدّة والانتقال — في أي مدينة.', wa_t)
+    secs = [('grid','المدن',''),('matrix','الخدمات بالمدن',''),('kit','العدّة',''),('contact','تواصل','')]
+    return shell('locations.html', 'المدن التي نخدمها', f'كيف الضيافة تخدم جدة ومكة والمدينة والرياض والطائف والدمام وأبها وينبع — صفحة لكل مدينة وخدمة. واتساب {WA_DISPLAY}', secs, body, extra_css=LOCAL_CSS, hero_img='p-hall')
+
+SOC_IC = {'instagram': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
+          'tiktok': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.3 1.7 3.7 4 4v3.2c-1.5 0-2.9-.5-4-1.3V15a5.5 5.5 0 1 1-5.5-5.5c.3 0 .7 0 1 .1v3.3a2.3 2.3 0 1 0 1.3 2.1V3h3.2z"/></svg>',
+          'x': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3l-7 8 8 10h-6.3l-4.9-6.4L4.7 21h-3l7.5-8.6L1.5 3h6.4l4.4 5.9L17.5 3zm-1 16.2h1.7L7.6 4.7H5.8l10.7 14.5z"/></svg>',
+          'snapchat': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3c3 0 5 2.2 5 5v3c1 .3 2 .2 2.5-.2-.3 1-1.5 1.6-2.5 2 .8 1.7 2.3 2.8 4 3.2-.5.8-1.8 1-2.8 1.2-.2.6-.3 1.3-.6 1.5-.9-.2-1.8-.2-2.6.3-1 .6-1.8 1-3 1s-2-.4-3-1c-.8-.5-1.7-.5-2.6-.3-.3-.2-.4-.9-.6-1.5-1-.2-2.3-.4-2.8-1.2 1.7-.4 3.2-1.5 4-3.2-1-.4-2.2-1-2.5-2 .5.4 1.5.5 2.5.2V8c0-2.8 2-5 5-5z"/></svg>',
+          'facebook': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.2c0-.9.3-1.5 1.5-1.5h1.5V5.1c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8V11H8v3h2.6v7h2.9z"/></svg>'}
+
+def build_social():
+    nets = ''.join(f'<a class="net rv" href="{SOCIAL[k]}" target="_blank" rel="noopener" data-ev="soc_{k}">{SOC_IC[k]}<div><b>{n}</b><span class="h">{h}</span><small>{note}</small></div></a>' for k, n, h, note in SOCIAL_NETS)
+    body = phero('حساباتنا', 'تابعنا — وشاركنا <em>لحظات الضيافة</em>', 'صور من قلب المناسبات، فيديوهات حيّة، وجديد خدماتنا — على المنصّة التي تفضّلها. امسح الرمز أو اختر الحساب مباشرة.', None, '', crumb='حساباتنا')
+    body += (f'<section class="on-rich glow" id="qr"><div class="wrap"><div class="qr">'
+             f'<div class="card-q rv"><img src="img/brand/qr-keif-aldiafa.png" alt="رمز QR لحسابات كيف الضيافة" width="224" height="224" decoding="async"><b>امسح للوصول لكل حساباتنا</b><small>keifaldiafa.com/social</small></div>'
+             f'<div><div class="sec-head" style="text-align:start;margin-bottom:14px"><span class="label rv">المنصّات</span><h2 class="rv" style="font-size:1.5rem">اختر <em>حسابك</em></h2></div><div class="nets">{nets}</div></div>'
+             f'</div></div></section>')
+    body += contact_block('أو تواصل <em>مباشرة</em>', 'الطريق الأسرع لحجز مناسبتك — واتساب أو اتصال.', 'السلام عليكم، أرغب بالاستفسار عن خدمات كيف الضيافة')
+    secs = [('qr','الحسابات',''),('contact','تواصل','')]
+    return shell('social.html', 'حساباتنا على التواصل', 'حسابات كيف الضيافة الرسمية: إنستغرام، تيك توك، سناب شات، إكس، فيسبوك — ورمز QR واحد يجمعها.', secs, body, extra_css=LOCAL_CSS, section='contact.html')
+
+def build_legal():
+    arts = ''.join(f'<article class="rv"><h2>{h}</h2>{"".join(f"<p>{p}</p>" for p in ps)}</article>' for h, ps in LEGAL_SECTIONS)
+    body = phero('الحقوق القانونية', 'حقوق النشر <em>والملكية الفكرية</em>', 'الصور والنصوص والعلامة التجارية لكيف الضيافة محفوظة — وهذه شروط استخدامها وطريقة طلب الترخيص.', None, '', crumb='الحقوق القانونية')
+    body += f'<section class="on-rich" id="terms"><div class="wrap"><div class="legal-b">{arts}<p class="upd rv">آخر تحديث: سبتمبر 2026 · مؤسسة كيف الضيافة للأفراح والمناسبات — الرقم الوطني الموحّد <span style="font-family:var(--f-latin);direction:ltr;unicode-bidi:embed;color:var(--gold-hi)">7033069720</span></p></div></div></section>'
+    body += contact_block('استفسار <em>قانوني</em> أو طلب ترخيص؟', 'راسلنا عبر واتساب أو البريد وسنعود إليك.', 'السلام عليكم، لديّ استفسار قانوني / طلب ترخيص استخدام محتوى')
+    secs = [('terms','الشروط',''),('contact','تواصل','')]
+    return shell('legal.html', 'الحقوق القانونية', 'حقوق النشر والملكية الفكرية وشروط استخدام صور ومحتوى كيف الضيافة، وطريقة طلب الترخيص.', secs, body, extra_css=LOCAL_CSS)
+
+def build_local_all():
+    out = {'locations.html': build_locations(), 'social.html': build_social(), 'legal.html': build_legal()}
+    for c in CITIES: out[city_page(c['slug'])] = build_city(c)
+    for s in LOCAL_SERVICES:
+        for c in CITIES: out[page_of(s['slug'], c['slug'])] = local_page(local_content(s['slug'], c['slug']))
+    out['mubashirin-qahwa-jeddah.html'] = local_page(intent_content())
+    return out
+
+# ======================= v6.3 — الصفحات المحلية (D55–D62) =======================
+LOCAL_CSS = '''
+/* ===== v6.3 — المدن / خدمة×مدينة / social / legal ===== */
+.phero.noimg{min-height:auto;background:radial-gradient(ellipse at 50% 0%,rgba(197,160,89,.14),transparent 60%),var(--rich)}
+.phero.noimg::before{background:none}
+.badges-l{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.badges-l span{border:1px solid rgba(197,160,89,.35);border-radius:999px;padding:5px 13px;font-size:.8rem;color:var(--gold-hi);background:rgba(13,13,13,.45)}
+.lsec{padding-block:40px}
+.lsec+.lsec{border-top:1px solid var(--line)}
+.split{display:grid;gap:16px;align-items:center}
+.split h2{font-size:clamp(1.3rem,4.4vw,1.8rem);color:var(--gold-hi);line-height:1.4}
+.split p{margin-top:10px;color:var(--cream-2);font-size:.97rem}
+.split .kick{display:block;font-size:.74rem;letter-spacing:.3em;color:var(--gold);margin-bottom:6px}
+.split figure{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;background:var(--black);border:1px solid var(--line-2)}
+.split figure img{width:100%;height:100%;object-fit:cover}
+.split .btn{margin-top:14px}
+.split .zoom{position:absolute;bottom:8px;inset-inline-end:8px;width:28px;height:28px;border-radius:50%;background:rgba(13,13,13,.6);border:1px solid var(--line-2);display:grid;place-items:center;color:var(--gold-hi);font-size:.9rem}
+.pk{display:grid;gap:12px}
+.pk article{border:1px solid var(--line-2);border-radius:18px;padding:18px;background:rgba(36,36,36,.55)}
+.pk h3{font-size:1.1rem;color:var(--gold-hi)}
+.pk p{color:var(--cream-2);font-size:.92rem;margin-top:6px}
+.pk .feats{grid-template-columns:1fr}
+.eq{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.eq figure{text-align:center;border:1px solid var(--line);border-radius:14px;padding:10px 6px;background:radial-gradient(circle at 50% 35%,rgba(197,160,89,.12),transparent 70%)}
+.eq img{width:100%;max-width:120px;height:auto;aspect-ratio:1;margin-inline:auto;display:block}
+.eq figcaption{font-size:.78rem;color:var(--cream-2);margin-top:4px}
+.why{display:grid;grid-template-columns:1fr;gap:10px}
+.why li{list-style:none;display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:rgba(36,36,36,.45);color:var(--cream);font-size:.92rem;line-height:1.6}
+.why li::before{content:"✦";color:var(--gold);font-size:.75rem;margin-top:.4em}
+.lgal{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.lgal figure{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1;cursor:zoom-in;background:var(--black);border:1px solid var(--line)}
+.lgal img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1)}
+.lgal figure:hover img{transform:scale(1.05)}
+.lgal .zoom{position:absolute;bottom:8px;inset-inline-end:8px;width:28px;height:28px;border-radius:50%;background:rgba(13,13,13,.6);border:1px solid var(--line-2);display:grid;place-items:center;color:var(--gold-hi);font-size:.9rem}
+.dist{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.dist span,.lnk a{border:1px solid rgba(197,160,89,.3);border-radius:999px;padding:6px 14px;font-size:.86rem;color:var(--cream-2)}
+.lnk{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.lnk a{color:var(--gold-hi);transition:.25s}
+.lnk a:hover{background:rgba(197,160,89,.1);border-color:var(--line-hi)}
+.band{text-align:center;padding-block:44px}
+.band h2{font-size:clamp(1.4rem,5vw,2rem);color:var(--cream)}
+.band p{color:var(--cream-2);margin:10px auto 18px;max-width:56ch}
+.cgrid-l{display:grid;gap:12px}
+.cgrid-l a{display:block;border:1px solid var(--line-2);border-radius:18px;padding:18px;background:rgba(36,36,36,.55);transition:.3s}
+.cgrid-l a:hover{border-color:var(--line-hi);transform:translateY(-3px)}
+.cgrid-l b{display:block;font-family:var(--f-head);font-size:1.15rem;color:var(--gold-hi)}
+.cgrid-l small{display:block;color:var(--cream-3);font-size:.8rem;margin-top:2px}
+.cgrid-l p{color:var(--cream-2);font-size:.9rem;margin-top:8px}
+.cgrid-l .more{display:inline-block;margin-top:10px;color:var(--gold);font-size:.86rem}
+.qr{display:grid;gap:16px;justify-items:center;text-align:center;border:1px solid var(--line-2);border-radius:20px;padding:22px;background:rgba(36,36,36,.55)}
+.qr img{width:220px;height:220px;border-radius:14px;background:#fff;padding:8px}
+.qr p{color:var(--cream-2);font-size:.92rem;max-width:48ch}
+.qr .num{direction:ltr;unicode-bidi:isolate;font-family:var(--f-latin);color:var(--gold-hi);letter-spacing:.06em}
+.prose{max-width:70ch;margin-inline:auto}
+.prose h2{font-size:1.25rem;color:var(--gold-hi);margin-top:28px}
+.prose p,.prose li{color:var(--cream-2);font-size:.95rem;line-height:1.9;margin-top:8px}
+.prose ul{padding-inline-start:20px}
+.prose .foot{margin-top:28px;color:var(--cream-3);font-size:.86rem;border-top:1px solid var(--line);padding-top:14px}
+@media (min-width:900px){
+  .lsec{padding-block:56px}
+  .split{grid-template-columns:1fr 1fr;gap:36px}
+  .split.rev figure{order:-1}
+  .pk{grid-template-columns:repeat(3,1fr);gap:16px}
+  .eq{grid-template-columns:repeat(6,1fr);gap:12px}
+  .why{grid-template-columns:repeat(3,1fr);gap:14px}
+  .lgal{grid-template-columns:repeat(6,1fr);gap:10px}
+  .cgrid-l{grid-template-columns:repeat(4,1fr);gap:16px}
+  .qr{grid-template-columns:auto 1fr;text-align:start;justify-items:start;align-items:center;gap:28px}
+}
+'''
+LOC_CRUMB = ('المدن', 'locations.html')
+
+def lfig(name, alt, cap, sub, g):
+    return f'<figure class="rv" data-g="{g}"><img src="img/photos/{name}.webp" alt="{esc(alt)}" {sz(name)} loading="lazy" decoding="async" data-cap="{esc(cap)}" data-sub="{esc(sub)}"><span class="zoom" aria-hidden="true">⤢</span></figure>'
+
+def sec_head(label, h2, p=''):
+    return f'<div class="sec-head"><span class="label rv">{label}</span><h2 class="rv">{h2}</h2>{f"<p class=\"rv\">{p}</p>" if p else ""}</div>'
+
+def eq_strip():
+    figs = ''.join(f'<figure class="rv"><img src="img/cutouts/{f}.webp" alt="{esc(n)}" width="480" height="480" loading="lazy" decoding="async"><figcaption>{n}</figcaption></figure>' for f, n in CUTOUT_ITEMS)
+    return f'<section class="lsec on-black grain" id="equipment"><div class="wrap">{sec_head("عدّة الضيافة", "دلالنا وفناجيننا تصل معنا", "الدلال والفناجين وأطقم التقديم ضمن الخدمة — لا تحتاج تجهيز شيء.")}<div class="eq">{figs}</div></div></section>'
+
+def links_block(h2, links, id_='links'):
+    a = ''.join(f'<a href="{l["href"]}">{l["label"]}</a>' for l in links)
+    return f'<section class="lsec on-rich" id="{id_}"><div class="wrap">{sec_head("روابط", h2)}<div class="lnk rv">{a}</div></div></section>'
+
+def dist_block(h2, districts):
+    return f'<section class="lsec on-deep" id="districts"><div class="wrap">{sec_head("التغطية", h2)}<div class="dist rv">{"".join(f"<span>{d}</span>" for d in districts)}</div></div></section>'
+
+def local_page(rec):
+    s, c, ar = rec['service'], rec['city'], rec['city']['ar']
+    slug = rec['slug']; g = 'l-' + slug
+    imgs = rec['imgs']
+    badges = '<div class="badges-l rv"><span>+500 مناسبة منذ 2016</span><span>طاقم سعودي مدرّب</span><span>نصل بمعدّاتنا كاملة</span></div>'
+    ctas = wa(rec['wa'], 'btn btn-gold', 'احجز عبر واتساب', 'wa_hero') + f'<a class="btn btn-glass" href="{city_page(c["slug"])}">كل خدماتنا في {ar}</a>'
+    crumbs = [LOC_CRUMB, (ar, city_page(c['slug'])), (s['ar'], None)] if rec.get('packages') is not None else [LOC_CRUMB, (ar, city_page(c['slug'])), ('مباشرين قهوة', None)]
+    h1a, h1b = rec['h1']
+    body = phero(f'{s["ar"]} · {ar}', f'{h1a} <em>{h1b}</em>', rec['intro'], rec['hero'], f'{s["ar"]} في {ar} — كيف الضيافة', ctas, crumbs=crumbs, after=badges)
+    # الأقسام المتناوبة
+    for i, sec in enumerate(rec['sections']):
+        h2, txt = sec[0], sec[1]
+        n, cap, sub = imgs[i % len(imgs)]
+        body += f'''<section class="lsec {"on-deep" if i%2==0 else "on-rich"}" id="s{i+1}"><div class="wrap"><div class="split{" rev" if i%2 else ""}"><div class="rv"><span class="kick">{s['kicker']}</span><h2>{h2}</h2><p>{txt}</p>{wa(rec['wa'], 'btn btn-wa btn-sm', 'اسأل عن التفاصيل', 'wa_sec')}</div>{lfig(n, f'{cap} — {ar}', cap, sub, g)}</div></div></section>'''
+    if rec.get('packages'):
+        cards = ''.join(f'<article class="rv"><h3>{n}</h3><p>{d}</p><ul class="feats">{"".join(f"<li>{f}</li>" for f in fs)}</ul></article>' for n, d, fs in rec['packages'])
+        body += f'<section class="lsec on-black glow" id="packages"><div class="wrap">{sec_head("ترتيبات الخدمة", f"كيف نرتّب {s['ar']} لمناسبتك في {ar}", "التشكيل يُحسب على عدد ضيوفك وشكل المكان — لا أرقام جاهزة.")}<div class="pk">{cards}</div></div></section>'
+    body += eq_strip()
+    body += f'<section class="lsec on-deep" id="why"><div class="wrap">{sec_head("لماذا نحن", f"لماذا يختارنا أهل {ar}؟")}<ul class="why">{"".join(f"<li class=\"rv\">{w}</li>" for w in rec["why"])}</ul></div></section>'
+    gal = ''.join(lfig(n, f'{cap} — {sub}', cap, sub, g) for n, cap, sub in imgs[3:9] if n not in [x[0] for x in imgs[:3]][:0])
+    body += f'<section class="lsec on-rich" id="gallery"><div class="wrap">{sec_head("من أعمالنا", "صور من مناسبات نفّذناها", "اضغط على أي صورة لتكبيرها.")}<div class="lgal">{gal}</div></div></section>'
+    body += dist_block(f'نصل إلى كل أحياء {ar}', rec['districts'])
+    body += faq_block(rec['faqs'], f'أسئلة شائعة عن {s["ar"]} في {ar}')
+    body += links_block(f'خدمات أخرى في {ar}' if rec['others'] else 'روابط', rec['others'] + rec['other_cities'])
+    body += contact_block(f'احجز {s["ar"]} <em>في {ar}</em>', f'أرسل التاريخ والمكان وعدد الضيوف — ونرتّب لك الطاقم والعدّة كاملة.', rec['wa'])
+    return shell(slug + '.html', rec['title'], rec['desc'], [], body, extra_css=LOCAL_CSS, hero_img=rec['hero'], section='locations.html')
+
+def build_city(city):
+    c = CITY[city]; ar = c['ar']; ci = [x['slug'] for x in CITIES].index(city); g = 'city-' + city
+    hero = CITY_HERO[ci % len(CITY_HERO)]
+    wa_t = f'السلام عليكم، أرغب بالاستفسار عن خدمات الضيافة لمناسبة في {ar}:\nالتاريخ: \nالمكان: \nعدد الضيوف: '
+    ctas = wa(wa_t, 'btn btn-gold', 'تواصل عبر واتساب', 'wa_hero')
+    body = phero(f'{ar} · {c["region"]}', f'ضيافة فاخرة في <em>{ar}</em>', c['lead'], hero, f'ضيافة كيف الضيافة في {ar}', ctas, crumbs=[LOC_CRUMB, (ar, None)])
+    cards = ''.join(f'<a class="rv" href="{page_of(s["slug"], city)}"><b>{s["ar"]} {ar}</b><small>{s["kicker"]}</small><p>{s["short"]}</p><span class="more">التفاصيل ›</span></a>' for s in LOCAL_SERVICES)
+    if city == 'jeddah': cards += ''.join(f'<a class="rv" href="{p["slug"]}.html"><b>{p["ar"]}</b><small>التنظيم</small><p>{p["short"]}</p><span class="more">التفاصيل ›</span></a>' for p in INTENT_PAGES)
+    body += f'<section class="lsec on-deep glow" id="services"><div class="wrap">{sec_head("خدماتنا", f"خدمات الضيافة في {ar}", c["body"])}<div class="cgrid-l">{cards}</div></div></section>'
+    body += f'<section class="lsec on-rich" id="why"><div class="wrap">{sec_head("ما نغطّيه", f"ما نخدمه في {ar}")}<ul class="why">{"".join(f"<li class=\"rv\">{h}</li>" for h in c["highlights"] + WHY_US(ar)[:3])}</ul></div></section>'
+    imgs = pick('diyafa-munasabat', ci, 6)
+    body += f'<section class="lsec on-black" id="gallery"><div class="wrap">{sec_head("من أعمالنا", "صور من مناسبات نفّذناها")}<div class="lgal">{"".join(lfig(n, f"{cap} — {sub}", cap, sub, g) for n, cap, sub in imgs)}</div></div></section>'
+    body += dist_block(f'أحياء {ar} التي نصل إليها', c['districts'])
+    body += faq_block(c['faqs'] + [('هل تشمل الخدمة المعدات والتقديمات؟', 'نعم — الدلال والفناجين والتمر والتقديمات ضمن الخدمة أو بحسب طلبك.')], f'أسئلة شائعة عن الضيافة في {ar}')
+    body += links_block('مدن أخرى نخدمها', [{'label': o['ar'], 'href': city_page(o['slug'])} for o in CITIES if o['slug'] != city] + [{'label': 'كل المدن', 'href': 'locations.html'}])
+    body += contact_block(f'مناسبتك في <em>{ar}</em>', 'أرسل التاريخ والمكان وعدد الضيوف — ونعود إليك بالترتيب المناسب.', wa_t)
+    return shell(city_page(city), f'ضيافة فاخرة في {ar}', c['lead'], [], body, extra_css=LOCAL_CSS, hero_img=hero, section='locations.html')
+
+def build_locations():
+    wa_t = 'السلام عليكم، أرغب بالاستفسار عن خدمات الضيافة لمناسبة:\nالمدينة: \nالتاريخ: \nعدد الضيوف: '
+    body = phero('المدن', 'نصل إليكم في <em>ثماني مدن</em> وما حولها', 'قاعدتنا جدة، ونخدم مكة والمدينة والرياض والطائف والدمام وأبها وينبع بطاقم وعدّة كاملة — مع ترتيب الانتقال والإقامة عند الحاجة.', 'p-hall', 'قاعة استقبال — كيف الضيافة', wa(wa_t, 'btn btn-gold', 'تواصل عبر واتساب', 'wa_hero'), crumb='المدن')
+    cards = ''.join(f'<a class="rv" href="{city_page(c["slug"])}"><b>{c["ar"]}</b><small>{c["region"]}</small><p>{c["intro"]}</p><span class="more">خدماتنا في {c["ar"]} ›</span></a>' for c in CITIES)
+    body += f'<section class="lsec on-deep glow" id="cities"><div class="wrap">{sec_head("التغطية", "اختر مدينتك")}<div class="cgrid-l">{cards}</div></div></section>'
+    body += links_block('صفحات الخدمات بحسب المدينة', [{'label': f'{s["ar"]} {c["ar"]}', 'href': page_of(s['slug'], c['slug'])} for s in LOCAL_SERVICES for c in CITIES] + [{'label': 'مباشرين قهوة جدة', 'href': 'mubashirin-qahwa-jeddah.html'}], 'all')
+    body += contact_block('مدينتك غير موجودة؟ <em>تواصل معنا</em>', 'نصل إلى جميع مناطق المملكة بحسب التوفّر وترتيب الانتقال.', wa_t)
+    return shell('locations.html', 'المدن التي نخدمها', 'كيف الضيافة تخدم جدة ومكة والمدينة والرياض والطائف والدمام وأبها وينبع — قهوجيين وصبابين وضيافة مناسبات في كل مدينة.', [], body, extra_css=LOCAL_CSS, hero_img='p-hall')
+
+def build_social():
+    from data import SOCIAL
+    body = phero('تابعنا', 'تابعنا وشاهد <em>ضيافتنا</em> — قبل أن تحجزها', 'كل مناسبة نخدمها نصوّرها: القاعات، الكاونترات، الطاقم بزيّه، والتوزيعات. تابعنا على المنصّة التي تفضّلها أو امسح الباركود.', None, '', crumb='حساباتنا')
+    body += f'''<section class="lsec on-deep glow" id="qr"><div class="wrap"><div class="qr rv"><img src="img/brand/qr-keif-aldiafa.png" alt="باركود واتساب كيف الضيافة" width="984" height="984" loading="lazy" decoding="async"><div><h2 style="color:var(--gold-hi);font-size:1.3rem">امسح الباركود</h2><p>وجّه كاميرا هاتفك إلى الرمز لفتح محادثة واتساب معنا مباشرة — أو احفظ الرقم: <span class="num">+966 50 825 2134</span></p>{wa('السلام عليكم، أرغب بالاستفسار عن خدمات كيف الضيافة', 'btn btn-wa btn-sm', 'افتح واتساب', 'wa_qr')}</div></div></div></section>'''
+    nets = ''.join(f'<a class="rv" href="{SOCIAL[k]}" target="_blank" rel="noopener" data-ev="{k}"><b>{n}</b><small dir="ltr" style="unicode-bidi:isolate">{h}</small><p>{d}</p></a>' for k, n, h, d in SOCIAL_NETS)
+    body += f'<section class="lsec on-rich" id="nets"><div class="wrap">{sec_head("منصّاتنا", "خمس منصّات — محتوى مختلف في كل واحدة")}<div class="cgrid-l">{nets}</div></div></section>'
+    body += contact_block('أعجبك ما رأيت؟ <em>احجزه</em>', 'أرسل المدينة والتاريخ وعدد الضيوف على واتساب.', 'السلام عليكم، شاهدت حساباتكم وأرغب بالاستفسار لمناسبة:\nالمدينة: \nالتاريخ: \nعدد الضيوف: ')
+    return shell('social.html', 'تابعنا وشاهد ضيافتنا', 'حسابات كيف الضيافة على إنستغرام وتيك توك وسناب شات وإكس وفيسبوك — صور وفيديوهات من مناسبات نفّذناها، وباركود للتواصل عبر واتساب.', [], body, extra_css=LOCAL_CSS)
+
+def build_legal():
+    body = phero('الحقوق', 'الحقوق القانونية <em>والملكية الفكرية</em>', 'معلومات الحقوق القانونية والملكية الفكرية لصور ومحتوى موقع كيف الضيافة.', None, '', crumb='الحقوق القانونية')
+    secs = ''
+    for h2, ps in LEGAL_SECTIONS:
+        secs += f'<h2>{h2}</h2>' + ''.join(f'<p>{p}</p>' for p in ps)
+    body += f'<section class="lsec on-deep" id="legal"><div class="wrap"><div class="prose rv">{secs}<p class="foot">مؤسسة كيف الضيافة للأفراح والمناسبات — الرقم الوطني الموحّد <span dir="ltr">7033069720</span> · آخر تحديث 2026.</p></div></div></section>'
+    return shell('legal.html', 'الحقوق القانونية والملكية الفكرية', 'معلومات الحقوق القانونية والملكية الفكرية لصور ومحتوى موقع كيف الضيافة — مؤسسة سعودية لخدمات الضيافة الفاخرة.', [], body, extra_css=LOCAL_CSS)
+
+def build_local_all():
+    out = {'locations.html': build_locations(), 'social.html': build_social(), 'legal.html': build_legal(), 'mubashirin-qahwa-jeddah.html': local_page(intent_content())}
+    for c in CITIES: out[city_page(c['slug'])] = build_city(c['slug'])
+    for s in LOCAL_SERVICES:
+        for c in CITIES: out[page_of(s['slug'], c['slug'])] = local_page(local_content(s['slug'], c['slug']))
+    return out
+
+
 if __name__ == '__main__':
     out = {'services.html':build_services(),'offerings.html':build_offerings(),'portfolio.html':build_portfolio(),'about.html':build_about(),'contact.html':build_contact()}
+    out.update(build_local_all())   # v6.3: 36 صفحة محلية
+    out.update(build_local_all())   # v6.3: 36 صفحة محلية (D55–D62)
     for k, v in out.items():
         open(os.path.join(ROOT, k), 'w', encoding='utf-8').write(v); print(k, len(v)//1024, 'KB')

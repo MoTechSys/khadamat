@@ -1,7 +1,7 @@
 # فحص ثابت: صور مفقودة/مراسي مكسورة/أسعار/رقم واتساب/معرّفات مكرّرة/كلمات الجهات. تشغيل: cd prototype-home && python3 build/check_static.py
 # v6.1: أُزيلت الإيجابيات الكاذبة — روابط بـquery (?type=/?service=) تُفحص بعد حذف الاستعلام، وكلمات الجهات داخل alt لشارات التوثيق (commerce/zatca/sbc svg) تُستثنى. الهدف: BAD 0.
 import re,os,sys
-pages=['index.html','services.html','offerings.html','portfolio.html','about.html','contact.html']
+import glob,os; pages=sorted(os.path.basename(p) for p in glob.glob('*.html'))
 ids={p:set(re.findall(r'id="([^"]+)"',open(p).read())) for p in pages}
 bad=0
 for p in pages:

@@ -384,7 +384,59 @@
 
 - **1** — استقبال VIP بقهوة وتمور `p-reception-m-720.webp`
 
-## التكرارات المستبعدة (47)
+## المدن (1)
+
+
+### غلاف الصفحة
+
+- **1** — قاعة استقبال — كيف الضيافة `p-hall-m-750.webp`
+
+## مدينة جدة (0)
+
+
+## صبابين قهوة جدة (10)
+
+
+### غلاف الصفحة
+
+- **1** — صبابين قهوة في جدة — كيف الضيافة `sv-hosts-1-m-750.webp`
+
+### s3
+
+- **2** — دلة ذهبية · عدّة التقديم `k-dallah-gold.webp`
+
+### المعدات
+
+- **3** — دلة ذهبية `dallah-gold.webp`
+- **4** — فنجان مخطّط `cup-stripes.webp`
+- **5** — فنجان بالشعار `cup-emblem.webp`
+- **6** — فنجان مضلّع `cup-faceted.webp`
+- **7** — فنجان بورسلان `cup-porcelain.webp`
+- **8** — دلة فضية `dallah-silver.webp`
+
+### معرض الأعمال
+
+- **9** — فناجين قهوة مذهّبة · عدّة التقديم `k-cups.webp`
+- **10** — تمر محشي · تقديمات `k-tamr.webp`
+
+## قهوجيين الرياض (1)
+
+
+### معرض الأعمال
+
+- **1** — دلة فضية · عدّة التقديم `k-dallah-silver.webp`
+
+## ضيافة مناسبات مكة (0)
+
+
+## مباشرين قهوة جدة (1)
+
+
+### غلاف الصفحة
+
+- **1** — مباشرين قهوة في جدة — كيف الضيافة `p-majlis-m-750.webp`
+
+## التكرارات المستبعدة (103)
 
 - services: `sv-dagla-1.webp` = الخدمات رقم 2
 - services: `sv-table-4.webp` = الخدمات رقم 15
@@ -433,3 +485,59 @@
 - index: `s-tent.webp` = الخدمات رقم 53
 - index: `o-counter.webp` = الخدمات رقم 58
 - index: `s-folk.webp` = الخدمات رقم 51
+- city-jeddah: `p-hall-m-750.webp` = المدن رقم 1
+- city-jeddah: `pf-wed-3.webp` = الخدمات رقم 11
+- city-jeddah: `pf-eq-3.webp` = الخدمات رقم 65
+- city-jeddah: `pf-eq-1.webp` = الخدمات رقم 58
+- city-jeddah: `pf-eq-6.webp` = التقديمات والمعدات رقم 106
+- city-jeddah: `sv-hostess-3.webp` = الخدمات رقم 35
+- city-jeddah: `pf-eq-4.webp` = التقديمات والمعدات رقم 25
+- sababin-qahwa-jeddah: `sv-hosts-1.webp` = الخدمات رقم 2
+- sababin-qahwa-jeddah: `sv-dagla-2.webp` = الخدمات رقم 8
+- sababin-qahwa-jeddah: `pf-eq-5.webp` = أعمالنا رقم 14
+- sababin-qahwa-jeddah: `sv-hostess-1.webp` = الخدمات رقم 33
+- sababin-qahwa-jeddah: `pf-wed-5.webp` = أعمالنا رقم 13
+- qahwajiin-riyadh: `p-hall-m-750.webp` = المدن رقم 1
+- qahwajiin-riyadh: `pf-eq-7.webp` = أعمالنا رقم 18
+- qahwajiin-riyadh: `pf-co-9.webp` = أعمالنا رقم 21
+- qahwajiin-riyadh: `pf-gov-2.webp` = أعمالنا رقم 5
+- qahwajiin-riyadh: `dallah-gold.webp` = صبابين قهوة جدة رقم 3
+- qahwajiin-riyadh: `cup-stripes.webp` = صبابين قهوة جدة رقم 4
+- qahwajiin-riyadh: `cup-emblem.webp` = صبابين قهوة جدة رقم 5
+- qahwajiin-riyadh: `cup-faceted.webp` = صبابين قهوة جدة رقم 6
+- qahwajiin-riyadh: `cup-porcelain.webp` = صبابين قهوة جدة رقم 7
+- qahwajiin-riyadh: `dallah-silver.webp` = صبابين قهوة جدة رقم 8
+- qahwajiin-riyadh: `sv-hizam-1.webp` = الخدمات رقم 6
+- qahwajiin-riyadh: `pf-co-17.webp` = أعمالنا رقم 32
+- qahwajiin-riyadh: `pf-co-22.webp` = أعمالنا رقم 37
+- qahwajiin-riyadh: `pf-co-1.webp` = أعمالنا رقم 2
+- diyafa-munasabat-makkah: `pf-eq-3-m-750.webp` = التقديمات والمعدات رقم 1
+- diyafa-munasabat-makkah: `sv-tent-4.webp` = الخدمات رقم 56
+- diyafa-munasabat-makkah: `pf-co-10.webp` = أعمالنا رقم 23
+- diyafa-munasabat-makkah: `pf-wed-3.webp` = الخدمات رقم 11
+- diyafa-munasabat-makkah: `dallah-gold.webp` = صبابين قهوة جدة رقم 3
+- diyafa-munasabat-makkah: `cup-stripes.webp` = صبابين قهوة جدة رقم 4
+- diyafa-munasabat-makkah: `cup-emblem.webp` = صبابين قهوة جدة رقم 5
+- diyafa-munasabat-makkah: `cup-faceted.webp` = صبابين قهوة جدة رقم 6
+- diyafa-munasabat-makkah: `cup-porcelain.webp` = صبابين قهوة جدة رقم 7
+- diyafa-munasabat-makkah: `dallah-silver.webp` = صبابين قهوة جدة رقم 8
+- diyafa-munasabat-makkah: `pf-eq-3.webp` = الخدمات رقم 65
+- diyafa-munasabat-makkah: `pf-eq-1.webp` = الخدمات رقم 58
+- diyafa-munasabat-makkah: `pf-eq-6.webp` = التقديمات والمعدات رقم 106
+- diyafa-munasabat-makkah: `sv-hostess-3.webp` = الخدمات رقم 35
+- diyafa-munasabat-makkah: `pf-eq-4.webp` = التقديمات والمعدات رقم 25
+- mubashirin-qahwa-jeddah: `k-dallah-gold.webp` = صبابين قهوة جدة رقم 2
+- mubashirin-qahwa-jeddah: `pf-eq-1.webp` = الخدمات رقم 58
+- mubashirin-qahwa-jeddah: `k-spread.webp` = الخدمات رقم 53
+- mubashirin-qahwa-jeddah: `pf-eq-6.webp` = التقديمات والمعدات رقم 106
+- mubashirin-qahwa-jeddah: `dallah-gold.webp` = صبابين قهوة جدة رقم 3
+- mubashirin-qahwa-jeddah: `cup-stripes.webp` = صبابين قهوة جدة رقم 4
+- mubashirin-qahwa-jeddah: `cup-emblem.webp` = صبابين قهوة جدة رقم 5
+- mubashirin-qahwa-jeddah: `cup-faceted.webp` = صبابين قهوة جدة رقم 6
+- mubashirin-qahwa-jeddah: `cup-porcelain.webp` = صبابين قهوة جدة رقم 7
+- mubashirin-qahwa-jeddah: `dallah-silver.webp` = صبابين قهوة جدة رقم 8
+- mubashirin-qahwa-jeddah: `pf-eq-6.webp` = التقديمات والمعدات رقم 106
+- mubashirin-qahwa-jeddah: `pf-eq-3.webp` = الخدمات رقم 65
+- mubashirin-qahwa-jeddah: `sv-hosts-2.webp` = الخدمات رقم 3
+- mubashirin-qahwa-jeddah: `pf-wed-1.webp` = أعمالنا رقم 3
+- mubashirin-qahwa-jeddah: `sv-hostess-2.webp` = الخدمات رقم 34

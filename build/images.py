@@ -12,7 +12,7 @@ import json, os, sys
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = os.path.join(os.path.dirname(ROOT), 'keif-aldiafa-web', 'public', 'images')
+SRC = os.environ.get('KEIF_IMG_SRC') or os.path.join(os.path.dirname(ROOT), 'keif-aldiafa-web', 'public', 'images')   # v6.3: أو KEIF_IMG_SRC=/tmp/kaw/public/images
 THUMB = os.path.join(ROOT, 'img', 'photos'); FULL = os.path.join(ROOT, 'img', 'full')
 
 # name → source (relative to SRC)
@@ -71,12 +71,32 @@ for i,f in enumerate(PF_EQ,1): M[f'pf-eq-{i}']=f
 # من نحن
 M['ab-team'] = 'keif/sabab-qahwa-jeddah-majlis-hall-keif-aldiafa.webp'
 M['ab-hall'] = 'keif/qahwajiyeen-jeddah-hall-reception-keif-aldiafa.webp'
+# ===== v6.3 — لقطات كيف الضيافة الناقصة لصفحات (خدمة × مدينة) (D58) =====
+M['k-dallah-gold'] = 'keif/dallah-dhahabiya-jeddah-arabic-coffee-pot-keif-aldiafa.webp'
+M['k-dallah-silver'] = 'keif/dallah-fidhiya-jeddah-silver-coffee-pot-keif-aldiafa.webp'
+M['k-cups'] = 'keif/fanajeel-qahwa-jeddah-gold-palm-cups-keif-aldiafa.webp'
+M['k-tamr'] = 'keif/tamr-mahshi-jeddah-dates-platter-keif-aldiafa.webp'
+M['k-spread'] = 'keif/khaima-diyafa-jeddah-traditional-spread-keif-aldiafa.webp'
+# قصاصات شفافة (RGBA — لا تمرّ عبر build() لأنه يحوّل إلى RGB) + باركود (PNG كما هو — الضغط الضائع يُفشل المسح)
+CUTOUTS = {'dallah-gold':'cutouts/n-dallah-gold.webp','dallah-silver':'cutouts/n-dallah-silver.webp','cup-stripes':'cutouts/n-cup-stripes.webp','cup-emblem':'cutouts/n-cup-emblem.webp','cup-faceted':'cutouts/n-cup-faceted.webp','cup-porcelain':'cutouts/n-cup-porcelain.webp'}
+QR = 'brand/qr-keif-aldiafa.png'
+def extras(force=False):
+    cd = os.path.join(ROOT, 'img', 'cutouts'); os.makedirs(cd, exist_ok=True); os.makedirs(os.path.join(ROOT,'img','brand'), exist_ok=True)
+    for k, rel in CUTOUTS.items():
+        dst = os.path.join(cd, k + '.webp')
+        if force or not os.path.exists(dst):
+            im = Image.open(os.path.join(SRC, rel)).convert('RGBA'); im.thumbnail((480, 480)); im.save(dst, 'WEBP', quality=80, method=6)
+    q = os.path.join(ROOT, 'img', 'brand', 'qr-keif-aldiafa.png')
+    if force or not os.path.exists(q):
+        import shutil; shutil.copyfile(os.path.join(SRC, QR), q)
 
 # ===== صور هيرو الصفحات الداخلية (v6.1) =====
 # المصدر: img/full/<name>.webp (≤1600px، موجود في المستودع) → img/hero/<name>-m-<w>.webp (مربّع 1:1 للجوال)
 #                                                            → img/hero/<name>-d-<w>.webp (شريط 3:1 للديسكتوب ≥900px)
 # نقطة التركيز الرأسية 30% (تطابق object-position:center 30% في .phero img.bg). لا تكبير فوق المصدر أبدًا.
-HERO = {'s-hosts': 's-hosts', 'pf-eq-3': 'pf-eq-3', 'p-gala': 'p-gala', 'ab-hall': 'ab-hall', 'p-reception': 'p-reception'}
+HERO = {'s-hosts': 's-hosts', 'pf-eq-3': 'pf-eq-3', 'p-gala': 'p-gala', 'ab-hall': 'ab-hall', 'p-reception': 'p-reception',
+        # v6.3 (D59): مجمّع هيرو الصفحات المحلية
+        'pf-eq-7': 'pf-eq-7', 'p-hall': 'p-hall', 'pf-wed-3': 'pf-wed-3', 'pf-eq-1': 'pf-eq-1', 'p-majlis': 'p-majlis', 'sv-hosts-1': 'sv-hosts-1', 'pf-co-1': 'pf-co-1'}
 HERO_DIR = os.path.join(ROOT, 'img', 'hero')
 HERO_M_W = (480, 750, 1080)      # DPR 1 / 2 / 3 لعرض 390–412px
 HERO_D_W = (1200, 1600)          # ديسكتوب 100vw
@@ -148,6 +168,7 @@ if __name__ == '__main__':
         if not os.path.isdir(SRC): print('note: production images dir not found → heroes/logo only')
     else:
         s = build(force); print(len(s), 'images ready')
+        extras(force); print('cutouts+qr ready')
     hv = hero_variants(force)
     for k, v in hv.items(): print('hero', k, 'm:', [x[0] for x in v['m']], 'd:', [x[0] for x in v['d']])
     print('logo small', logo_small(force))

@@ -230,7 +230,12 @@
   "pf-eq-7": "keif/qahwajiyeen-jeddah-hall-reception-keif-aldiafa.webp",
   "pf-eq-8": "keif/diyafa-canape-trays-jeddah-keif-aldiafa.webp",
   "ab-team": "keif/sabab-qahwa-jeddah-majlis-hall-keif-aldiafa.webp",
-  "ab-hall": "keif/qahwajiyeen-jeddah-hall-reception-keif-aldiafa.webp"
+  "ab-hall": "keif/qahwajiyeen-jeddah-hall-reception-keif-aldiafa.webp",
+  "k-dallah-gold": "keif/dallah-dhahabiya-jeddah-arabic-coffee-pot-keif-aldiafa.webp",
+  "k-dallah-silver": "keif/dallah-fidhiya-jeddah-silver-coffee-pot-keif-aldiafa.webp",
+  "k-cups": "keif/fanajeel-qahwa-jeddah-gold-palm-cups-keif-aldiafa.webp",
+  "k-tamr": "keif/tamr-mahshi-jeddah-dates-platter-keif-aldiafa.webp",
+  "k-spread": "keif/khaima-diyafa-jeddah-traditional-spread-keif-aldiafa.webp"
  },
  "sizes": {
   "sv-hosts-1": [
@@ -1156,6 +1161,26 @@
   "ab-hall": [
    474,
    640
+  ],
+  "k-dallah-gold": [
+   640,
+   640
+  ],
+  "k-dallah-silver": [
+   640,
+   640
+  ],
+  "k-cups": [
+   640,
+   640
+  ],
+  "k-tamr": [
+   534,
+   640
+  ],
+  "k-spread": [
+   480,
+   640
   ]
  },
  "heroes": {
@@ -1286,6 +1311,203 @@
      1280,
      427,
      "img/hero/p-reception-d-1280.webp"
+    ]
+   ]
+  },
+  "pf-eq-7": {
+   "m": [
+    [
+     480,
+     480,
+     "img/hero/pf-eq-7-m-480.webp"
+    ],
+    [
+     750,
+     750,
+     "img/hero/pf-eq-7-m-750.webp"
+    ],
+    [
+     1080,
+     1080,
+     "img/hero/pf-eq-7-m-1080.webp"
+    ]
+   ],
+   "d": [
+    [
+     1185,
+     395,
+     "img/hero/pf-eq-7-d-1185.webp"
+    ]
+   ]
+  },
+  "p-hall": {
+   "m": [
+    [
+     480,
+     480,
+     "img/hero/p-hall-m-480.webp"
+    ],
+    [
+     750,
+     750,
+     "img/hero/p-hall-m-750.webp"
+    ],
+    [
+     960,
+     960,
+     "img/hero/p-hall-m-960.webp"
+    ]
+   ],
+   "d": [
+    [
+     1200,
+     400,
+     "img/hero/p-hall-d-1200.webp"
+    ],
+    [
+     1280,
+     427,
+     "img/hero/p-hall-d-1280.webp"
+    ]
+   ]
+  },
+  "pf-wed-3": {
+   "m": [
+    [
+     480,
+     480,
+     "img/hero/pf-wed-3-m-480.webp"
+    ],
+    [
+     750,
+     750,
+     "img/hero/pf-wed-3-m-750.webp"
+    ],
+    [
+     1080,
+     1080,
+     "img/hero/pf-wed-3-m-1080.webp"
+    ]
+   ],
+   "d": [
+    [
+     1200,
+     400,
+     "img/hero/pf-wed-3-d-1200.webp"
+    ],
+    [
+     1600,
+     533,
+     "img/hero/pf-wed-3-d-1600.webp"
+    ]
+   ]
+  },
+  "pf-eq-1": {
+   "m": [
+    [
+     480,
+     480,
+     "img/hero/pf-eq-1-m-480.webp"
+    ],
+    [
+     750,
+     750,
+     "img/hero/pf-eq-1-m-750.webp"
+    ],
+    [
+     1032,
+     1032,
+     "img/hero/pf-eq-1-m-1032.webp"
+    ]
+   ],
+   "d": [
+    [
+     1200,
+     400,
+     "img/hero/pf-eq-1-d-1200.webp"
+    ],
+    [
+     1600,
+     533,
+     "img/hero/pf-eq-1-d-1600.webp"
+    ]
+   ]
+  },
+  "p-majlis": {
+   "m": [
+    [
+     480,
+     480,
+     "img/hero/p-majlis-m-480.webp"
+    ],
+    [
+     750,
+     750,
+     "img/hero/p-majlis-m-750.webp"
+    ],
+    [
+     934,
+     934,
+     "img/hero/p-majlis-m-934.webp"
+    ]
+   ],
+   "d": [
+    [
+     934,
+     311,
+     "img/hero/p-majlis-d-934.webp"
+    ]
+   ]
+  },
+  "sv-hosts-1": {
+   "m": [
+    [
+     480,
+     480,
+     "img/hero/sv-hosts-1-m-480.webp"
+    ],
+    [
+     750,
+     750,
+     "img/hero/sv-hosts-1-m-750.webp"
+    ],
+    [
+     960,
+     960,
+     "img/hero/sv-hosts-1-m-960.webp"
+    ]
+   ],
+   "d": [
+    [
+     960,
+     320,
+     "img/hero/sv-hosts-1-d-960.webp"
+    ]
+   ]
+  },
+  "pf-co-1": {
+   "m": [
+    [
+     480,
+     480,
+     "img/hero/pf-co-1-m-480.webp"
+    ],
+    [
+     750,
+     750,
+     "img/hero/pf-co-1-m-750.webp"
+    ],
+    [
+     960,
+     960,
+     "img/hero/pf-co-1-m-960.webp"
+    ]
+   ],
+   "d": [
+    [
+     960,
+     320,
+     "img/hero/pf-co-1-d-960.webp"
     ]
    ]
   }

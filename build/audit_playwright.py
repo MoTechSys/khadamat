@@ -2,7 +2,9 @@
 import asyncio, json
 from playwright.async_api import async_playwright
 BASE='http://localhost:8787/'
-PAGES=['index.html','services.html#zamzam','offerings.html#equipment','portfolio.html?type=government','about.html','contact.html?service=hosts']
+PAGES = ['index.html','services.html#zamzam','offerings.html#equipment','portfolio.html?type=government','about.html','contact.html?service=hosts',
+         # v6.3 (D62): عيّنة الصفحات المحلية
+         'locations.html','city-jeddah.html','city-riyadh.html','sababin-qahwa-jeddah.html#pk','qahwajiin-makkah.html','diyafa-munasabat-dammam.html','mubashirin-qahwa-jeddah.html','social.html','legal.html']
 async def main():
     res={}
     async with async_playwright() as p:
