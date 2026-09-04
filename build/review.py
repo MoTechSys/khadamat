@@ -5,7 +5,9 @@
 ثم يكتب review/index.html (فهرس) + review/<page>.html لكل صفحة + review/list.md.
 v2 (طلب المالك): بلا تكرار (تجزئة بصرية dHash 16×16 عبر كل الصفحات؛ أولوية الصفحات الفرعية ثم الرئيسية)،
 صور مصغّرة منخفضة الدقة review/t/*.webp (≤400px q60) لتفتح على الجوال، صورتان في الصف، الرقم تحت الصورة.
-الاستخدام: cd prototype-home/build && python3 review.py
+v3 (طلب المالك): python3 review.py --zip يولّد أيضاً ملفاً مضغوطاً review/keif-aldiafa-images.zip بكل الصور الفريدة
+بأعلى دقة متاحة (img/full إن وُجد) باسم <الصفحة>-<الرقم>-<الملف>.webp + manifest.csv + list.md لتحليلها/تسميتها من وكيل خارجي.
+الاستخدام: cd prototype-home/build && python3 review.py [--zip]
 لا يمسّ أي ملف من ملفات الموقع. الصور تُعرض من ../img/…
 """
 import os, re, html
@@ -117,6 +119,33 @@ def thumb(src):
         im.save(dst, 'WEBP', quality=TH_Q, method=6)
     return name
 
+ZIP_NAME = 'keif-aldiafa-images.zip'
+def best_src(src):
+    """أعلى دقة متاحة: img/full/<base>.webp (≤1600px) وإلا الملف نفسه. صور الهيرو -m-750 تُرجع إلى أصلها."""
+    base = os.path.splitext(os.path.basename(src))[0]
+    base = re.sub(r'-m-\d+$', '', base)
+    full = os.path.join(ROOT, 'img', 'full', base + '.webp')
+    return full if os.path.exists(full) else os.path.join(ROOT, src)
+
+def pack(parsed):
+    import zipfile, csv, io
+    zp = os.path.join(OUT, ZIP_NAME)
+    rows = [('page', 'page_ar', 'number', 'zip_file', 'site_file', 'section', 'current_caption', 'current_sub', 'tag', 'alt')]
+    with zipfile.ZipFile(zp, 'w', zipfile.ZIP_STORED) as z:   # webp لا يُضغط أكثر
+        for k, ar in PAGES:
+            for it in parsed[k]:
+                src = best_src(it['src']); cap, sub = label(it)
+                name = f"{k}/{k}-{it['n']:03d}-{os.path.basename(src)}"
+                z.write(src, name)
+                rows.append((k, ar, it['n'], name, it['src'], sec_label(it), cap, sub, it.get('tag') or '', it['alt']))
+        buf = io.StringIO(); csv.writer(buf).writerows(rows); z.writestr('manifest.csv', '\ufeff' + buf.getvalue())
+        z.write(os.path.join(OUT, 'list.md'), 'list.md')
+        z.writestr('README.txt', 'كيف الضيافة — كل صور الموقع الفريدة (%d) بأعلى دقة متاحة.\n'
+                   'التسمية: <الصفحة>-<الرقم>-<اسم الملف الأصلي>.webp — الرقم يطابق صفحات المراجعة review/<page>.html\n'
+                   'manifest.csv: الصفحة، الرقم، الملف، القسم، المسمّى الحالي في الموقع.\n'
+                   'المطلوب من المحلّل: لكل صورة اقترح اسماً/وصفاً صحيحاً (عربي) بعد التحقق من محتواها، ولا يُعدَّل أي شيء في الموقع إلا بعد اعتماد المالك.\n' % (len(rows) - 1))
+    print('zip', zp, round(os.path.getsize(zp) / 1e6, 1), 'MB', len(rows) - 1, 'files')
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     parsed = {}
@@ -158,5 +187,7 @@ def main():
     print('dups removed', len(dups))
     for k, ar, n in summary: print(f'{k:10s} {ar:22s} {n}')
     print('total', total)
+    import sys
+    if '--zip' in sys.argv: pack(parsed)
 
 if __name__ == '__main__': main()
