@@ -10,6 +10,7 @@
 - `check_static.py`: تجاهل query-string وبادجات alt · `audit_playwright.py`: لقطات كاملة الطول + اعتراض `window.open` لاختبار النموذج.
 - **النتائج (Lighthouse 12 جوال، خادم gzip)**: services 98 · offerings 90 · portfolio 96 · index 94 · about 99 · contact 99 — إتاحة 100، ممارسات 100، SEO 63 (noindex مقصود). سطح مكتب 100. Playwright 12/12: 0 أخطاء، 0 تمرير أفقي. فحص ثابت 0.
 - ملاحظة استضافة: النتيجة تفترض ضغط gzip/brotli على الخادم (بدونه offerings ≈ 89). الأوامر: `cd build && python3 fonts.py && python3 images.py --heroes && python3 build.py`.
+- **صفحات مراجعة الصور المرقّمة** (`build/review.py` → `review/`): فهرس + 6 صفحات تعرض كل صور الموقع (322) مرقّمة لكل صفحة مع المسمّى الحالي واسم الملف، لتسجيل أحمد الصوتي «أعمالنا رقم N: …». `review/list.md` نسخة نصية. تُعاد بـ`python3 review.py` بعد كل build. noindex، لا تمسّ ملفات الموقع.
 
 ## v6 — كل صفحات الموقع من غلاف واحد + خطّ صور مُدقَّق (2026-09-03)
 المصدر: تفويض المالك الكامل «لا تنتظر مني أي قرار… كمل المشروع بكله» ثم «استمررر بقووه وكون وثق كلل شي» (`04-owner-messages/2026-09-03-استمر-بقوة-ووثق-كل-شي-…md`). **ملف التسليم للوكيل الجديد: `02-context-memory/HANDOFF-2026-09-03-v6.md`.**
