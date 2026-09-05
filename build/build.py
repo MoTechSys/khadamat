@@ -480,10 +480,9 @@ def contact_channels(src='contact'):
     ARR = '\u203a'
     crumb = f'<div class="crumb"><a href="index.html">الرئيسية</a><span>{ARR}</span><span>تواصل</span></div>' if src == 'contact' else ''
     return (f'<section class="linkhead grain" aria-label="تواصل معنا"><div class="wrap">{crumb}'
-            f'<div class="emblem" aria-hidden="true"><span class="emblem-orbit"></span><span class="emblem-orbit o2"></span><img src="img/logo-emblem.webp" srcset="img/logo-emblem-120.webp 120w, img/logo-emblem.webp 225w" sizes="(min-width:900px) 90px, 74px" alt="" width="225" height="270" fetchpriority="high"></div>'
-            f'<span class="label">تواصل معنا</span><h1>كيف <em>الضيافة</em></h1>'
-            f'<div class="orn" aria-hidden="true"><i></i><b>\u2726</b><i></i></div>'
-            f'<p class="tag">قهوجيين · صبّابين · ضيافة فاخرة</p>'
+            f'<div class="lh-row"><div class="emblem" aria-hidden="true"><span class="emblem-orbit"></span><span class="emblem-orbit o2"></span><img src="img/logo-emblem.webp" srcset="img/logo-emblem-120.webp 120w, img/logo-emblem.webp 225w" sizes="(min-width:900px) 90px, 74px" alt="" width="225" height="270" fetchpriority="high"></div>'
+            f'<div class="lh-tx"><span class="label">تواصل معنا</span><h1>كيف <em>الضيافة</em></h1>'
+            f'<p class="tag">قهوجيين · صبّابين · ضيافة فاخرة</p></div></div>'
             f'<p class="sub">اختر القناة الأنسب لك — واتساب هو الأسرع، والاستشارة مجانية بلا التزام.</p>'
             f'</div></section>\n'
             f'<section class="on-rich" id="channels" aria-label="قنوات التواصل"><div class="wrap"><nav class="chlist" aria-label="قنوات التواصل مع كيف الضيافة">{cards}</nav>'
@@ -531,13 +530,13 @@ LINKS_CSS = r"""
 body.links-page .linkhead .label{font-size:.8rem}
 body.links-page .orn b{font-size:.8rem}
 body.links-page{padding-top:0;min-height:100dvh;background:radial-gradient(ellipse 120% 70% at 50% -10%,rgba(197,160,89,.16),transparent 60%),radial-gradient(ellipse 90% 60% at 50% 110%,rgba(197,160,89,.08),transparent 65%),var(--rich)}
-body.links-page .linkhead{background:transparent;padding-block:34px 22px}
+body.links-page .linkhead{background:transparent;padding-block:22px 14px}
 body.links-page .linkhead::after{display:none}
 body.links-page #channels{background:transparent;padding-block:8px 28px}
-body.links-page .chnote{display:none}
+body.links-page .chnote,body.links-page .linkhead .sub{display:none}
 .lfoot{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 20px calc(28px + env(safe-area-inset-bottom));font-size:.8rem;color:var(--cream-3);letter-spacing:.02em}
 .lfoot a{color:var(--gold);border-bottom:1px solid rgba(197,160,89,.35)}
-@media (min-width:900px){body.links-page .chlist{max-width:560px;grid-template-columns:1fr}body.links-page .linkhead{padding-block:48px 24px}}
+@media (min-width:900px){body.links-page .chlist{max-width:560px;grid-template-columns:1fr}body.links-page .linkhead{padding-block:30px 16px}}
 """
 
 
@@ -594,25 +593,24 @@ CONTACT_JS = r'''<script>
 
 CONTACT_CSS = r'''
 /* ===== v6.9 — صفحة التواصل (D99): رأس بالشعار + بطاقات القنوات بلون كل منصّة + تأثير الأومنتريكس ===== */
-.linkhead{position:relative;background:radial-gradient(ellipse 90% 60% at 50% -10%,rgba(197,160,89,.22),transparent 60%),radial-gradient(ellipse 70% 40% at 50% 110%,rgba(197,160,89,.08),transparent 65%),var(--rich);text-align:center;padding-block:22px 30px;overflow:hidden}
+.linkhead{position:relative;background:radial-gradient(ellipse 90% 60% at 50% -10%,rgba(197,160,89,.22),transparent 60%),radial-gradient(ellipse 70% 40% at 50% 110%,rgba(197,160,89,.08),transparent 65%),var(--rich);padding-block:16px 18px;overflow:hidden}
 .linkhead::after{content:"";position:absolute;inset:auto 0 0;height:1px;background:linear-gradient(90deg,transparent,rgba(197,160,89,.5),transparent)}
 .linkhead .wrap{position:relative;z-index:1;max-width:560px}
-.linkhead .crumb{margin-bottom:14px}
-.emblem{position:relative;width:108px;height:108px;margin:0 auto 12px;display:grid;place-items:center;animation:up .8s cubic-bezier(.16,1,.3,1) both}
-.emblem img{width:74px;height:auto;position:relative;z-index:2;filter:drop-shadow(0 4px 14px rgba(197,160,89,.45))}
+.linkhead .crumb{justify-content:flex-start;margin-bottom:10px}
+/* D102: رأس أفقي مضغوط — الشعار يمينًا والنصوص يساره (RTL: flex-start = يمين) */
+.lh-row{display:flex;align-items:center;gap:14px;animation:up .8s cubic-bezier(.16,1,.3,1) both}
+.emblem{position:relative;flex:0 0 auto;width:84px;height:84px;display:grid;place-items:center}
+.emblem img{width:58px;height:auto;position:relative;z-index:2;filter:drop-shadow(0 4px 14px rgba(197,160,89,.45))}
 .emblem-orbit{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(197,160,89,.35);border-top-color:var(--gold-hi);border-bottom-color:transparent;animation:spin 14s linear infinite}
-.emblem-orbit.o2{inset:9px;border-color:rgba(197,160,89,.18);border-bottom-color:var(--gold);border-top-color:transparent;animation:spin 9s linear infinite reverse}
-.emblem::before{content:"";position:absolute;inset:18px;border-radius:50%;background:radial-gradient(circle,rgba(197,160,89,.22),transparent 70%)}
-.linkhead .label{display:inline-flex;align-items:center;gap:12px;font-size:.74rem;letter-spacing:.3em;color:var(--gold);animation:up .8s .1s cubic-bezier(.16,1,.3,1) both}
-.linkhead .label::before,.linkhead .label::after{content:"\2726";font-size:.7rem;letter-spacing:0}
-.linkhead h1{font-size:clamp(2rem,7vw,2.9rem);color:var(--cream);line-height:1.25;margin-top:4px;animation:up .8s .15s cubic-bezier(.16,1,.3,1) both}
+.emblem-orbit.o2{inset:7px;border-color:rgba(197,160,89,.18);border-bottom-color:var(--gold);border-top-color:transparent;animation:spin 9s linear infinite reverse}
+.emblem::before{content:"";position:absolute;inset:14px;border-radius:50%;background:radial-gradient(circle,rgba(197,160,89,.22),transparent 70%)}
+.lh-tx{min-width:0;text-align:start;display:grid;gap:2px}
+.linkhead .label{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.26em;color:var(--gold)}
+.linkhead .label::after{content:"\2726";font-size:.62rem;letter-spacing:0}
+.linkhead h1{font-size:clamp(1.55rem,6vw,2.1rem);color:var(--cream);line-height:1.2}
 .linkhead h1 em{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.orn{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px auto 10px;color:var(--gold);animation:up .8s .2s both}
-.orn i{display:block;width:56px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
-.orn i:last-child{background:linear-gradient(270deg,transparent,var(--gold))}
-.orn b{font-size:.7rem}
-.linkhead .tag{color:var(--gold-hi);font-size:.95rem;letter-spacing:.06em;animation:up .8s .25s both}
-.linkhead .sub{margin:8px auto 0;max-width:46ch;color:var(--cream-2);font-size:.95rem;animation:up .8s .3s both}
+.linkhead .tag{color:var(--gold-hi);font-size:.86rem;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.linkhead .sub{margin:10px 0 0;color:var(--cream-2);font-size:.88rem;text-align:start;animation:up .8s .15s both}
 #channels{padding-block:20px 26px}
 .chlist{display:grid;gap:11px;max-width:520px;margin:0 auto}
 /* البطاقة — مقاس osoul (78px) وسطح واقعي: 4 طبقات (لمعة علوية، توهّج المنصّة من الزاوية، تدرّج معتم، أساس) + حافّة داخلية فاتحة وسفلية داكنة */
@@ -660,8 +658,8 @@ CONTACT_CSS = r'''
 @keyframes omniSweep{from{transform:translateX(120%)}to{transform:translateX(-120%)}}
 body.ch-flash::after{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;background:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--tint,#C5A059) 55%,transparent),transparent 65%);animation:omniFlash .9s ease-out both}
 @keyframes omniFlash{0%{opacity:0}30%{opacity:.9}100%{opacity:0}}
-@media (min-width:900px){.chlist{max-width:1000px;grid-template-columns:repeat(2,1fr);gap:12px}.linkhead{padding-block:34px 44px}.emblem{width:132px;height:132px}.emblem img{width:90px}}
-@media (prefers-reduced-motion:reduce){.emblem,.emblem-orbit,.linkhead .label,.linkhead h1,.orn,.linkhead .tag,.linkhead .sub,.ch{animation:none}.ch-shine,.ch-ic,.ch-dial,.ch-arrow,.ch{transition:none}.ch.fire *{animation:none!important}body.ch-flash::after{display:none}}
+@media (min-width:900px){.chlist{max-width:1000px;grid-template-columns:repeat(2,1fr);gap:12px}.linkhead{padding-block:24px 26px}.linkhead .wrap{max-width:1000px}.emblem{width:96px;height:96px}.emblem img{width:66px}}
+@media (prefers-reduced-motion:reduce){.lh-row,.emblem-orbit,.linkhead .sub,.ch{animation:none}.ch-shine,.ch-ic,.ch-dial,.ch-arrow,.ch{transition:none}.ch.fire *{animation:none!important}body.ch-flash::after{display:none}}
 '''
 
 
