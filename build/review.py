@@ -19,7 +19,7 @@ PAGES = [('index', 'الرئيسية'), ('services', 'الخدمات'), ('offeri
          ('portfolio', 'أعمالنا'), ('about', 'من نحن'), ('contact', 'تواصل معنا'),
          # v6.3 (D62): الصفحات المحلية — عيّنة تمثيلية (الصور تتكرر عبر المدن بالتدوير؛ dHash يزيل التكرار)
          ('locations', 'المدن'), ('city-jeddah', 'مدينة جدة'), ('sababin-qahwa-jeddah', 'صبابين قهوة جدة'),
-         ('qahwajiin-riyadh', 'قهوجيين الرياض'), ('diyafa-munasabat-makkah', 'ضيافة مناسبات مكة'), ('mubashirin-qahwa-jeddah', 'مباشرين قهوة جدة')]
+         ('qahwajiin-riyadh', 'قهوجيين الرياض'), ('diyafa-munasabat-makkah', 'ضيافة مناسبات مكة'), ('mubashirin-qahwa-jeddah', 'مباشرين قهوة جدة'), ('qahwajiin-jeddah', 'قهوجيين جدة — النموذج v6.4')]
 SEC_AR = {'hero': 'غلاف الصفحة', 'who': 'لمن نعمل', 'works': 'من أعمالنا', 'partners': 'شركاء النجاح', 'staff': 'الطاقم والزي',
           'offerings': 'التقديمات', 'services': 'الخدمات', 'faq': 'الأسئلة الشائعة', 'contact': 'تواصل',
           'g-male': 'الطاقم الرجالي', 'g-female': 'الطاقم النسائي', 'g-heritage': 'تراث وفنون', 'g-setup': 'أركان وتجهيز',
@@ -29,7 +29,7 @@ SEC_AR = {'hero': 'غلاف الصفحة', 'who': 'لمن نعمل', 'works': '�
           'intro': 'مقدمة', 'detail': 'التفاصيل', 'pk': 'الترتيبات', 'kit': 'عدّة الضيافة', 'why': 'لماذا نحن', 'gal': 'المعرض', 'areas': 'الأحياء', 'rel': 'صفحات ذات صلة',
           'about': 'عن المدينة', 'svcs': 'الخدمات', 'grid': 'شبكة المدن', 'matrix': 'الخدمات بالمدن', 'qr': 'الحسابات', 'terms': 'الشروط'}
 SKIP_SRC = ('logo-emblem', '-crop.svg')
-ORDER = ['services', 'offerings', 'portfolio', 'about', 'contact', 'index', 'locations', 'city-jeddah', 'sababin-qahwa-jeddah', 'qahwajiin-riyadh', 'diyafa-munasabat-makkah', 'mubashirin-qahwa-jeddah']  # أولوية إزالة التكرار
+ORDER = ['services', 'offerings', 'portfolio', 'about', 'contact', 'index', 'locations', 'city-jeddah', 'sababin-qahwa-jeddah', 'qahwajiin-riyadh', 'diyafa-munasabat-makkah', 'mubashirin-qahwa-jeddah', 'qahwajiin-jeddah']  # أولوية إزالة التكرار
 TH_W, TH_Q = 400, 60
 
 class P(HTMLParser):
