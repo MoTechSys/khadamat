@@ -212,6 +212,9 @@ header{position:sticky;top:var(--ribbon);z-index:70;background:rgba(13,13,13,.82
 .strip::-webkit-scrollbar{display:none}
 .strip>*{flex:0 0 auto;scroll-snap-align:start}
 .strip .edge{flex:0 0 1px}
+.strip.auto{scroll-snap-type:none;cursor:grab}.strip.drag{cursor:grabbing;user-select:none}
+.strip img{-webkit-user-drag:none;user-select:none}
+@media (prefers-reduced-motion:reduce){.strip.auto{scroll-snap-type:x mandatory}}
 @media (min-width:900px){.strip{gap:16px;padding-bottom:16px}}
 
 /* ===== شركاء النجاح — كريمي ===== */
@@ -342,26 +345,31 @@ footer .tag{font-family:var(--f-latin);font-size:.72rem;letter-spacing:.14em;col
 .lb.open{display:flex}
 .lb-top{display:flex;justify-content:space-between;align-items:center;padding:14px var(--pad);font-size:.9rem;color:var(--gold-hi);font-family:var(--f-latin);letter-spacing:.08em}
 .lb-top button{width:44px;height:44px;border-radius:50%;background:rgba(197,160,89,.1);border:1px solid var(--line-2);display:grid;place-items:center;font-size:1.4rem;color:var(--gold-hi)}
-.lb-stage{flex:1;display:grid;place-items:center;position:relative;padding:0 var(--pad);min-height:0;touch-action:pan-y}
-.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;border:1px solid var(--line);user-select:none;-webkit-user-drag:none}
+.lb{--lb-chrome:158px}
+.lb-stage{flex:1;display:grid;grid-template-rows:minmax(0,1fr);place-items:center;position:relative;padding:0 var(--pad);min-height:0;overflow:hidden;touch-action:pan-y}
+.lb-frame{position:relative;display:grid;max-width:100%;max-height:100%;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#111}
+.lb-frame>img{display:block;max-width:100%;max-height:calc(100dvh - var(--lb-chrome));object-fit:contain;user-select:none;-webkit-user-drag:none}
 .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:rgba(26,26,26,.7);border:1px solid var(--line-2);color:var(--gold-hi);display:grid;place-items:center;font-size:1.6rem;backdrop-filter:blur(6px)}
 .lb-nav.prev{inset-inline-start:10px}.lb-nav.next{inset-inline-end:10px}
-.lb-cap{padding:12px var(--pad) 10px;text-align:center;min-height:56px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.lb-cap{position:absolute;inset:auto 0 0 0;padding:34px 14px 12px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;background:linear-gradient(to top,rgba(8,8,8,.92) 0%,rgba(8,8,8,.7) 55%,rgba(8,8,8,0) 100%);pointer-events:none}
+.lb-cap>*{pointer-events:auto}
+.lb-cap.empty{display:none}
 .lb-cap span:empty{display:none}
-.lb-go{display:inline-flex;align-items:center;gap:8px;margin-top:8px;height:40px;padding:0 18px;border-radius:999px;border:1px solid var(--line-2);background:rgba(197,160,89,.1);color:var(--gold-hi);font-family:var(--f-head);font-weight:700;font-size:.9rem}
+.lb-go{display:inline-flex;align-items:center;gap:8px;margin-top:6px;height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--line-2);background:rgba(20,18,14,.85);color:var(--gold-hi);font-family:var(--f-head);font-weight:700;font-size:.88rem;backdrop-filter:blur(4px)}
+.lb-go:hover{background:rgba(197,160,89,.22)}
 .lb-go svg{width:16px;height:16px}
 .lb-go[hidden]{display:none}
-.lb-stage img{opacity:1;transition:opacity .25s}.lb-stage img.loading{opacity:.35}
+.lb-frame>img{opacity:1;transition:opacity .25s}.lb-frame>img.loading{opacity:.35}
 .lb-spin{position:absolute;width:34px;height:34px;border-radius:50%;border:2px solid rgba(197,160,89,.25);border-top-color:var(--gold);animation:spin .8s linear infinite;display:none}
 .lb-stage.busy .lb-spin{display:block}
 @keyframes spin{to{transform:rotate(360deg)}}
-.lb-cap b{display:block;font-family:var(--f-head);font-size:1.1rem;color:var(--gold-hi)}
-.lb-cap span{color:var(--cream-2);font-size:.88rem}
+.lb-cap b{display:block;font-family:var(--f-head);font-size:1.05rem;color:var(--gold-hi);text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.lb-cap span{color:var(--cream);font-size:.86rem;text-shadow:0 1px 6px rgba(0,0,0,.7)}
 .lb-thumbs{display:flex;gap:6px;overflow-x:auto;padding:0 var(--pad) 18px;scrollbar-width:none}
 .lb-thumbs::-webkit-scrollbar{display:none}
 .lb-thumbs img{width:54px;height:54px;object-fit:cover;border-radius:8px;opacity:.45;border:2px solid transparent;flex:none;cursor:pointer;transition:.2s}
 .lb-thumbs img.on{opacity:1;border-color:var(--gold)}
-@media (min-width:900px){.lb-nav{width:56px;height:56px}.lb-nav.prev{inset-inline-start:40px}.lb-nav.next{inset-inline-end:40px}.lb-thumbs{justify-content:center}.lb-thumbs img{width:64px;height:64px}}
+@media (min-width:900px){.lb{--lb-chrome:170px}.lb-nav{width:56px;height:56px}.lb-nav.prev{inset-inline-start:40px}.lb-nav.next{inset-inline-end:40px}.lb-thumbs{justify-content:center}.lb-thumbs img{width:64px;height:64px}.lb-cap{padding:40px 22px 14px}.lb-cap b{font-size:1.15rem}}
 body.lb-lock{overflow:hidden}
 
 /* ===== v6 — الصفحات الداخلية ===== */
@@ -491,7 +499,7 @@ body.lb-lock{overflow:hidden}
 </head>
 <body>
 
-<div class="proto">نموذج تجريبي للمراجعة — ليس الموقع الفعلي · v6.5 · 2026-09-05</div>
+<div class="proto">نموذج تجريبي للمراجعة — ليس الموقع الفعلي · v6.6 · 2026-09-05</div>
 <header>
   <div class="wrap nav">
     <div class="nav-row">
@@ -590,12 +598,14 @@ body.lb-lock{overflow:hidden}
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="عرض الصورة">
   <div class="lb-top"><span id="lbCount"></span><button id="lbClose" aria-label="إغلاق">×</button></div>
   <div class="lb-stage" id="lbStage">
-    <img id="lbImg" alt="">
+    <div class="lb-frame" id="lbFrame">
+      <img id="lbImg" alt="">
+      <div class="lb-cap" id="lbCapBox"><b id="lbCap"></b><span id="lbSub"></span><a class="lb-go" id="lbGo" href="#" hidden><span id="lbGoTxt"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a></div>
+    </div>
     <span class="lb-spin" aria-hidden="true"></span>
     <button class="lb-nav prev" id="lbPrev" aria-label="السابق">›</button>
     <button class="lb-nav next" id="lbNext" aria-label="التالي">‹</button>
   </div>
-  <div class="lb-cap"><b id="lbCap"></b><span id="lbSub"></span><a class="lb-go" id="lbGo" href="#" hidden><span id="lbGoTxt"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a></div>
   <div class="lb-thumbs" id="lbThumbs"></div>
 </div>
 
@@ -612,10 +622,37 @@ body.lb-lock{overflow:hidden}
     rvs.forEach((e,i)=>{e.style.transitionDelay=((i%4)*50)+'ms';ro.observe(e);});
   }
 
+  // 2) الأشرطة: حلقة لا نهائية بطيئة + سحب بالماوس/الإصبع (D79) — تُستنسخ العناصر مرة واحدة ثم يتحرك الشريط 22px/ث ويُعاد ضبطه بلا قفزة
+  $$('.strip').forEach(el=>{
+    const kids=$$(':scope > *:not(.edge)',el); if(kids.length<3) return;
+    const edge=$('.edge',el); const rtl=getComputedStyle(el).direction==='rtl';
+    kids.forEach(k=>{const c=k.cloneNode(true); c.dataset.clone='1'; c.setAttribute('aria-hidden','true'); $$('img',c).forEach(i=>i.setAttribute('loading','lazy')); el.insertBefore(c,edge);});
+    el.classList.add('auto');
+    const pos=()=>Math.abs(el.scrollLeft), setPos=v=>{el.scrollLeft=rtl?-v:v;};
+    const span=()=>{const a=kids[0], b=$('[data-clone]',el); return Math.abs(b.offsetLeft-a.offsetLeft);};
+    let paused=reduce, seen=true, hold=0, last=0, dragging=false, x=0;   // x: موضع كسري (scrollLeft يُقرّب لعدد صحيح)
+    const norm=back=>{const w=span(); if(!w) return; const p=pos(); if(p>=w){setPos(p-w); x=pos();} else if(back&&p<=0){setPos(p+w); x=pos();} };
+    const tick=t=>{ if(!paused&&seen&&!dragging&&!document.hidden&&t-hold>0){ const dt=Math.min(48,t-(last||t)); if(Math.abs(pos()-Math.round(x))>1) x=pos(); x+=dt*0.022; setPos(Math.round(x)); norm(); } last=t; requestAnimationFrame(tick); };
+    if(!reduce) requestAnimationFrame(tick);
+    const rest=ms=>{hold=performance.now()+ms;};
+    el.addEventListener('pointerenter',e=>{ if(e.pointerType==='mouse') paused=true; });
+    el.addEventListener('pointerleave',()=>{ paused=false; rest(600); });
+    el.addEventListener('touchstart',()=>{paused=true;},{passive:true});
+    el.addEventListener('touchend',()=>{paused=false; rest(2600);},{passive:true});
+    el.addEventListener('scroll',()=>{ if(paused||dragging) norm(true); },{passive:true});
+    if('IntersectionObserver' in window){ new IntersectionObserver(es=>es.forEach(e=>{seen=e.isIntersecting;}),{threshold:.05}).observe(el); }
+    // سحب بالماوس على الحاسوب
+    let sx=0, sp=0;
+    el.addEventListener('pointerdown',e=>{ if(e.pointerType!=='mouse'||e.button!==0) return; dragging=true; sx=e.clientX; sp=pos(); el.classList.add('drag'); });
+    el.addEventListener('pointermove',e=>{ if(!dragging) return; setPos(sp+(rtl?(sx-e.clientX):(e.clientX-sx))); });
+    const end=()=>{ if(!dragging) return; dragging=false; el.classList.remove('drag'); rest(1800); };
+    el.addEventListener('pointerup',end); el.addEventListener('pointercancel',end); window.addEventListener('pointerup',end);
+  });
+
   // 3) شركاء النجاح: 12 ظاهرة على الجوال ثم «عرض الكل»
   const logos=$('#logos'), moreBtn=$('#logosMore');
   const st=document.createElement('style'); st.textContent='@media (max-width:899px){.logos.collapsed .logo:nth-child(n+13){display:none}}.more-row{display:flex;justify-content:center;margin-top:12px}@media (min-width:900px){.more-row{display:none}}.more-row .btn{border:1px solid rgba(197,160,89,.5);color:var(--ink);background:#fff}'; document.head.appendChild(st);
-  if(moreBtn&&logos) moreBtn.addEventListener('click',()=>{ const open=logos.classList.toggle('collapsed'); moreBtn.textContent=open?'عرض كل الشركاء (24)':'إظهار أقل'; moreBtn.setAttribute('aria-expanded',String(!open)); });
+  if(moreBtn&&logos) moreBtn.addEventListener('click',()=>{ const open=logos.classList.toggle('collapsed'); moreBtn.textContent=open?'عرض كل الشركاء (23)':'إظهار أقل'; moreBtn.setAttribute('aria-expanded',String(!open)); });
 
   // 4) زر واتساب الطافي: مخفي في الهيرو (فيه زر واتساب) وفي قسم التواصل
   // فيديو الهيرو: يُحمَّل بعد أول رسم ويعمل عند الظهور فقط
@@ -641,13 +678,14 @@ body.lb-lock{overflow:hidden}
   const lb=$('#lb'), lbImg=$('#lbImg'), lbCap=$('#lbCap'), lbSub=$('#lbSub'), lbCount=$('#lbCount'), lbThumbs=$('#lbThumbs');
   let group=[], idx=0, lastFocus=null;
   const full=src=>src.replace('/img/photos/','/img/full/');
-  function items(g){ return $$('[data-g="'+g+'"]').map(f=>{const im=$('img',f);const a=f.closest('a');return {thumb:im.currentSrc||im.src,src:full(im.currentSrc||im.src),alt:im.alt,cap:im.dataset.cap||'',sub:im.dataset.sub||'',go:f.dataset.go||(a?a.getAttribute('href'):''),goTxt:f.dataset.goTxt||'تفاصيل الخدمة'};}); }
+  function items(g){ return $$('[data-g="'+g+'"]:not([data-clone])').map(f=>{const im=$('img',f);const a=f.closest('a');return {thumb:im.currentSrc||im.src,src:full(im.currentSrc||im.src),alt:im.alt,cap:im.dataset.cap||'',sub:im.dataset.sub||'',go:f.dataset.go||(a?a.getAttribute('href'):''),goTxt:f.dataset.goTxt||'تفاصيل الخدمة'};}); }
   function show(i){
     idx=(i+group.length)%group.length; const it=group[idx];
     lbImg.classList.add('loading'); $('#lbStage').classList.add('busy');
     lbImg.onload=()=>{lbImg.classList.remove('loading'); $('#lbStage').classList.remove('busy');}; lbImg.onerror=()=>{lbImg.src=it.thumb;};
     lbImg.src=it.src; lbImg.alt=it.alt; lbCap.textContent=it.cap; lbSub.textContent=it.sub;
     const go=$('#lbGo'); if(it.go){go.href=it.go; $('#lbGoTxt').textContent=it.goTxt; go.hidden=false; go.target=/^https?:/.test(it.go)?'_blank':'';} else go.hidden=true;
+    $('#lbCapBox').classList.toggle('empty',!it.cap&&!it.sub&&!it.go);
     lbCount.textContent=(idx+1)+' / '+group.length;
     $$('img',lbThumbs).forEach((t,k)=>{t.classList.toggle('on',k===idx); if(k===idx) t.scrollIntoView({block:'nearest',inline:'center',behavior:reduce?'auto':'smooth'});});
     const n=group[(idx+1)%group.length]; if(n){const pre=new Image();pre.src=n.src;}
@@ -660,7 +698,7 @@ body.lb-lock{overflow:hidden}
     show(Math.max(0,group.findIndex(it=>it.thumb===src))); $('#lbClose').focus();
   }
   function close(){ lb.classList.remove('open'); document.body.classList.remove('lb-lock'); lbImg.src=''; if(lastFocus) lastFocus.focus(); }
-  $$('[data-g]').forEach(f=>{ if(!f.closest('a')){ f.setAttribute('tabindex','0'); f.setAttribute('aria-label','تكبير: '+($('img',f).dataset.cap||$('img',f).alt)); }
+  $$('[data-g]').forEach(f=>{ if(!f.closest('a')&&!f.dataset.clone){ f.setAttribute('tabindex','0'); f.setAttribute('aria-label','تكبير: '+($('img',f).dataset.cap||$('img',f).alt)); }
     // تمييز السحب عن الضغط داخل الأشرطة
     let sx=0,sy=0,moved=false;
     f.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY;moved=false;});
