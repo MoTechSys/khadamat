@@ -1,4 +1,6 @@
-# prototype-home — نموذج الموقع الكامل (v6.9: مشروع متكامل — الرئيسية + 41 صفحة بلغة تصميم واحدة)
+# prototype-home — نموذج الموقع الكامل (v6.9: مشروع متكامل — الرئيسية + 42 صفحة بلغة تصميم واحدة)
+
+> **للوكيل الجديد:** الدليل الكامل في `02-context-memory/HANDOFF-2026-09-05-v6.9.md` (الجرد، خريطة الكود، دورة الفحص، القرارات). هذا الملف سجل الإصدارات.
 
 مجلد مستقل للمراجعة فقط (`noindex`). ملف واحد `index.html` + صور مصغّرة + `hero-samples.html` (أرشيف عيّنات الخطوط — D98، غير مربوط من الموقع). لا يمسّ `keif-aldiafa-web`. v4 محفوظ في git `6c2e22f`، v1 في `prototype-home-v1/` (8788).
 
@@ -176,3 +178,5 @@ cd prototype-home/build && python3 images.py && python3 build.py   # إعادة 
 ## D101 — `links.html` صفحة الروابط المستقلة + الباركود الموحّد
 - شعار + 9 بطاقات فقط (بلا شارة/رأس/فوتر/FAB)، 23KB، تشترك مع contact في `contact_channels(src)`.
 - الباركود: `python3 build/qr.py [URL]` → `qr/links-qr.svg` · `links-qr-1024.png` · `links-qr-card-1080.png` (الافتراضي https://keifaldiafa.com/links).
+- **D102**: رأس contact/links أفقي مضغوط (الشعار يمين، النصوص يسار) — 8/9 بطاقات فوق الطيّة على الجوال.
+- التوثيق الشامل: `02-context-memory/HANDOFF-2026-09-05-v6.9.md` + التقرير 30.

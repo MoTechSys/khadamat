@@ -1,5 +1,7 @@
 # تدقيق Playwright للصفحات الست على 390/1440 + lightbox + فلاتر + نموذج. يحتاج خادم على 8787. تشغيل: cd /home/user/webapp && python3 prototype-home/build/audit_playwright.py
-import asyncio, json
+import asyncio, json, os
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # جذر allpro — اللقطات تُكتب هنا مهما كان cwd
+os.makedirs(os.path.join(ROOT, '01-keif-aldiafa/reports/shots/v6'), exist_ok=True)
 from playwright.async_api import async_playwright
 BASE='http://localhost:8787/'
 PAGES = ['index.html','services.html#zamzam','offerings.html#equipment','portfolio.html?type=government','about.html','contact.html?service=hosts','links.html',
@@ -31,7 +33,7 @@ async def main():
                 await page.evaluate("window.scrollTo(0,600)"); await page.wait_for_timeout(500)
                 info['fabAfterScroll']=await page.evaluate("document.getElementById('fab')?.classList.contains('hide')")
                 await page.evaluate("window.scrollTo(0,0)"); await page.wait_for_timeout(300)
-                fn=f"01-keif-aldiafa/reports/shots/v6/{name}-{pg.split('.html')[0]}.png"
+                fn=os.path.join(ROOT, f"01-keif-aldiafa/reports/shots/v6/{name}-{pg.split('.html')[0]}.png")
                 await page.screenshot(path=fn,full_page=False)
                 # v6.1: لقطة كاملة الطول أيضًا للمراجعة البصرية — نُظهر عناصر .rv أولًا حتى لا تخرج شفافة
                 await page.evaluate("document.querySelectorAll('.rv').forEach(e=>e.classList.add('in'))"); await page.wait_for_timeout(300)
