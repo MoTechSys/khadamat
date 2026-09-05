@@ -19,7 +19,7 @@ PAGES = [('index', 'الرئيسية'), ('services', 'الخدمات'), ('offeri
          ('portfolio', 'أعمالنا'), ('about', 'من نحن'), ('contact', 'تواصل معنا'),
          # v6.3 (D62): الصفحات المحلية — عيّنة تمثيلية (الصور تتكرر عبر المدن بالتدوير؛ dHash يزيل التكرار)
          ('locations', 'المدن'), ('city-jeddah', 'مدينة جدة'), ('sababin-qahwa-jeddah', 'صبابين قهوة جدة'),
-         ('qahwajiin-riyadh', 'قهوجيين الرياض'), ('diyafa-munasabat-makkah', 'ضيافة مناسبات مكة'), ('mubashirin-qahwa-jeddah', 'مباشرين قهوة جدة'), ('qahwajiin-jeddah', 'قهوجيين جدة — النموذج v6.4')]
+         ('qahwajiin-riyadh', 'قهوجيين الرياض'), ('diyafa-munasabat-makkah', 'ضيافة مناسبات مكة'), ('mubashirin-qahwa-jeddah', 'مباشرين قهوة جدة'), ('qahwajiin-jeddah', 'قهوجيين جدة — النموذج v6.5')]
 SEC_AR = {'hero': 'غلاف الصفحة', 'who': 'لمن نعمل', 'works': 'من أعمالنا', 'partners': 'شركاء النجاح', 'staff': 'الطاقم والزي',
           'offerings': 'التقديمات', 'services': 'الخدمات', 'faq': 'الأسئلة الشائعة', 'contact': 'تواصل',
           'g-male': 'الطاقم الرجالي', 'g-female': 'الطاقم النسائي', 'g-heritage': 'تراث وفنون', 'g-setup': 'أركان وتجهيز',

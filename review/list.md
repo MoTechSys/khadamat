@@ -436,10 +436,10 @@
 
 - **1** — مباشرين قهوة في جدة — كيف الضيافة `p-majlis-m-750.webp`
 
-## قهوجيين جدة — النموذج v6.4 (0)
+## قهوجيين جدة — النموذج v6.5 (0)
 
 
-## التكرارات المستبعدة (175)
+## التكرارات المستبعدة (155)
 
 - services: `sv-dagla-1.webp` = الخدمات رقم 2
 - services: `sv-table-4.webp` = الخدمات رقم 15
@@ -545,9 +545,6 @@
 - mubashirin-qahwa-jeddah: `pf-wed-1.webp` = أعمالنا رقم 3
 - mubashirin-qahwa-jeddah: `sv-hostess-2.webp` = الخدمات رقم 34
 - qahwajiin-jeddah: `pf-eq-7-m-750.webp` = الخدمات رقم 1
-- qahwajiin-jeddah: `p-official.webp` = أعمالنا رقم 10
-- qahwajiin-jeddah: `c-flyadeal.webp` = أعمالنا رقم 4
-- qahwajiin-jeddah: `p-wedding.webp` = أعمالنا رقم 3
 - qahwajiin-jeddah: `pf-co-1.webp` = أعمالنا رقم 2
 - qahwajiin-jeddah: `sv-hosts-2.webp` = الخدمات رقم 3
 - qahwajiin-jeddah: `pf-gov-1.webp` = التقديمات والمعدات رقم 108
@@ -567,17 +564,16 @@
 - qahwajiin-jeddah: `11_Al_Mousa_Group.webp` = الرئيسية رقم 14
 - qahwajiin-jeddah: `13_Daam_Broker.webp` = الرئيسية رقم 15
 - qahwajiin-jeddah: `04_WSM_Digital.webp` = الرئيسية رقم 16
-- qahwajiin-jeddah: `10_Milia_Travel.webp` = الرئيسية رقم 17
-- qahwajiin-jeddah: `27_Binladin_Holding.webp` = الرئيسية رقم 18
-- qahwajiin-jeddah: `23_Benchmark_Strategy.webp` = الرئيسية رقم 19
-- qahwajiin-jeddah: `05_Mokab.webp` = الرئيسية رقم 20
-- qahwajiin-jeddah: `19_Sharq_Jeddah_Association.webp` = الرئيسية رقم 21
-- qahwajiin-jeddah: `29_Bahja_Events.webp` = الرئيسية رقم 22
-- qahwajiin-jeddah: `14_Munera_Alessa.webp` = الرئيسية رقم 23
-- qahwajiin-jeddah: `15_Somer.webp` = الرئيسية رقم 24
-- qahwajiin-jeddah: `18_Glamera.webp` = الرئيسية رقم 25
-- qahwajiin-jeddah: `30_Hamat_Leading.webp` = الرئيسية رقم 26
-- qahwajiin-jeddah: `08_Benchmark.webp` = الرئيسية رقم 27
+- qahwajiin-jeddah: `sv-hosts-1.webp` = الخدمات رقم 2
+- qahwajiin-jeddah: `s-buffet.webp` = الرئيسية رقم 35
+- qahwajiin-jeddah: `sv-hosts-2.webp` = الخدمات رقم 3
+- qahwajiin-jeddah: `p-hall.webp` = الرئيسية رقم 4
+- qahwajiin-jeddah: `s-female.webp` = الخدمات رقم 33
+- qahwajiin-jeddah: `s-zamzam.webp` = الرئيسية رقم 33
+- qahwajiin-jeddah: `s-safarjia.webp` = الرئيسية رقم 32
+- qahwajiin-jeddah: `o-counter.webp` = الخدمات رقم 58
+- qahwajiin-jeddah: `s-tent.webp` = الخدمات رقم 53
+- qahwajiin-jeddah: `s-buffet.webp` = الرئيسية رقم 35
 - qahwajiin-jeddah: `pf-co-1.webp` = أعمالنا رقم 2
 - qahwajiin-jeddah: `sv-hosts-2.webp` = الخدمات رقم 3
 - qahwajiin-jeddah: `pf-gov-1.webp` = التقديمات والمعدات رقم 108
@@ -600,19 +596,3 @@
 - qahwajiin-jeddah: `cup-faceted.webp` = صبابين قهوة جدة رقم 6
 - qahwajiin-jeddah: `cup-porcelain.webp` = صبابين قهوة جدة رقم 7
 - qahwajiin-jeddah: `dallah-silver.webp` = صبابين قهوة جدة رقم 8
-- qahwajiin-jeddah: `sv-hosts-1.webp` = الخدمات رقم 2
-- qahwajiin-jeddah: `s-buffet.webp` = الرئيسية رقم 35
-- qahwajiin-jeddah: `sv-hosts-2.webp` = الخدمات رقم 3
-- qahwajiin-jeddah: `p-hall.webp` = الرئيسية رقم 4
-- qahwajiin-jeddah: `s-female.webp` = الخدمات رقم 33
-- qahwajiin-jeddah: `s-zamzam.webp` = الرئيسية رقم 33
-- qahwajiin-jeddah: `s-safarjia.webp` = الرئيسية رقم 32
-- qahwajiin-jeddah: `o-counter.webp` = الخدمات رقم 58
-- qahwajiin-jeddah: `s-tent.webp` = الخدمات رقم 53
-- qahwajiin-jeddah: `s-buffet.webp` = الرئيسية رقم 35
-- qahwajiin-jeddah: `sv-hizam-1.webp` = الخدمات رقم 6
-- qahwajiin-jeddah: `pf-co-17.webp` = أعمالنا رقم 32
-- qahwajiin-jeddah: `k-dallah-silver.webp` = قهوجيين الرياض رقم 1
-- qahwajiin-jeddah: `pf-co-22.webp` = أعمالنا رقم 37
-- qahwajiin-jeddah: `pf-wed-3.webp` = الخدمات رقم 11
-- qahwajiin-jeddah: `pf-eq-3.webp` = الخدمات رقم 65

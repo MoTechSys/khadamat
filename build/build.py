@@ -34,7 +34,7 @@ assert "if(fab && hero){" in SCRIPT, 'fab patch failed'
 WA_SVG = re.search(r'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17\.5[^<]*</svg>', IDX).group(0)
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>'
 HINT = '<span class="hint rv">اسحب لليسار<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m7-7-7 7 7 7"/></svg></span>'
-STAMP = 'v6.4 · 2026-09-05'
+STAMP = 'v6.5 · 2026-09-05'
 
 def wa(text, cls='btn btn-wa', label='تواصل عبر واتساب', ev='wa'):
     return f'<a class="{cls}" href="https://wa.me/{WA_NUM}?text={U.quote(text)}" target="_blank" rel="noopener" data-ev="{ev}">{WA_SVG}{label}</a>'
@@ -705,6 +705,38 @@ MASTER_CSS = '''
 .svc.local b::after{content:" ✦";color:var(--gold);font-size:.75em}
 /* الترتيبات: زر أسفل كل بطاقة */
 .pk article .btn{margin-top:14px;width:100%}
+/* ===== v6.5 — إعادة الهيكلة (D71–D78) ===== */
+/* شركاء النجاح — نسخة مضغوطة بلا فراغ (D73): 6 شعارات بالجوال، 12 بالحاسوب، بلا .rv (تظهر فورًا) */
+.partners.compact{padding-block:28px}
+.partners.compact .sec-head{margin-bottom:14px}
+.partners.compact .sec-head h2{font-size:clamp(1.15rem,3.8vw,1.6rem)}
+.partners.compact .logos{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.partners.compact .logo{height:72px;padding:10px}
+.partners.compact .logo img{inset:10px;width:calc(100% - 20px);height:calc(100% - 20px)}
+.partners.compact .logo:nth-child(n+7){display:none}
+.partners.compact .works-foot{margin-top:14px}
+.partners.compact .works-foot .btn{border:1px solid rgba(197,160,89,.5);color:var(--ink);background:#fff}
+@media (min-width:900px){.partners.compact{padding-block:40px}.partners.compact .logos{grid-template-columns:repeat(6,1fr);gap:12px}.partners.compact .logo{height:92px}.partners.compact .logo:nth-child(n+7){display:grid}}
+/* الخدمات: صور صغيرة 16:10 دائمًا (D74 — لا width/height على .svc img) */
+#services .svc img{height:auto;aspect-ratio:16/10}
+/* كيف نعمل: ثلاثة صفوف نص/صورة في قسم واحد (D75) */
+.roles .split{margin-top:22px}
+.roles .split:first-of-type{margin-top:0}
+.roles .split h2{font-size:clamp(1.1rem,3.8vw,1.4rem)}
+.roles .split figure{aspect-ratio:16/10}
+@media (min-width:900px){.roles .split{margin-top:40px}.roles .split figure{aspect-ratio:4/3}}
+/* التقديمات والعدّة: المقصوصات تحت الشريط */
+#offerings .eq{margin-top:18px}
+/* صف الأيقونات — آخر الصفحة (D76) */
+.socrow{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 10px}
+.socrow a{display:grid;justify-items:center;gap:6px;min-width:64px;color:var(--cream-2);font-size:.74rem;transition:.3s}
+.socrow .ic{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(197,160,89,.38);background:rgba(255,255,255,.04);color:var(--gold-hi);transition:.3s}
+.socrow .ic svg{width:22px;height:22px}
+.socrow a:hover .ic{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 0 22px rgba(197,160,89,.22)}
+.socrow a.wa .ic{background:var(--wa,#25D366);color:#fff;border-color:transparent}
+@media (min-width:900px){.socrow{gap:18px 26px}.socrow .ic{width:58px;height:58px}.socrow .ic svg{width:26px;height:26px}.socrow a{font-size:.82rem;min-width:80px}}
+/* مسافات الجوال بين الأقسام المتتالية — أخفّ من الرئيسية (48px) */
+@media (max-width:899px){#works,#services,#offerings,#faq{padding-block:40px}}
 '''
 
 MASTER_HERO = {('qahwajiin', 'jeddah'): 'pf-eq-7'}   # D65: صورة هيرو ثابتة (picture) — دلال ذهبية في قاعة، تُقرأ فوقها البطاقة الزجاجية
@@ -712,7 +744,30 @@ LATIN = {'jeddah': 'Jeddah', 'riyadh': 'Riyadh', 'makkah': 'Makkah', 'madinah': 
 LOC_IMG = {'sababin-qahwa': 'sv-hosts-1', 'qahwajiin': 's-hosts', 'diyafa-munasabat': 's-buffet'}
 COMPLEMENT = ['hostesses', 'zamzam', 'safarjia', 'counter', 'heritage-tent', 'buffet']
 
+SOC_ICON = {   # D76: أيقونات المنصّات (Simple Icons، CC0) — مسارات فقط، تُلوَّن بالذهبي
+'instagram': 'M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077',
+'tiktok': 'M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z',
+'snapchat': 'M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12 1.033-.301.165-.088.344-.104.464-.104.182 0 .359.029.509.09.45.149.734.479.734.838.015.449-.39.839-1.213 1.168-.089.029-.209.075-.344.119-.45.135-1.139.36-1.333.81-.09.224-.061.524.12.868l.015.015c.06.136 1.526 3.475 4.791 4.014.255.044.435.27.42.509 0 .075-.015.149-.045.225-.24.569-1.273.988-3.146 1.271-.059.091-.12.375-.164.57-.029.179-.074.36-.134.553-.076.271-.27.405-.555.405h-.03c-.135 0-.313-.031-.538-.074-.36-.075-.765-.135-1.273-.135-.3 0-.599.015-.913.074-.6.104-1.123.464-1.723.884-.853.599-1.826 1.288-3.294 1.288-.06 0-.119-.015-.18-.015h-.149c-1.468 0-2.427-.675-3.279-1.288-.599-.42-1.107-.779-1.707-.884-.314-.045-.629-.074-.928-.074-.54 0-.958.089-1.272.149-.211.043-.391.074-.54.074-.374 0-.523-.224-.583-.42-.061-.192-.09-.389-.135-.567-.046-.181-.105-.494-.166-.57-1.918-.222-2.95-.642-3.189-1.226-.031-.063-.052-.15-.055-.225-.015-.243.165-.465.42-.509 3.264-.54 4.73-3.879 4.791-4.02l.016-.029c.18-.345.224-.645.119-.869-.195-.434-.884-.658-1.332-.809-.121-.029-.24-.074-.346-.119-1.107-.435-1.257-.93-1.197-1.273.09-.479.674-.793 1.168-.793.146 0 .27.029.383.074.42.194.789.3 1.104.3.234 0 .384-.06.465-.105l-.046-.569c-.098-1.626-.225-3.651.307-4.837C7.392 1.077 10.739.807 11.727.807l.419-.015h.06z',
+'x': 'M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z',
+'facebook': 'M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z',
+}
+SOC_LABEL = {'instagram': 'إنستغرام', 'tiktok': 'تيك توك', 'snapchat': 'سناب شات', 'x': 'إكس', 'facebook': 'فيسبوك'}
+
+def foot(href, label):
+    """زر واحد أسفل كل قسم عيّنة → الصفحة العامة التي تحوي كل شيء (Q1/Q2 — D72)."""
+    return f'<div class="works-foot rv"><a class="btn btn-glass" href="{href}">{label}</a></div>'
+
+def social_row(wa_text):
+    """صف الأيقونات: واتساب + كل حسابات المالك — في آخر الصفحة قبل الفوتر (Q5 — D76)."""
+    from data import SOCIAL
+    href = f'https://wa.me/{WA_NUM}?text={U.quote(wa_text)}'
+    items = f'<a class="wa" href="{href}" target="_blank" rel="noopener" data-ev="wa_follow" aria-label="واتساب — {WA_DISPLAY}"><span class="ic">{WA_SVG}</span><small>واتساب</small></a>'
+    for k, n, h, d in SOCIAL_NETS:
+        items += f'<a href="{SOCIAL[k]}" target="_blank" rel="noopener" data-ev="{k}" aria-label="{n} — {esc(h)}"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="{SOC_ICON[k]}"/></svg></span><small>{n}</small></a>'
+    return f'<section class="lsec on-black grain" id="follow"><div class="wrap">{sec_head("تابعنا", "شاهد مناسباتنا <em>لحظة بلحظة</em>", "صور وفيديوهات من قلب المناسبات — وواتساب مباشر للحجز.")}<div class="socrow rv">{items}</div></div></section>'
+
 def master_page(rec):
+    """الصفحة النموذجية خدمة×مدينة — v6.5: 15 قسمًا مرتّبة بالأهمية (D71–D78)، كل قسم عيّنة + زر للصفحة العامة."""
     s, c, ar = rec['service'], rec['city'], rec['city']['ar']
     slug = rec['slug']; cur = slug + '.html'; g = 'l-' + slug
     ci = [x['slug'] for x in CITIES].index(c['slug'])
@@ -720,9 +775,10 @@ def master_page(rec):
     imgs = [x for x in rec['imgs'] if x[0] != hero]          # لا نكرّر صورة الهيرو في الشريط
     shots, roles = imgs[:8], imgs[8:] + imgs[:3]
     latin = LATIN.get(c['slug'], c['ar']); h1a, h1b = rec['h1']
-    # 1) الهيرو — بنية الرئيسية نفسها (hcard/cta/proof) + مسار تنقّل + شارات
-    crumbs = '<span>›</span>'.join([f'<a href="index.html">الرئيسية</a>', f'<a href="locations.html">المدن</a>', f'<a href="{city_page(c["slug"])}">{ar}</a>', f'<span>{s["ar"]} {ar}</span>'])
-    body = f'''<section class="hero hero-l" aria-label="{esc(s['ar'] + ' في ' + ar)}">
+    cityp = city_page(c['slug'])
+    # 1) الهيرو — الوعد + واتساب + الأرقام (فوق الطيّة)؛ فئات العملاء داخل .pts (D71: أُدمج «لمن نخدم» هنا)
+    crumbs = '<span>›</span>'.join([f'<a href="index.html">الرئيسية</a>', f'<a href="locations.html">المدن</a>', f'<a href="{cityp}">{ar}</a>', f'<span>{s["ar"]} {ar}</span>'])
+    body = f"""<section class="hero hero-l" aria-label="{esc(s['ar'] + ' في ' + ar)}">
   <div class="bg" aria-hidden="true">{hero_img(hero, '')}</div>
   <div class="wrap">
     <nav class="crumb" aria-label="مسار التنقل">{crumbs}</nav>
@@ -733,58 +789,53 @@ def master_page(rec):
       <div class="sub-latin latin"><span class="l1">Keif Al-Diafa</span><span class="l2">{latin}</span></div>
       <h1>{h1a} <em>{h1b}</em></h1>
       <p class="sub">{rec['intro']}</p>
-      <div class="pts"><span>مؤتمرات {ar} ومعارضها</span><span>مجالس واستقبالات</span><span>أعراس ومناسبات خاصة</span></div>
+      <div class="pts"><span>جهات وفعاليات رسمية</span><span>شركات ومعارض</span><span>أعراس ومناسبات خاصة</span></div>
       <div class="badges-l"><span>+500 مناسبة منذ 2016</span><span>طاقم سعودي مدرّب</span><span>كل أحياء {ar}</span></div>
     </div>
     <div class="cta">{wa(rec['wa'], 'btn btn-gold', 'احجز عبر واتساب', 'wa_hero')}<a class="btn btn-glass" href="#works">أعمالنا في {ar}</a></div>
     <div class="proof" aria-label="أرقامنا"><a href="#works" title="شاهد الأعمال"><b>+500</b>مناسبة نُفّذت</a><i></i><span><b class="ar">منذ 2016</b>خبرة متواصلة</span></div>
   </div>
-</section>'''
-    # 2) لمن نخدم — ثلاث فئات بصياغة المدينة
-    who = [('portfolio.html?type=government', 'p-official', 'قهوجي كيف الضيافة يصب القهوة السعودية في فعالية رسمية', 'الجهات والفعاليات الرسمية', f'مؤتمرات ومعارض {ar} · استقبالات بروتوكولية'),
-           ('portfolio.html?type=corporate', 'c-flyadeal', 'قهوجي في فعالية شركة', 'الشركات', f'افتتاحات · أجنحة معارض · استقبال VIP في فنادق {ar}'),
-           ('portfolio.html?type=private', 'p-wedding', 'طاقم ضيافة في قاعة زواج', 'المناسبات الخاصة', f'أعراس قاعات {ar} · مجالس · احتفالات عائلية')]
-    cards = ''.join(f'<a class="who rv" href="{h}"><img src="img/photos/{im}.webp" alt="{esc(al)}" {sz(im)} loading="lazy" decoding="async"><div><b>{b}</b><small>{sm}</small></div></a>' for h, im, al, b, sm in who)
-    body += f'<section class="on-deep glow who-l" id="who" style="padding-block:40px"><div class="wrap">{sec_head("لمن نخدم", f"طاقم واحد مدرّب — لكل مناسبة في <em>{ar}</em>")}<div class="who-grid">{cards}</div></div></section>'
-    # 3) أعمالنا — شريط 8 لقطات بوسم المدينة (لايت بوكس موروث)
+</section>"""
+    # 2) أعمالنا — 8 لقطات صغيرة (3:4، لايت بوكس) بوسم المدينة → معرض الأعمال الكامل
     figs = ''.join(f'<figure class="shot" data-g="{g}" data-go="portfolio.html" data-go-txt="معرض الأعمال"><img src="img/photos/{n}.webp" alt="{esc(cap + " — " + ar)}" {sz(n)} loading="lazy" decoding="async" data-cap="{esc(cap)}" data-sub="{esc(sub)}"><span class="tag city">{ar}</span><figcaption><b>{cap}</b><span>{sub}</span></figcaption></figure>' for n, cap, sub in shots)
-    body += f'<section class="on-black grain" id="works"><div class="wrap">{sec_head("أعمالنا", f"لقطات من مناسبات {s["ar"]} <em>في {ar}</em>", "اضغط على أي صورة لتكبيرها والتنقّل بين الباقي.", hint=True)}<div class="strip rv">{figs}<span class="edge"></span></div><div class="works-foot rv"><a class="btn btn-glass" href="portfolio.html">معرض الأعمال الكامل</a></div></div></section>'
-    # 4) شركاء النجاح — القسم نفسه من الرئيسية (شعارات + «عرض الكل») بعنوان المدينة
-    body += _home_section('partners').replace('<h2 class="rv">جهات وشركات وثقت بنا</h2>', f'<h2 class="rv">جهات وشركات وثقت بنا — في {ar} وخارجها</h2>')
-    # 5) الأدوار — ثلاثة أقسام نص/صورة متناوبة (المحتوى المحلي المكتوب)
-    for i, sec in enumerate(rec['sections']):
-        h2, txt = sec[0], sec[1]; n, cap, sub = roles[i % len(roles)]
-        body += f'<section class="lsec {"on-deep" if i % 2 == 0 else "on-rich"}" id="s{i+1}"><div class="wrap"><div class="split{" rev" if i % 2 else ""}"><div class="rv"><span class="kick">{s["kicker"]}</span><h2>{h2}</h2><p>{txt}</p>{wa(rec["wa"], "btn btn-wa btn-sm", "اسأل عن التفاصيل", "wa_sec")}</div>{lfig(n, f"{cap} — {ar}", cap, sub, g)}</div></div></section>'
-    # 6) الطاقم والزي — القسم نفسه من الرئيسية
-    body += _home_section('staff').replace('<h2 class="rv">اختر زيّ طاقمك</h2>', f'<h2 class="rv">اختر زيّ طاقمك في {ar}</h2>')
-    # 7) التقديمات — أول 8 مربعات من شريط الرئيسية
-    tiles = ''.join(re.findall(r'<figure class="tile".*?</figure>', _home_section('offerings'), flags=re.S)[:8])
-    body += f'<section class="on-deep" id="offerings"><div class="wrap">{sec_head("التقديمات والمعدات", f"ما الذي يصل إلى ضيوفك في <em>{ar}</em>؟", "تمور وقهوة وحلويات ومشروبات — وكل المعدات تصل مع الطاقم.", hint=True)}<div class="strip rv">{tiles}<span class="edge"></span></div><div class="works-foot rv"><a class="btn btn-glass" href="offerings.html">كل التقديمات والمعدات</a></div></div></section>'
-    # 8) عدّة الضيافة — مقصوصات
-    body += eq_strip()
-    # 9) الترتيبات — ثلاث بطاقات بزر واتساب (بلا أسعار — D68)
-    pk = ''.join(f'<article class="rv"><h3>{n}</h3><p>{d}</p><ul class="feats">{"".join(f"<li>{f}</li>" for f in fs)}</ul>{wa(f"السلام عليكم، أرغب بالاستفسار عن «{n}» في {ar}:\nالتاريخ: \nالمكان: \nعدد الضيوف: ", "btn btn-gold btn-sm", "اطلب هذا الترتيب", "wa_pk")}</article>' for n, d, fs in rec['packages'])
-    body += f'<section class="lsec on-rich glow" id="packages"><div class="wrap">{sec_head("الترتيبات", f"كيف نرتّب {s["ar"]} لمناسبتك في <em>{ar}</em>", "ثلاثة أشكال شائعة — والتشكيل يُحسب على عدد ضيوفك وشكل المكان.")}<div class="pk">{pk}</div></div></section>'
-    # 10) الخدمات — شبكة الرئيسية: خدمات المدينة (مميّزة) + خدمات مكمّلة
+    body += f'<section class="on-black grain" id="works"><div class="wrap">{sec_head("أعمالنا", f"لقطات من مناسبات {s["ar"]} <em>في {ar}</em>", "اضغط على أي صورة لتكبيرها والتنقّل بين الباقي.", hint=True)}<div class="strip rv">{figs}<span class="edge"></span></div>{foot("portfolio.html", "معرض الأعمال الكامل")}</div></section>'
+    # 3) شركاء النجاح — نسخة مضغوطة: 6 شعارات بالجوال / 12 بالحاسوب، بلا فراغ (D73) → كل الشركاء في الرئيسية
+    logos = re.findall(r'<div class="logo"><img [^>]+></div>', _home_section('partners'))[:12]
+    body += f'<section class="partners compact" id="partners"><div class="wrap"><div class="sec-head"><span class="label">شركاء النجاح</span><h2>جهات وشركات وثقت بنا — في {ar} وخارجها</h2></div><div class="logos" aria-label="شركات">{"".join(logos)}</div><div class="works-foot"><a class="btn btn-sm" href="index.html#partners">كل شركاء النجاح · 24 جهة</a></div></div></section>'
+    # 4) الخدمات — بطاقات صغيرة 16:10 (بلا width/height: إصلاح الصور الطويلة — D74) → كل الخدمات
     def svc(href, img, b, small, local=False):
-        return f'<a class="svc rv{" local" if local else ""}" href="{href}"><img src="img/photos/{img}.webp" alt="{esc(b)}" {sz(img)} loading="lazy" decoding="async"><div><b>{b}</b><small>{small}</small></div></a>'
+        return f'<a class="svc rv{" local" if local else ""}" href="{href}"><img src="img/photos/{img}.webp" alt="{esc(b)}" loading="lazy" decoding="async"><div><b>{b}</b><small>{small}</small></div></a>'
     grid = f'<h3 class="svc-grp rv">خدماتنا في {ar}</h3>'
     grid += ''.join(svc(page_of(o['slug'], c['slug']), LOC_IMG[o['slug']], f'{o["ar"]} {ar}', o['short'], True) for o in LOCAL_SERVICES if o['slug'] != s['slug'])
     grid += ''.join(svc(p['slug'] + '.html', 'sv-hosts-2', p['ar'], p['short'], True) for p in INTENT_PAGES if p['city'] == c['slug'])
-    grid += svc(city_page(c['slug']), CITY_HERO[ci % len(CITY_HERO)], f'كل خدماتنا في {ar}', f'{c["region"]} · صفحة المدينة', True)
+    grid += svc(cityp, CITY_HERO[ci % len(CITY_HERO)], f'كل خدماتنا في {ar}', f'{c["region"]} · صفحة المدينة', True)
     grid += '<h3 class="svc-grp rv">تكمّل مناسبتك</h3>' + ''.join(svc(f'services.html#{k}', SERVICE_HERO_IMG[k], SERVICES[k]['title'], SERVICES[k]['short']) for k in COMPLEMENT)
-    body += f'<section class="on-black grain" id="services"><div class="wrap">{sec_head("الخدمات", f"كل ما تحتاجه مناسبتك في {ar} — <em>من طاقم واحد</em>", "صفحات مفصّلة لكل خدمة في مدينتك، وخدمات مكمّلة من الصفحات العامة.")}<div class="svcs">{grid}</div></div></section>'
-    # 11) لماذا نحن
-    body += f'<section class="lsec on-deep" id="why"><div class="wrap">{sec_head("لماذا نحن", f"لماذا يختارنا أهل <em>{ar}</em>؟")}<ul class="why">{"".join(f"<li class=\"rv\">{w}</li>" for w in rec["why"])}</ul></div></section>'
-    # 12) معرض ثانٍ — 6 صور غير مكرّرة
-    used = {hero} | {x[0] for x in shots} | {x[0] for x in roles[:3]}
-    gal = [x for x in POOL[s['slug']] + POOL['diyafa-munasabat'] if x[0] not in used][:6]
-    body += f'<section class="lsec on-rich" id="gallery"><div class="wrap">{sec_head("من أعمالنا", "لقطات أخرى من مناسباتنا", "اضغط على أي صورة لتكبيرها.")}<div class="lgal">{"".join(lfig(n, f"{cap} — {sub}", cap, sub, g) for n, cap, sub in gal)}</div></div></section>'
-    # 13–16) الأسئلة، الأحياء، التواصل، الروابط
+    body += f'<section class="on-deep glow" id="services"><div class="wrap">{sec_head("الخدمات", f"كل ما تحتاجه مناسبتك في {ar} — <em>من طاقم واحد</em>", "خدمات مدينتك مميّزة بـ ✦ — والباقي من الصفحات العامة.")}<div class="svcs">{grid}</div>{foot("services.html", "كل الخدمات")}</div></section>'
+    # 5) كيف يعمل الطاقم — المحتوى المحلي المكتوب (3 أدوار) في قسم واحد (D75) → واتساب
+    rows = ''.join(f'<div class="split{" rev" if i % 2 else ""}"><div class="rv"><span class="kick">{s["kicker"]}</span><h2>{sec[0]}</h2><p>{sec[1]}</p></div>{lfig(roles[i % len(roles)][0], f"{roles[i % len(roles)][1]} — {ar}", roles[i % len(roles)][1], roles[i % len(roles)][2], g)}</div>' for i, sec in enumerate(rec['sections']))
+    body += f'<section class="lsec on-rich roles" id="roles"><div class="wrap">{sec_head("كيف نعمل", f"ماذا يفعل طاقمنا في مناسبتك <em>في {ar}</em>؟")}{rows}<div class="works-foot rv">{wa(rec["wa"], "btn btn-wa", "اسأل عن التفاصيل", "wa_sec")}</div></div></section>'
+    # 6) الطاقم والزي — القسم نفسه من الرئيسية (5 صور صغيرة 3:4) → تفاصيل الزي في صفحة الخدمات
+    st = _home_section('staff').replace('<h2 class="rv">اختر زيّ طاقمك</h2>', f'<h2 class="rv">اختر زيّ طاقمك في {ar}</h2>')
+    body += st.replace('</div>\n</section>', foot('services.html#hosts', 'تفاصيل الزي والطاقم') + '</div>\n</section>')
+    # 7) التقديمات والعدّة — 8 مربعات + 6 مقصوصات في قسم واحد (D75: أُدمج eq_strip) → كل التقديمات
+    tiles = ''.join(re.findall(r'<figure class="tile".*?</figure>', _home_section('offerings'), flags=re.S)[:8])
+    cut_figs = ''.join(f'<figure class="rv"><img src="img/cutouts/{f}.webp" alt="{esc(n)}" width="480" height="480" loading="lazy" decoding="async"><figcaption>{n}</figcaption></figure>' for f, n in CUTOUT_ITEMS)
+    body += f'<section class="on-black grain" id="offerings"><div class="wrap">{sec_head("التقديمات والعدّة", f"ما الذي يصل إلى ضيوفك في <em>{ar}</em>؟", "تمور وقهوة وحلويات ومشروبات — والدلال والفناجين وأطقم التقديم تصل مع الطاقم.", hint=True)}<div class="strip rv">{tiles}<span class="edge"></span></div><div class="eq">{cut_figs}</div>{foot("offerings.html", "كل التقديمات والمعدات")}</div></section>'
+    # 8) الترتيبات — ثلاث بطاقات، كل واحدة بزر واتساب (بلا أسعار — D68)
+    pk = ''.join(f'<article class="rv"><h3>{n}</h3><p>{d}</p><ul class="feats">{"".join(f"<li>{f}</li>" for f in fs)}</ul>{wa(f"السلام عليكم، أرغب بالاستفسار عن «{n}» في {ar}:\nالتاريخ: \nالمكان: \nعدد الضيوف: ", "btn btn-gold btn-sm", "اطلب هذا الترتيب", "wa_pk")}</article>' for n, d, fs in rec['packages'])
+    body += f'<section class="lsec on-rich glow" id="packages"><div class="wrap">{sec_head("الترتيبات", f"كيف نرتّب {s["ar"]} لمناسبتك في <em>{ar}</em>", "ثلاثة أشكال شائعة — والتشكيل يُحسب على عدد ضيوفك وشكل المكان.")}<div class="pk">{pk}</div></div></section>'
+    # 9) لماذا نحن → من نحن
+    body += f'<section class="lsec on-deep" id="why"><div class="wrap">{sec_head("لماذا نحن", f"لماذا يختارنا أهل <em>{ar}</em>؟")}<ul class="why">{"".join(f"<li class=\"rv\">{w}</li>" for w in rec["why"])}</ul>{foot("about.html", "تعرّف علينا أكثر")}</div></section>'
+    # 10) الأسئلة الشائعة
     body += faq_block(rec['faqs'], f'أسئلة شائعة عن {s["ar"]} في {ar}')
-    body += dist_block(f'نصل إلى كل أحياء {ar}', rec['districts'])
+    # 11) التغطية → صفحة المدينة
+    body += dist_block(f'نصل إلى كل أحياء {ar}', rec['districts']).replace('</div></div></section>', f'</div>{foot(cityp, f"كل خدماتنا في {ar}")}</div></section>')
+    # 12) احجز
     body += contact_block(f'احجز {s["ar"]} <em>في {ar}</em>', 'أرسل التاريخ والمكان وعدد الضيوف — ونرتّب لك الطاقم والعدّة كاملة.', rec['wa'])
+    # 13) روابط
     body += links_block(f'{s["ar"]} في مدن أخرى — وخدمات {ar}', rec['others'] + rec['other_cities'] + [{'label': 'كل المدن', 'href': 'locations.html'}], 'rel')
+    # 14) تابعنا — صف الأيقونات في الأخير (Q5)
+    body += social_row(rec['wa'])
     return shell(cur, rec['title'], rec['desc'], [], body, extra_css=LOCAL_CSS + MASTER_CSS, hero_img=hero, section='locations.html')
 
 MASTER_PAGES = {('qahwajiin', 'jeddah')}   # D63: النموذج المعروض للاعتماد — بعد الموافقة: كل الأزواج (LOCAL_SERVICES × CITIES)
