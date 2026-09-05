@@ -449,13 +449,9 @@ def build_about():
     return shell('about.html', 'من نحن', 'كيف الضيافة — مؤسسة سعودية للضيافة الفاخرة منذ 2016: قهوجيين وصبابين وصبابات، تقديمات ومعدات، لأكثر من 500 مناسبة.', secs, body, hero_img='ab-hall')
 
 # ======================= contact.html =======================
-def build_contact():
-    """v6.9 (D99): صفحة التواصل أعيدت هيكلتها على نمط «صفحة روابط» فاخرة: شعارنا في الرأس، بطاقات بلون كل منصّة،
-    وعند الضغط يظهر تأثير «الأومنتريكس» (حلقات تتّسع + وميض بلون المنصّة + أيقونة تدور) ثم الانتقال. النموذج أسفلها."""
-    opts = ''.join(f'<optgroup label="{g["label"]}">' + ''.join(f'<option value="{i}">{SERVICES[i]["title"]}</option>' for i in g['ids']) + '</optgroup>' for g in SERVICE_GROUPS)
-    cities = ['جدة','مكة المكرمة','المدينة المنورة','الرياض','الطائف','الدمام','أبها','ينبع']
-    copts = ''.join(f'<option>{c}</option>' for c in cities) + '<option>مدينة أخرى</option>'
-    wa_href = f"https://wa.me/{WA_NUM}?text={U.quote('السلام عليكم، وصلتكم من صفحة التواصل. أرغب بالاستفسار عن خدمات كيف الضيافة لمناسبة.')}"
+def contact_channels(src='contact'):
+    """رأس الشعار + بطاقات القنوات التسع — مشتركة بين contact.html وصفحة الروابط المستقلة links.html (D101). src='links' → بلا فتات خبز ورسالة واتساب تذكر صفحة الروابط."""
+    wa_href = f"https://wa.me/{WA_NUM}?text={U.quote('السلام عليكم، وصلتكم من ' + ('صفحة التواصل' if src == 'contact' else 'صفحة الروابط') + '. أرغب بالاستفسار عن خدمات كيف الضيافة لمناسبة.')}"
     TEL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>'
     MAIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7.5 8.5 6 8.5-6"/></svg>'
     MAPS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5s-7-6.4-7-11.5a7 7 0 0 1 14 0c0 5.1-7 11.5-7 11.5z"/><circle cx="12" cy="10" r="2.6"/></svg>'
@@ -481,10 +477,9 @@ def build_contact():
                   f'<span class="ch-ic" aria-hidden="true"><span class="ch-dial"></span><img src="img/links/icon-{k}.webp" alt="" width="256" height="256" loading="{"eager" if i < 3 else "lazy"}" decoding="async"></span>'
                   f'<span class="ch-tx"><span class="ch-name"><b>{en}</b><i>— {ar}</i></span><small dir="ltr">{esc(handle)}</small></span>'
                   f'<span class="ch-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span></a>\n')
-    city_links = ''.join(f'<a{" class=\"main\"" if c["slug"]=="jeddah" else ""} href="{city_page(c["slug"])}">{c["ar"]}</a>' for c in CITIES)
     ARR = '\u203a'
-    body = (f'<section class="linkhead grain" aria-label="تواصل معنا"><div class="wrap">'
-            f'<div class="crumb"><a href="index.html">الرئيسية</a><span>{ARR}</span><span>تواصل</span></div>'
+    crumb = f'<div class="crumb"><a href="index.html">الرئيسية</a><span>{ARR}</span><span>تواصل</span></div>' if src == 'contact' else ''
+    return (f'<section class="linkhead grain" aria-label="تواصل معنا"><div class="wrap">{crumb}'
             f'<div class="emblem" aria-hidden="true"><span class="emblem-orbit"></span><span class="emblem-orbit o2"></span><img src="img/logo-emblem.webp" srcset="img/logo-emblem-120.webp 120w, img/logo-emblem.webp 225w" sizes="(min-width:900px) 90px, 74px" alt="" width="225" height="270" fetchpriority="high"></div>'
             f'<span class="label">تواصل معنا</span><h1>كيف <em>الضيافة</em></h1>'
             f'<div class="orn" aria-hidden="true"><i></i><b>\u2726</b><i></i></div>'
@@ -492,7 +487,69 @@ def build_contact():
             f'<p class="sub">اختر القناة الأنسب لك — واتساب هو الأسرع، والاستشارة مجانية بلا التزام.</p>'
             f'</div></section>\n'
             f'<section class="on-rich" id="channels" aria-label="قنوات التواصل"><div class="wrap"><nav class="chlist" aria-label="قنوات التواصل مع كيف الضيافة">{cards}</nav>'
-            f'<p class="chnote rv">نعمل من السبت إلى الخميس، ونستقبل طلبات المناسبات الطارئة على واتساب في أي وقت.</p></div></section>\n'
+            f'<p class="chnote rv">نعمل من السبت إلى الخميس، ونستقبل طلبات المناسبات الطارئة على واتساب في أي وقت.</p></div></section>\n')
+
+def build_links():
+    """D101 — صفحة الروابط المستقلة links.html (link-in-bio للباركود الموحّد): الشعار + البطاقات التسع فقط.
+    بلا شارة المراجعة، بلا رأس الموقع، بلا فوتر، بلا زر واتساب طافٍ، بلا معرض. CSS مقتطع: المتغيّرات والخطوط والقاعدة + CONTACT_CSS فقط."""
+    base = CSS[:CSS.index('/* الخامة */')]          # @font-face + :root + reset (بلا بقية أنماط الرئيسية)
+    grain = cut(CSS, '.grain{', '.grain>*{position:relative}')
+    crumb = ''
+    body = contact_channels('links')
+    js = CONTACT_JS.replace('__WA__', WA_NUM)
+    js = js[:js.index("  const f=document.getElementById('leadForm')")] + '})();\n</script>'   # الأومنتريكس فقط، بلا منطق النموذج
+    css = base + grain + CONTACT_CSS + LINKS_CSS
+    return f"""<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>روابط كيف الضيافة — تواصل معنا</title>
+<meta name="description" content="كل قنوات التواصل مع كيف الضيافة في صفحة واحدة: واتساب {WA_DISPLAY}، اتصال، إنستغرام، تيك توك، سناب شات، إكس، فيسبوك، خرائط Google والبريد.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0D0D0D">
+<meta property="og:title" content="روابط كيف الضيافة">
+<meta property="og:description" content="اختر قناة التواصل الأنسب لك — واتساب هو الأسرع.">
+<meta property="og:image" content="img/og.jpg">
+<link rel="icon" href="img/logo-emblem.webp">
+<link rel="preload" as="image" href="img/logo-emblem-120.webp">
+{FONTS}
+<style>{css}</style>
+</head>
+<body class="links-page">
+<main id="top">
+{body}
+<footer class="lfoot"><a href="index.html">الموقع الرئيسي</a><span aria-hidden="true">·</span><span>© 2026 كيف الضيافة · س.ت 7033069720</span></footer>
+</main>
+{js}
+</body>
+</html>"""
+
+
+LINKS_CSS = r"""
+/* ===== links.html (D101): صفحة مستقلة — لا شارة ولا رأس ولا فوتر ===== */
+body.links-page .linkhead .label{font-size:.8rem}
+body.links-page .orn b{font-size:.8rem}
+body.links-page{padding-top:0;min-height:100dvh;background:radial-gradient(ellipse 120% 70% at 50% -10%,rgba(197,160,89,.16),transparent 60%),radial-gradient(ellipse 90% 60% at 50% 110%,rgba(197,160,89,.08),transparent 65%),var(--rich)}
+body.links-page .linkhead{background:transparent;padding-block:34px 22px}
+body.links-page .linkhead::after{display:none}
+body.links-page #channels{background:transparent;padding-block:8px 28px}
+body.links-page .chnote{display:none}
+.lfoot{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 20px calc(28px + env(safe-area-inset-bottom));font-size:.8rem;color:var(--cream-3);letter-spacing:.02em}
+.lfoot a{color:var(--gold);border-bottom:1px solid rgba(197,160,89,.35)}
+@media (min-width:900px){body.links-page .chlist{max-width:560px;grid-template-columns:1fr}body.links-page .linkhead{padding-block:48px 24px}}
+"""
+
+
+def build_contact():
+    """v6.9 (D99): صفحة التواصل أعيدت هيكلتها على نمط «صفحة روابط» فاخرة: شعارنا في الرأس، بطاقات بلون كل منصّة،
+    وعند الضغط يظهر تأثير «الأومنتريكس» (حلقات تتّسع + وميض بلون المنصّة + أيقونة تدور) ثم الانتقال. النموذج أسفلها."""
+    opts = ''.join(f'<optgroup label="{g["label"]}">' + ''.join(f'<option value="{i}">{SERVICES[i]["title"]}</option>' for i in g['ids']) + '</optgroup>' for g in SERVICE_GROUPS)
+    cities = ['جدة','مكة المكرمة','المدينة المنورة','الرياض','الطائف','الدمام','أبها','ينبع']
+    copts = ''.join(f'<option>{c}</option>' for c in cities) + '<option>مدينة أخرى</option>'
+    city_links = ''.join(f'<a{" class=\"main\"" if c["slug"]=="jeddah" else ""} href="{city_page(c["slug"])}">{c["ar"]}</a>' for c in CITIES)
+    ARR = '\u203a'
+    body = contact_channels('contact') + (
             f'<section class="on-deep glow" id="form"><div class="wrap">'
             + sec_head('أو أرسل تفاصيل مناسبتك', 'نموذج <em>طلب عرض</em>', 'املأ الحقول وستُفتح رسالة واتساب مُعدّة بكل التفاصيل — لا يُخزَّن أي شيء هنا.') +
             f'<form class="form rv" id="leadForm" novalidate>'
@@ -574,7 +631,7 @@ CONTACT_CSS = r'''
 .ch-name{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;color:var(--gold-hi);text-shadow:0 1px 2px rgba(0,0,0,.6)}
 .ch-name b{font-family:var(--f-body);font-size:1.02rem;font-weight:700;letter-spacing:.01em;direction:ltr;unicode-bidi:isolate}
 .ch-name i{font-style:normal;font-family:var(--f-head);font-size:.86rem;opacity:.68}
-.ch-tx small{display:block;color:rgba(226,198,142,.52);font-size:.72rem;letter-spacing:.06em;unicode-bidi:isolate;text-align:start;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch-tx small{display:block;color:rgba(226,198,142,.6);font-size:.8rem;letter-spacing:.06em;unicode-bidi:isolate;text-align:start;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ch-arrow{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,rgba(197,160,89,.26),rgba(197,160,89,.05));border:1px solid rgba(197,160,89,.42);color:var(--gold-hi);box-shadow:inset 0 1px 0 rgba(255,255,255,.12);transition:transform .3s ease,border-color .3s}
 .ch-arrow svg{width:13px;height:13px}
 @media (hover:hover) and (pointer:fine){
@@ -964,7 +1021,7 @@ def build_local_all():
 
 
 if __name__ == '__main__':
-    out = {'services.html':build_services(),'offerings.html':build_offerings(),'portfolio.html':build_portfolio(),'about.html':build_about(),'contact.html':build_contact()}
+    out = {'services.html':build_services(),'offerings.html':build_offerings(),'portfolio.html':build_portfolio(),'about.html':build_about(),'contact.html':build_contact(),'links.html':build_links()}
     out.update(build_local_all())   # v6.3: 36 صفحة محلية (D55–D62)
     for k, v in out.items():
         open(os.path.join(ROOT, k), 'w', encoding='utf-8').write(v); print(k, len(v)//1024, 'KB')

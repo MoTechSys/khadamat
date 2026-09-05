@@ -2,7 +2,7 @@
 import asyncio, json
 from playwright.async_api import async_playwright
 BASE='http://localhost:8787/'
-PAGES = ['index.html','services.html#zamzam','offerings.html#equipment','portfolio.html?type=government','about.html','contact.html?service=hosts',
+PAGES = ['index.html','services.html#zamzam','offerings.html#equipment','portfolio.html?type=government','about.html','contact.html?service=hosts','links.html',
          # v6.3 (D62): عيّنة الصفحات المحلية
          'locations.html','city-jeddah.html','city-riyadh.html','sababin-qahwa-jeddah.html#packages','qahwajiin-jeddah.html','qahwajiin-makkah.html','diyafa-munasabat-dammam.html','mubashirin-qahwa-jeddah.html','social.html','legal.html',
          # v6.8 (D95–D97): كل الصفحات المحلية بمخطّط واحد — عيّنة إضافية

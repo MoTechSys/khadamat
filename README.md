@@ -172,3 +172,7 @@ cd prototype-home/build && python3 images.py && python3 build.py   # إعادة 
 - الضغط على بطاقة = تأثير أومنتريكس بلون المنصّة (قرص يومض ويدور، حلقات تتّسع، لمعة، وميض شاشة) ثم الانتقال بعد 620ms؛ يحترم reduced-motion.
 - الاختبار: 390/1440 0 أخطاء 0 hscroll · Lighthouse جوال perf 99 / a11y 100.
 - **D100**: البطاقات بمقاس osoul (78px) وأيقونات 3D حقيقية في `img/links/` (4 من مستودع المالك + 5 مولَّدة بنفس الأسلوب)، سطح واقعي 4 طبقات، hover للمؤشّر فقط.
+
+## D101 — `links.html` صفحة الروابط المستقلة + الباركود الموحّد
+- شعار + 9 بطاقات فقط (بلا شارة/رأس/فوتر/FAB)، 23KB، تشترك مع contact في `contact_channels(src)`.
+- الباركود: `python3 build/qr.py [URL]` → `qr/links-qr.svg` · `links-qr-1024.png` · `links-qr-card-1080.png` (الافتراضي https://keifaldiafa.com/links).
