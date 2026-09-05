@@ -34,7 +34,7 @@ assert "if(fab && hero){" in SCRIPT, 'fab patch failed'
 WA_SVG = re.search(r'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17\.5[^<]*</svg>', IDX).group(0)
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>'
 HINT = '<span class="hint rv">اسحب لليسار<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m7-7-7 7 7 7"/></svg></span>'
-STAMP = 'v6.8 · 2026-09-05'
+STAMP = 'v6.9 · 2026-09-05'
 
 def wa(text, cls='btn btn-wa', label='تواصل عبر واتساب', ev='wa'):
     return f'<a class="{cls}" href="https://wa.me/{WA_NUM}?text={U.quote(text)}" target="_blank" rel="noopener" data-ev="{ev}">{WA_SVG}{label}</a>'
@@ -170,13 +170,7 @@ PAGE_CSS = '''
 .form textarea{min-height:110px;resize:vertical}
 .form .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .form .note{font-size:.8rem;color:var(--cream-3)}
-.ways{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.way{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;border:1px solid var(--line-2);border-radius:16px;padding:16px 10px;background:rgba(36,36,36,.5);transition:.3s}
-.way:hover{border-color:var(--line-hi);transform:translateY(-3px)}
-.way svg{width:26px;height:26px;color:var(--gold-hi)}
-.way b{font-family:var(--f-head);font-size:.98rem;color:var(--cream)}
-.way small{color:var(--cream-3);font-size:.78rem;direction:ltr;unicode-bidi:isolate}
-@media (min-width:900px){.cgrid{grid-template-columns:1.1fr .9fr;align-items:start;gap:32px}.ways{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:900px){.cgrid{grid-template-columns:1.1fr .9fr;align-items:start;gap:32px}}
 '''
 
 PAGE_JS = '''
@@ -456,61 +450,158 @@ def build_about():
 
 # ======================= contact.html =======================
 def build_contact():
+    """v6.9 (D99): صفحة التواصل أعيدت هيكلتها على نمط «صفحة روابط» فاخرة: شعارنا في الرأس، بطاقات بلون كل منصّة،
+    وعند الضغط يظهر تأثير «الأومنتريكس» (حلقات تتّسع + وميض بلون المنصّة + أيقونة تدور) ثم الانتقال. النموذج أسفلها."""
     opts = ''.join(f'<optgroup label="{g["label"]}">' + ''.join(f'<option value="{i}">{SERVICES[i]["title"]}</option>' for i in g['ids']) + '</optgroup>' for g in SERVICE_GROUPS)
     cities = ['جدة','مكة المكرمة','المدينة المنورة','الرياض','الطائف','الدمام','أبها','ينبع']
     copts = ''.join(f'<option>{c}</option>' for c in cities) + '<option>مدينة أخرى</option>'
-    ic = {'wa':WA_SVG,'tel':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>',
-          'mail':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
-          'ig':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
-          'tt':'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.3 1.7 3.7 4 4v3.2c-1.5 0-2.9-.5-4-1.3V15a5.5 5.5 0 1 1-5.5-5.5c.3 0 .7 0 1 .1v3.3a2.3 2.3 0 1 0 1.3 2.1V3h3.2z"/></svg>',
-          'x':'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3l-7 8 8 10h-6.3l-4.9-6.4L4.7 21h-3l7.5-8.6L1.5 3h6.4l4.4 5.9L17.5 3zm-1 16.2h1.7L7.6 4.7H5.8l10.7 14.5z"/></svg>',
-          'snap':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3c3 0 5 2.2 5 5v3c1 .3 2 .2 2.5-.2-.3 1-1.5 1.6-2.5 2 .8 1.7 2.3 2.8 4 3.2-.5.8-1.8 1-2.8 1.2-.2.6-.3 1.3-.6 1.5-.9-.2-1.8-.2-2.6.3-1 .6-1.8 1-3 1s-2-.4-3-1c-.8-.5-1.7-.5-2.6-.3-.3-.2-.4-.9-.6-1.5-1-.2-2.3-.4-2.8-1.2 1.7-.4 3.2-1.5 4-3.2-1-.4-2.2-1-2.5-2 .5.4 1.5.5 2.5.2V8c0-2.8 2-5 5-5z"/></svg>',
-          'map':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>'}
-    ways = f'''<div class="ways rv">
-  <a class="way" href="https://wa.me/{WA_NUM}?text={U.quote('السلام عليكم، أرغب بالاستفسار عن خدمات كيف الضيافة لمناسبة')}" target="_blank" rel="noopener" data-ev="wa_way">{ic['wa']}<b>واتساب</b><small>{WA_DISPLAY}</small></a>
-  <a class="way" href="tel:+966508252134" data-ev="tel_way">{ic['tel']}<b>اتصل بنا</b><small>{WA_DISPLAY}</small></a>
-  <a class="way" href="mailto:{EMAIL}" data-ev="mail">{ic['mail']}<b>البريد</b><small>{EMAIL}</small></a>
-  <a class="way" href="{SOCIAL['maps']}" target="_blank" rel="noopener" data-ev="maps">{ic['map']}<b>خرائط Google</b><small>4.5 ★ · 49 تقييمًا</small></a>
-  <a class="way" href="{SOCIAL['instagram']}" target="_blank" rel="noopener" data-ev="ig">{ic['ig']}<b>إنستغرام</b><small>@keifaldiafa</small></a>
-  <a class="way" href="{SOCIAL['tiktok']}" target="_blank" rel="noopener" data-ev="tt">{ic['tt']}<b>تيك توك</b><small>@keifaldiafa</small></a>
-  <a class="way" href="{SOCIAL['x']}" target="_blank" rel="noopener" data-ev="x">{ic['x']}<b>X</b><small>@keifaldiafa</small></a>
-  <a class="way" href="{SOCIAL['snapchat']}" target="_blank" rel="noopener" data-ev="snap">{ic['snap']}<b>سناب شات</b><small>keifaldiafa</small></a>
-</div>'''
-    body = phero('تواصل معنا', 'احجز قهوجيين وطاقم ضيافة <em>لمناسبتك</em>', 'نسعد بخدمتكم — املأ النموذج وستُفتح رسالة واتساب مُعدّة بكل التفاصيل، أو تواصل مباشرة بالطريقة التي تفضّلها. استشارة مجانية بلا التزام.', 'p-reception', 'استقبال VIP بقهوة وتمور', crumb='تواصل')
-    body += f'''<section class="on-deep glow" id="form"><div class="wrap"><div class="cgrid">
-  <form class="form rv" id="leadForm" novalidate>
-    <div class="row"><label>الاسم <span aria-hidden="true" style="color:var(--gold)">*</span><input name="name" required autocomplete="name" placeholder="اسمك أو اسم الجهة"></label>
-    <label>الجوال <span aria-hidden="true" style="color:var(--gold)">*</span><input name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="05xxxxxxxx" dir="ltr"></label></div>
-    <div class="row"><label>البريد الإلكتروني<input name="email" type="email" autocomplete="email" placeholder="اختياري" dir="ltr"></label>
-    <label>تاريخ المناسبة<input name="date" type="date"></label></div>
-    <div class="row"><label>المدينة<select name="city">{copts}</select></label>
-    <label>عدد الضيوف التقريبي<input name="guests" type="number" min="1" inputmode="numeric" placeholder="مثال: 200" dir="ltr"></label></div>
-    <label>الخدمة المطلوبة<select name="service" id="svcSel"><option value="">اختر الخدمة</option>{opts}<optgroup label="أخرى"><option value="offerings">تقديمات ومعدات</option><option value="package">باقة متكاملة (طاقم + تقديمات + تجهيز)</option></optgroup></select></label>
-    <label>تفاصيل المناسبة <span aria-hidden="true" style="color:var(--gold)">*</span><textarea name="message" required placeholder="نوع المناسبة، المكان، الوقت، أي طلبات خاصة"></textarea></label>
-    <p class="note" id="formErr" role="alert" hidden style="color:#f0b3b3"></p>
-    <button class="btn btn-gold btn-block" type="submit" data-ev="lead_submit">{WA_SVG}أرسل عبر واتساب</button>
-    <p class="note">لا يُخزَّن أي شيء هنا — تُفتح رسالة واتساب بالتفاصيل ليتابعها فريقنا معك مباشرة.</p>
-  </form>
-  <div>
-    <div class="sec-head" style="text-align:start;margin-bottom:14px"><span class="label rv">أو مباشرة</span><h2 class="rv" style="font-size:1.5rem">طرق التواصل</h2></div>
-    {ways}
-  </div>
-</div></div></section>
-<section class="cities on-black" id="cities" aria-label="المدن التي نخدمها"><div class="wrap rv"><span class="lbl">نصل إليكم في:</span>{''.join(f'<a{" class=\"main\"" if c["slug"]=="jeddah" else ""} href="{city_page(c["slug"])}">{c["ar"]}</a>' for c in CITIES)}<a href="locations.html">كل المدن ›</a><span class="lbl" style="margin-inline-start:6px">وجميع مناطق المملكة</span></div></section>'''
-    js = f'''<script>
-(function(){{
+    wa_href = f"https://wa.me/{WA_NUM}?text={U.quote('السلام عليكم، وصلتكم من صفحة التواصل. أرغب بالاستفسار عن خدمات كيف الضيافة لمناسبة.')}"
+    TEL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>'
+    MAIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7.5 8.5 6 8.5-6"/></svg>'
+    MAPS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5s-7-6.4-7-11.5a7 7 0 0 1 14 0c0 5.1-7 11.5-7 11.5z"/><circle cx="12" cy="10" r="2.6"/></svg>'
+    def si(k): return f'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="{SOC_ICON[k]}"/></svg>'
+    # (المعرّف، اللاتيني، العربي، المُعرّف الظاهر، الرابط، لون المنصّة، الأيقونة، خارجي؟، وصف)
+    CH = [
+        ('whatsapp', 'WhatsApp', 'واتساب', WA_DISPLAY, wa_href, '#25D366', WA_SVG, True, 'الأسرع — ردّ خلال دقائق'),
+        ('tel', 'Call', 'اتصال مباشر', WA_DISPLAY, 'tel:+966508252134', '#E2C68E', TEL, False, 'مكالمة هاتفية'),
+        ('instagram', 'Instagram', 'إنستغرام', '@keifaldiafa', SOCIAL['instagram'], '#E1306C', si('instagram'), True, 'معرض أعمالنا بالصور'),
+        ('tiktok', 'TikTok', 'تيك توك', '@keifaldiafa', SOCIAL['tiktok'], '#69C9D0', si('tiktok'), True, 'فيديوهات من قلب المناسبات'),
+        ('snapchat', 'Snapchat', 'سناب شات', 'keifaldiafa', SOCIAL['snapchat'], '#FFFC00', si('snapchat'), True, 'تغطية حيّة يوم التنفيذ'),
+        ('x', 'X', 'إكس', '@keifaldiafa', SOCIAL['x'], '#D9D9D9', si('x'), True, 'أخبارنا وجديدنا'),
+        ('facebook', 'Facebook', 'فيسبوك', 'keifaldiafa', SOCIAL['facebook'], '#1877F2', si('facebook'), True, 'صفحتنا وتقييمات عملائنا'),
+        ('maps', 'Google Maps', 'خرائط Google', '4.5 ★ · 49 تقييمًا', SOCIAL['maps'], '#34A853', MAPS, True, 'موقعنا وتقييمات الزبائن'),
+        ('mail', 'Email', 'البريد', EMAIL, f'mailto:{EMAIL}', '#C5A059', MAIL, False, 'للمراسلات الرسمية'),
+    ]
+    CH = [c for c in CH if re.match(r'^(https?://|tel:|mailto:).+', c[4])]   # حاجز: لا بطاقة بلا رابط حقيقي (مبدأ osoul linksPlatforms)
+    cards = ''
+    for i, (k, en, ar, handle, href, tint, icon, ext, note) in enumerate(CH):
+        tgt = ' target="_blank" rel="noopener"' if ext else ''
+        cards += (f'<a class="ch ch-{k}" href="{href}"{tgt} data-ev="c_{k}" style="--tint:{tint};--i:{i}" aria-label="{ar} — {esc(handle)}">'
+                  f'<span class="ch-ring" aria-hidden="true"></span>'
+                  f'<span class="ch-ic" aria-hidden="true"><span class="ch-dial"></span>{icon}</span>'
+                  f'<span class="ch-tx"><span class="ch-name"><b>{ar}</b><i>{en}</i></span><small dir="ltr">{esc(handle)}</small><span class="ch-note">{note}</span></span>'
+                  f'<span class="ch-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span></a>\n')
+    city_links = ''.join(f'<a{" class=\"main\"" if c["slug"]=="jeddah" else ""} href="{city_page(c["slug"])}">{c["ar"]}</a>' for c in CITIES)
+    ARR = '\u203a'
+    body = (f'<section class="linkhead grain" aria-label="تواصل معنا"><div class="wrap">'
+            f'<div class="crumb"><a href="index.html">الرئيسية</a><span>{ARR}</span><span>تواصل</span></div>'
+            f'<div class="emblem" aria-hidden="true"><span class="emblem-orbit"></span><span class="emblem-orbit o2"></span><img src="img/logo-emblem.webp" srcset="img/logo-emblem-120.webp 120w, img/logo-emblem.webp 225w" sizes="(min-width:900px) 90px, 74px" alt="" width="225" height="270" fetchpriority="high"></div>'
+            f'<span class="label">تواصل معنا</span><h1>كيف <em>الضيافة</em></h1>'
+            f'<div class="orn" aria-hidden="true"><i></i><b>\u2726</b><i></i></div>'
+            f'<p class="tag">قهوجيين · صبّابين · ضيافة فاخرة</p>'
+            f'<p class="sub">اختر القناة الأنسب لك — واتساب هو الأسرع، والاستشارة مجانية بلا التزام.</p>'
+            f'</div></section>\n'
+            f'<section class="on-rich" id="channels" aria-label="قنوات التواصل"><div class="wrap"><nav class="chlist" aria-label="قنوات التواصل مع كيف الضيافة">{cards}</nav>'
+            f'<p class="chnote rv">نعمل من السبت إلى الخميس، ونستقبل طلبات المناسبات الطارئة على واتساب في أي وقت.</p></div></section>\n'
+            f'<section class="on-deep glow" id="form"><div class="wrap">'
+            + sec_head('أو أرسل تفاصيل مناسبتك', 'نموذج <em>طلب عرض</em>', 'املأ الحقول وستُفتح رسالة واتساب مُعدّة بكل التفاصيل — لا يُخزَّن أي شيء هنا.') +
+            f'<form class="form rv" id="leadForm" novalidate>'
+            f'<div class="row"><label>الاسم <span aria-hidden="true" style="color:var(--gold)">*</span><input name="name" required autocomplete="name" placeholder="اسمك أو اسم الجهة"></label>'
+            f'<label>الجوال <span aria-hidden="true" style="color:var(--gold)">*</span><input name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="05xxxxxxxx" dir="ltr"></label></div>'
+            f'<div class="row"><label>البريد الإلكتروني<input name="email" type="email" autocomplete="email" placeholder="اختياري" dir="ltr"></label><label>تاريخ المناسبة<input name="date" type="date"></label></div>'
+            f'<div class="row"><label>المدينة<select name="city">{copts}</select></label><label>عدد الضيوف التقريبي<input name="guests" type="number" min="1" inputmode="numeric" placeholder="مثال: 200" dir="ltr"></label></div>'
+            f'<label>الخدمة المطلوبة<select name="service" id="svcSel"><option value="">اختر الخدمة</option>{opts}<optgroup label="أخرى"><option value="offerings">تقديمات ومعدات</option><option value="package">باقة متكاملة · طاقم + تقديمات + تجهيز</option></optgroup></select></label>'
+            f'<label>تفاصيل المناسبة <span aria-hidden="true" style="color:var(--gold)">*</span><textarea name="message" required placeholder="نوع المناسبة، المكان، الوقت، أي طلبات خاصة"></textarea></label>'
+            f'<p class="note" id="formErr" role="alert" hidden style="color:#f0b3b3"></p>'
+            f'<button class="btn btn-gold btn-block" type="submit" data-ev="lead_submit">{WA_SVG}أرسل عبر واتساب</button>'
+            f'<p class="note">تُفتح رسالة واتساب بالتفاصيل ليتابعها فريقنا معك مباشرة.</p></form></div></section>\n'
+            f'<section class="cities on-black" id="cities" aria-label="المدن التي نخدمها"><div class="wrap rv"><span class="lbl">نصل إليكم في:</span>{city_links}<a href="locations.html">كل المدن {ARR}</a><span class="lbl" style="margin-inline-start:6px">وجميع مناطق المملكة</span></div></section>')
+    js = CONTACT_JS.replace('__WA__', WA_NUM)
+    secs = [('channels','قنوات التواصل',''),('form','نموذج طلب عرض',''),('cities','المدن','')]
+    return shell('contact.html', 'تواصل معنا', 'تواصل مع كيف الضيافة: واتساب 0508252134، اتصال مباشر، إنستغرام وتيك توك وسناب شات وإكس وفيسبوك، خرائط Google، البريد، ونموذج طلب عرض يُرسل عبر واتساب.', secs, body, extra_css=CONTACT_CSS, extra_js=js)
+
+
+CONTACT_JS = r'''<script>
+(function(){
+  /* D99 — الأومنتريكس: عند الضغط على بطاقة قناة تُضاف .fire → حلقات تتّسع + وميض بلون المنصّة + دوران الأيقونة، ثم الانتقال بعد 620ms.
+     يُحترم prefers-reduced-motion (انتقال فوري). الروابط الخارجية في تبويب جديد؛ tel:/mailto: في نفس التبويب. */
+  const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.ch').forEach(a=>{
+    a.addEventListener('click', e=>{
+      if(rm || a.classList.contains('fire') || e.metaKey || e.ctrlKey || e.button) return;
+      e.preventDefault(); a.classList.add('fire'); document.body.classList.add('ch-flash'); document.body.style.setProperty('--tint', getComputedStyle(a).getPropertyValue('--tint'));
+      setTimeout(()=>{ if(a.target==='_blank') window.open(a.href,'_blank','noopener'); else location.href=a.href; }, 620);
+      setTimeout(()=>{ a.classList.remove('fire'); document.body.classList.remove('ch-flash'); }, 1300);
+    });
+  });
   const f=document.getElementById('leadForm'), err=document.getElementById('formErr'), sel=document.getElementById('svcSel');
   const pre=new URLSearchParams(location.search).get('service'); if(pre&&sel.querySelector('option[value="'+pre+'"]')) sel.value=pre;
-  const svcName=v=>{{const o=sel.querySelector('option[value="'+v+'"]'); return o?o.textContent:''}};
-  f.addEventListener('submit',e=>{{ e.preventDefault(); const d=Object.fromEntries(new FormData(f)); err.hidden=true;
-    if(!d.name.trim()||!d.phone.trim()||!d.message.trim()){{ err.textContent='يرجى إدخال الاسم والجوال وتفاصيل المناسبة.'; err.hidden=false; f.querySelector(':invalid')?.focus(); return; }}
+  const svcName=v=>{const o=sel.querySelector('option[value="'+v+'"]'); return o?o.textContent:''};
+  f.addEventListener('submit',e=>{ e.preventDefault(); const d=Object.fromEntries(new FormData(f)); err.hidden=true;
+    if(!d.name.trim()||!d.phone.trim()||!d.message.trim()){ err.textContent='يرجى إدخال الاسم والجوال وتفاصيل المناسبة.'; err.hidden=false; f.querySelector(':invalid')?.focus(); return; }
     const lines=['مرحباً، أنا '+d.name.trim(),'📱 '+d.phone.trim()]; if(d.email) lines.push('📧 '+d.email); if(d.service) lines.push('🎯 الخدمة: '+svcName(d.service)); if(d.date) lines.push('📅 التاريخ: '+d.date); if(d.city) lines.push('📍 المدينة: '+d.city); if(d.guests) lines.push('👥 عدد الضيوف: '+d.guests); lines.push('💬 '+d.message.trim());
-    (window.dataLayer=window.dataLayer||[]).push({{event:'lead_wa',service:d.service||'',city:d.city}});
-    window.open('https://wa.me/{WA_NUM}?text='+encodeURIComponent(lines.join('\\n')),'_blank','noopener'); }});
-}})();
+    (window.dataLayer=window.dataLayer||[]).push({event:'lead_wa',service:d.service||'',city:d.city});
+    window.open('https://wa.me/__WA__?text='+encodeURIComponent(lines.join('\n')),'_blank','noopener'); });
+})();
 </script>'''
-    secs = [('form','نموذج طلب عرض',''),('cities','المدن','')]
-    return shell('contact.html', 'تواصل معنا', 'تواصل مع كيف الضيافة: واتساب 0508252134، نموذج طلب عرض يُرسل عبر واتساب، البريد، وحسابات التواصل. نصل إلى جميع مناطق المملكة.', secs, body, extra_js=js, hero_img='p-reception')
+
+CONTACT_CSS = r'''
+/* ===== v6.9 — صفحة التواصل (D99): رأس بالشعار + بطاقات القنوات بلون كل منصّة + تأثير الأومنتريكس ===== */
+.linkhead{position:relative;background:radial-gradient(ellipse 90% 60% at 50% -10%,rgba(197,160,89,.22),transparent 60%),radial-gradient(ellipse 70% 40% at 50% 110%,rgba(197,160,89,.08),transparent 65%),var(--rich);text-align:center;padding-block:22px 30px;overflow:hidden}
+.linkhead::after{content:"";position:absolute;inset:auto 0 0;height:1px;background:linear-gradient(90deg,transparent,rgba(197,160,89,.5),transparent)}
+.linkhead .wrap{position:relative;z-index:1;max-width:560px}
+.linkhead .crumb{margin-bottom:14px}
+.emblem{position:relative;width:108px;height:108px;margin:0 auto 12px;display:grid;place-items:center;animation:up .8s cubic-bezier(.16,1,.3,1) both}
+.emblem img{width:74px;height:auto;position:relative;z-index:2;filter:drop-shadow(0 4px 14px rgba(197,160,89,.45))}
+.emblem-orbit{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(197,160,89,.35);border-top-color:var(--gold-hi);border-bottom-color:transparent;animation:spin 14s linear infinite}
+.emblem-orbit.o2{inset:9px;border-color:rgba(197,160,89,.18);border-bottom-color:var(--gold);border-top-color:transparent;animation:spin 9s linear infinite reverse}
+.emblem::before{content:"";position:absolute;inset:18px;border-radius:50%;background:radial-gradient(circle,rgba(197,160,89,.22),transparent 70%)}
+.linkhead .label{display:inline-flex;align-items:center;gap:12px;font-size:.74rem;letter-spacing:.3em;color:var(--gold);animation:up .8s .1s cubic-bezier(.16,1,.3,1) both}
+.linkhead .label::before,.linkhead .label::after{content:"\2726";font-size:.7rem;letter-spacing:0}
+.linkhead h1{font-size:clamp(2rem,7vw,2.9rem);color:var(--cream);line-height:1.25;margin-top:4px;animation:up .8s .15s cubic-bezier(.16,1,.3,1) both}
+.linkhead h1 em{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.orn{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px auto 10px;color:var(--gold);animation:up .8s .2s both}
+.orn i{display:block;width:56px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.orn i:last-child{background:linear-gradient(270deg,transparent,var(--gold))}
+.orn b{font-size:.7rem}
+.linkhead .tag{color:var(--gold-hi);font-size:.95rem;letter-spacing:.06em;animation:up .8s .25s both}
+.linkhead .sub{margin:8px auto 0;max-width:46ch;color:var(--cream-2);font-size:.95rem;animation:up .8s .3s both}
+#channels{padding-block:22px 28px}
+.chlist{display:grid;gap:12px;max-width:560px;margin:0 auto}
+.ch{--tint:var(--gold);position:relative;display:grid;grid-template-columns:60px 1fr 30px;align-items:center;gap:14px;padding:13px 14px 13px 12px;border-radius:20px;background:linear-gradient(135deg,rgba(36,36,36,.92),rgba(18,18,18,.96));border:1px solid color-mix(in srgb,var(--tint) 34%,transparent);box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden;isolation:isolate;animation:chIn .7s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(.12s + var(--i) * 70ms);transition:transform .45s cubic-bezier(.16,1,.3,1),border-color .35s,box-shadow .45s}
+@keyframes chIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+.ch::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,color-mix(in srgb,var(--tint) 12%,transparent) 50%,transparent 70%);background-size:250% 100%;background-position:150% 0;transition:background-position .9s ease;z-index:0}
+.ch::after{content:"";position:absolute;inset:-1px;border-radius:inherit;background:radial-gradient(60% 120% at 0% 50%,color-mix(in srgb,var(--tint) 20%,transparent),transparent 70%);opacity:.6;z-index:0}
+.ch:hover,.ch:focus-visible{transform:translateY(-3px);border-color:color-mix(in srgb,var(--tint) 75%,transparent);box-shadow:0 16px 40px rgba(0,0,0,.5),0 0 0 1px color-mix(in srgb,var(--tint) 25%,transparent),0 0 34px color-mix(in srgb,var(--tint) 30%,transparent)}
+.ch:hover::before{background-position:-50% 0}
+.ch:focus-visible{outline:2px solid var(--tint);outline-offset:3px}
+.ch>*{position:relative;z-index:1}
+.ch-ic{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--tint) 28%,#1a1a1a),#0d0d0d 75%);border:1.5px solid color-mix(in srgb,var(--tint) 55%,transparent);box-shadow:inset 0 0 14px color-mix(in srgb,var(--tint) 18%,transparent),0 0 18px color-mix(in srgb,var(--tint) 20%,transparent);color:var(--tint);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.ch-ic svg{width:27px;height:27px;filter:drop-shadow(0 0 6px color-mix(in srgb,var(--tint) 55%,transparent));position:relative;z-index:2}
+.ch-dial{position:absolute;inset:4px;border-radius:50%;border:1.5px dashed color-mix(in srgb,var(--tint) 45%,transparent);opacity:.7;transition:transform .6s}
+.ch:hover .ch-ic{transform:scale(1.06)}
+.ch:hover .ch-dial{transform:rotate(90deg)}
+.ch-tx{display:grid;gap:2px;text-align:start;min-width:0}
+.ch-name{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.ch-name b{font-family:var(--f-head);font-size:1.12rem;color:var(--cream);font-weight:700}
+.ch-name i{font-style:normal;font-size:.78rem;letter-spacing:.06em;color:color-mix(in srgb,var(--tint) 80%,#fff)}
+.ch-tx small{color:var(--cream-3);font-size:.82rem;unicode-bidi:isolate;text-align:start;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch-note{font-size:.76rem;color:var(--cream-3);opacity:.85}
+.ch-arrow{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--tint) 40%,transparent);color:var(--tint);transition:transform .4s,background .4s}
+.ch-arrow svg{width:14px;height:14px}
+.ch:hover .ch-arrow{transform:translateX(-4px);background:color-mix(in srgb,var(--tint) 14%,transparent)}
+.ch-ring{position:absolute;right:42px;top:50%;width:60px;height:60px;margin:-30px -30px 0 0;border-radius:50%;pointer-events:none;z-index:3;opacity:0}
+.ch-ring::before,.ch-ring::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--tint);opacity:0}
+.chnote{text-align:center;color:var(--cream-3);font-size:.84rem;margin:18px auto 0;max-width:46ch}
+#form .form{max-width:680px;margin:0 auto}
+/* ---- الأومنتريكس: تشغيل ---- */
+.ch.fire{border-color:var(--tint);box-shadow:0 0 0 2px var(--tint),0 0 60px color-mix(in srgb,var(--tint) 55%,transparent),0 16px 50px rgba(0,0,0,.6);transform:scale(1.02)}
+.ch.fire .ch-ic{animation:omniCore .62s cubic-bezier(.2,.8,.2,1) both;background:radial-gradient(circle,#fff 0%,var(--tint) 40%,#0d0d0d 80%);color:#0d0d0d}
+.ch.fire .ch-ic svg{filter:none}
+.ch.fire .ch-dial{animation:omniDial .62s cubic-bezier(.2,.8,.2,1) both;border-style:solid;border-color:#fff}
+.ch.fire .ch-ring{opacity:1}
+.ch.fire .ch-ring::before{animation:omniRing .9s cubic-bezier(.1,.7,.3,1) both}
+.ch.fire .ch-ring::after{animation:omniRing .9s .16s cubic-bezier(.1,.7,.3,1) both}
+.ch.fire::before{background:linear-gradient(120deg,transparent,color-mix(in srgb,var(--tint) 45%,transparent),transparent);background-size:250% 100%;animation:omniSweep .6s .1s ease-out both}
+@keyframes omniCore{0%{transform:scale(1)}35%{transform:scale(1.3) rotate(-15deg)}70%{transform:scale(.92) rotate(6deg)}100%{transform:scale(1.15) rotate(0)}}
+@keyframes omniDial{0%{transform:rotate(0) scale(1);opacity:.7}60%{transform:rotate(200deg) scale(1.25);opacity:1}100%{transform:rotate(360deg) scale(1.1);opacity:.9}}
+@keyframes omniRing{0%{transform:scale(.8);opacity:.95}100%{transform:scale(9);opacity:0}}
+@keyframes omniSweep{from{background-position:150% 0}to{background-position:-50% 0}}
+body.ch-flash::after{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;background:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--tint,#C5A059) 55%,transparent),transparent 65%);animation:omniFlash .9s ease-out both}
+@keyframes omniFlash{0%{opacity:0}30%{opacity:.9}100%{opacity:0}}
+@media (min-width:900px){.chlist{max-width:1040px;grid-template-columns:repeat(2,1fr);gap:14px}.ch{grid-template-columns:64px 1fr 32px;padding:15px 18px 15px 14px}.ch-ic{width:64px;height:64px}.ch-ring{right:46px;width:64px;height:64px;margin:-32px -32px 0 0}.linkhead{padding-block:34px 44px}.emblem{width:132px;height:132px}.emblem img{width:90px}}
+@media (prefers-reduced-motion:reduce){.emblem,.emblem-orbit,.linkhead .label,.linkhead h1,.orn,.linkhead .tag,.linkhead .sub,.ch{animation:none}.ch::before,.ch-ic,.ch-dial,.ch-arrow,.ch{transition:none}.ch.fire *{animation:none!important}body.ch-flash::after{display:none}}
+'''
 
 
 # ======================= v6.3 — الصفحات المحلية (D55–D62) =======================
