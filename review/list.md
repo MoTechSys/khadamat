@@ -377,8 +377,20 @@
 
 - **1** — طاقم كيف الضيافة · مجلس قاعة — جدة `ab-team.webp`
 
-## تواصل معنا (0)
+## تواصل معنا (9)
 
+
+### channels
+
+- **1** —  `icon-whatsapp.webp`
+- **2** —  `icon-tel.webp`
+- **3** —  `icon-instagram.webp`
+- **4** —  `icon-tiktok.webp`
+- **5** —  `icon-snapchat.webp`
+- **6** —  `icon-x.webp`
+- **7** —  `icon-facebook.webp`
+- **8** —  `icon-maps.webp`
+- **9** —  `icon-mail.webp`
 
 ## المدن (1)
 
@@ -429,7 +441,7 @@
 
 - **1** —  `p-majlis-m-750.webp`
 
-## قهوجيين جدة — النموذج v6.8 (0)
+## قهوجيين جدة — النموذج v6.9 (0)
 
 
 ## التكرارات المستبعدة (452)
