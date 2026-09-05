@@ -34,7 +34,7 @@ assert "if(fab && hero){" in SCRIPT, 'fab patch failed'
 WA_SVG = re.search(r'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17\.5[^<]*</svg>', IDX).group(0)
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>'
 HINT = '<span class="hint rv">اسحب لليسار<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m7-7-7 7 7 7"/></svg></span>'
-STAMP = 'v6.7 · 2026-09-05'
+STAMP = 'v6.8 · 2026-09-05'
 
 def wa(text, cls='btn btn-wa', label='تواصل عبر واتساب', ev='wa'):
     return f'<a class="{cls}" href="https://wa.me/{WA_NUM}?text={U.quote(text)}" target="_blank" rel="noopener" data-ev="{ev}">{WA_SVG}{label}</a>'
@@ -602,50 +602,32 @@ def links_block(h2, links, id_='links'):
 def dist_block(h2, districts):
     return f'<section class="lsec on-deep" id="districts"><div class="wrap">{sec_head("التغطية", h2)}<div class="dist rv">{"".join(f"<span>{d}</span>" for d in districts)}</div></div></section>'
 
-def local_page(rec):
-    s, c, ar = rec['service'], rec['city'], rec['city']['ar']
-    slug = rec['slug']; g = 'l-' + slug
-    imgs = rec['imgs']
-    badges = '<div class="badges-l rv"><span>+500 مناسبة منذ 2016</span><span>طاقم سعودي مدرّب</span><span>نصل بمعدّاتنا كاملة</span></div>'
-    ctas = wa(rec['wa'], 'btn btn-gold', 'احجز عبر واتساب', 'wa_hero') + f'<a class="btn btn-glass" href="{city_page(c["slug"])}">كل خدماتنا في {ar}</a>'
-    crumbs = [LOC_CRUMB, (ar, city_page(c['slug'])), (s['ar'], None)] if rec.get('packages') is not None else [LOC_CRUMB, (ar, city_page(c['slug'])), ('مباشرين قهوة', None)]
-    h1a, h1b = rec['h1']
-    body = phero(f'{s["ar"]} · {ar}', f'{h1a} <em>{h1b}</em>', rec['intro'], rec['hero'], f'{s["ar"]} في {ar} — كيف الضيافة', ctas, crumbs=crumbs, after=badges)
-    # الأقسام المتناوبة
-    for i, sec in enumerate(rec['sections']):
-        h2, txt = sec[0], sec[1]
-        n, cap, sub = imgs[i % len(imgs)]
-        body += f'''<section class="lsec {"on-deep" if i%2==0 else "on-rich"}" id="s{i+1}"><div class="wrap"><div class="split{" rev" if i%2 else ""}"><div class="rv"><span class="kick">{s['kicker']}</span><h2>{h2}</h2><p>{txt}</p>{wa(rec['wa'], 'btn btn-wa btn-sm', 'اسأل عن التفاصيل', 'wa_sec')}</div>{lfig(n, f'{cap} — {ar}', cap, sub, g)}</div></div></section>'''
-    if rec.get('packages'):
-        cards = ''.join(f'<article class="rv"><h3>{n}</h3><p>{d}</p><ul class="feats">{"".join(f"<li>{f}</li>" for f in fs)}</ul></article>' for n, d, fs in rec['packages'])
-        body += f'<section class="lsec on-black glow" id="packages"><div class="wrap">{sec_head("ترتيبات الخدمة", f"كيف نرتّب {s['ar']} لمناسبتك في {ar}", "التشكيل يُحسب على عدد ضيوفك وشكل المكان — لا أرقام جاهزة.")}<div class="pk">{cards}</div></div></section>'
-    body += eq_strip()
-    body += f'<section class="lsec on-deep" id="why"><div class="wrap">{sec_head("لماذا نحن", f"لماذا يختارنا أهل {ar}؟")}<ul class="why">{"".join(f"<li class=\"rv\">{w}</li>" for w in rec["why"])}</ul></div></section>'
-    gal = ''.join(lfig(n, f'{cap} — {sub}', cap, sub, g) for n, cap, sub in imgs[3:9] if n not in [x[0] for x in imgs[:3]][:0])
-    body += f'<section class="lsec on-rich" id="gallery"><div class="wrap">{sec_head("من أعمالنا", "صور من مناسبات نفّذناها", "اضغط على أي صورة لتكبيرها.")}<div class="lgal">{gal}</div></div></section>'
-    body += dist_block(f'نصل إلى كل أحياء {ar}', rec['districts'])
-    body += faq_block(rec['faqs'], f'أسئلة شائعة عن {s["ar"]} في {ar}')
-    body += links_block(f'خدمات أخرى في {ar}' if rec['others'] else 'روابط', rec['others'] + rec['other_cities'])
-    body += contact_block(f'احجز {s["ar"]} <em>في {ar}</em>', f'أرسل التاريخ والمكان وعدد الضيوف — ونرتّب لك الطاقم والعدّة كاملة.', rec['wa'])
-    return shell(slug + '.html', rec['title'], rec['desc'], [], body, extra_css=LOCAL_CSS, hero_img=rec['hero'], section='locations.html')
+# v6.8 (D96): التخطيط المحلي القديم (local_page/build_city — phero + بطاقات + معرض) حُذف؛ صفحات المدن والصفحة النيّة تمرّ الآن عبر master_page (لغة تصميم واحدة لكل الصفحات المحلية).
+CITY_ROLE_IMG = {'sababin-qahwa': ('sv-hosts-1', 'صبابين بالزي التراثي', 'قاعة استقبال'), 'qahwajiin': ('sv-hosts-4', 'قهوجيين بزي رسمي', 'فعالية'), 'diyafa-munasabat': ('sv-buffet-2', 'بوفيه ضيافة', 'تجهيز')}
+
+def city_content(city):
+    """D96: سجلّ صفحة المدينة بمخطّط master_page نفسه — kind='city'. الأدوار = أول فقرة محلية لكل خدمة من الثلاث (محتوى فريد لكل مدينة) مع زر إلى صفحتها."""
+    c = CITY[city]; ar = c['ar']; ci = [x['slug'] for x in CITIES].index(city)
+    hero = CITY_HERO[ci % len(CITY_HERO)]
+    imgs = [CITY_ROLE_IMG[s['slug']] for s in LOCAL_SERVICES]
+    for k in range(4):   # يكمل الشريط إلى 8 لقطات من مجمّعات الخدمات الثلاث بالتناوب حسب المدينة
+        for s in LOCAL_SERVICES:
+            for t in pick(s['slug'], ci + k, 2):
+                if t[0] != hero and t[0] not in [x[0] for x in imgs] and len(imgs) < 8: imgs.append(t)
+    sections = []
+    for s in LOCAL_SERVICES:
+        h2, txt = local_content(s['slug'], city)['sections'][0][:2]
+        sections.append((h2, txt, s['kicker'], page_of(s['slug'], city), f'{s["ar"]} {ar} ›'))
+    wa_t = f'السلام عليكم، أرغب بالاستفسار عن خدمات الضيافة لمناسبة في {ar}:\nالتاريخ: \nالمكان: \nعدد الضيوف: '
+    return {'kind': 'city', 'slug': city_page(city)[:-5], 'service': {'ar': 'الضيافة', 'slug': 'city', 'kicker': 'في ' + ar}, 'city': c,
+            'h1': (f'ضيافة فاخرة في {ar}', 'بطاقم سعودي وعدّة كاملة'), 'title': f'ضيافة فاخرة في {ar} — قهوجيين وصبابين ومناسبات', 'desc': c['lead'], 'intro': c['lead'],
+            'sections': sections, 'packages': None, 'why': c['highlights'] + WHY_US(ar)[:3],
+            'faqs': c['faqs'] + [('هل تشمل الخدمة المعدات والتقديمات؟', 'نعم — الدلال والفناجين والتمر والتقديمات ضمن الخدمة أو بحسب طلبك.')],
+            'imgs': imgs, 'hero': hero, 'others': [], 'districts': c['districts'],
+            'other_cities': [{'label': o['ar'], 'href': city_page(o['slug'])} for o in CITIES if o['slug'] != city], 'wa': wa_t}
 
 def build_city(city):
-    c = CITY[city]; ar = c['ar']; ci = [x['slug'] for x in CITIES].index(city); g = 'city-' + city
-    hero = CITY_HERO[ci % len(CITY_HERO)]
-    wa_t = f'السلام عليكم، أرغب بالاستفسار عن خدمات الضيافة لمناسبة في {ar}:\nالتاريخ: \nالمكان: \nعدد الضيوف: '
-    ctas = wa(wa_t, 'btn btn-gold', 'تواصل عبر واتساب', 'wa_hero')
-    body = phero(f'{ar} · {c["region"]}', f'ضيافة فاخرة في <em>{ar}</em>', c['lead'], hero, f'ضيافة كيف الضيافة في {ar}', ctas, crumbs=[LOC_CRUMB, (ar, None)])
-    cards = ''.join(f'<a class="rv" href="{page_of(s["slug"], city)}"><b>{s["ar"]} {ar}</b><small>{s["kicker"]}</small><p>{s["short"]}</p><span class="more">التفاصيل ›</span></a>' for s in LOCAL_SERVICES)
-    if city == 'jeddah': cards += ''.join(f'<a class="rv" href="{p["slug"]}.html"><b>{p["ar"]}</b><small>التنظيم</small><p>{p["short"]}</p><span class="more">التفاصيل ›</span></a>' for p in INTENT_PAGES)
-    body += f'<section class="lsec on-deep glow" id="services"><div class="wrap">{sec_head("خدماتنا", f"خدمات الضيافة في {ar}", c["body"])}<div class="cgrid-l">{cards}</div></div></section>'
-    body += f'<section class="lsec on-rich" id="why"><div class="wrap">{sec_head("ما نغطّيه", f"ما نخدمه في {ar}")}<ul class="why">{"".join(f"<li class=\"rv\">{h}</li>" for h in c["highlights"] + WHY_US(ar)[:3])}</ul></div></section>'
-    imgs = pick('diyafa-munasabat', ci, 6)
-    body += f'<section class="lsec on-black" id="gallery"><div class="wrap">{sec_head("من أعمالنا", "صور من مناسبات نفّذناها")}<div class="lgal">{"".join(lfig(n, f"{cap} — {sub}", cap, sub, g) for n, cap, sub in imgs)}</div></div></section>'
-    body += dist_block(f'أحياء {ar} التي نصل إليها', c['districts'])
-    body += faq_block(c['faqs'] + [('هل تشمل الخدمة المعدات والتقديمات؟', 'نعم — الدلال والفناجين والتمر والتقديمات ضمن الخدمة أو بحسب طلبك.')], f'أسئلة شائعة عن الضيافة في {ar}')
-    body += links_block('مدن أخرى نخدمها', [{'label': o['ar'], 'href': city_page(o['slug'])} for o in CITIES if o['slug'] != city] + [{'label': 'كل المدن', 'href': 'locations.html'}])
-    body += contact_block(f'مناسبتك في <em>{ar}</em>', 'أرسل التاريخ والمكان وعدد الضيوف — ونعود إليك بالترتيب المناسب.', wa_t)
-    return shell(city_page(city), f'ضيافة فاخرة في {ar}', c['lead'], [], body, extra_css=LOCAL_CSS, hero_img=hero, section='locations.html')
+    return master_page(city_content(city))
 
 def build_locations():
     wa_t = 'السلام عليكم، أرغب بالاستفسار عن خدمات الضيافة لمناسبة:\nالمدينة: \nالتاريخ: \nعدد الضيوف: '
@@ -771,8 +753,10 @@ def social_row(wa_text):
     return f'<section class="lsec on-black grain" id="follow"><div class="wrap">{sec_head("تابعنا", "شاهد مناسباتنا <em>لحظة بلحظة</em>", "صور وفيديوهات من قلب المناسبات على حساباتنا.")}<div class="socrow rv">{items}</div></div></section>'
 
 def master_page(rec):
-    """الصفحة النموذجية خدمة×مدينة — v6.5: 15 قسمًا مرتّبة بالأهمية (D71–D78)، كل قسم عيّنة + زر للصفحة العامة."""
+    """الصفحة النموذجية خدمة×مدينة — v6.5: 15 قسمًا مرتّبة بالأهمية (D71–D78)، كل قسم عيّنة + زر للصفحة العامة.
+    v6.8 (D96/D97): تخدم أيضًا صفحات المدن (kind='city') والصفحة النيّة (kind='intent') — فروق صغيرة في المسار والعناوين والروابط فقط."""
     s, c, ar = rec['service'], rec['city'], rec['city']['ar']
+    kind = rec.get('kind', 'svc'); is_city = kind == 'city'
     slug = rec['slug']; cur = slug + '.html'; g = 'l-' + slug
     ci = [x['slug'] for x in CITIES].index(c['slug'])
     hero = MASTER_HERO.get((s['slug'], c['slug']), rec['hero'])
@@ -781,8 +765,11 @@ def master_page(rec):
     latin = LATIN.get(c['slug'], c['ar']); h1a, h1b = rec['h1']
     cityp = city_page(c['slug'])
     # 1) الهيرو — الوعد + واتساب + الأرقام (فوق الطيّة)؛ فئات العملاء داخل .pts (D71: أُدمج «لمن نخدم» هنا)
-    crumbs = '<span>›</span>'.join([f'<a href="index.html">الرئيسية</a>', f'<a href="locations.html">المدن</a>', f'<a href="{cityp}">{ar}</a>', f'<span>{s["ar"]} {ar}</span>'])
-    slides = ''.join(f'<img class="slide" src="img/photos/{n}.webp" alt="" {sz(n)} loading="lazy" decoding="async">' for n in HERO_SLIDES.get((s['slug'], c['slug']), [])[:3])
+    crumbs = '<span>›</span>'.join([f'<a href="index.html">الرئيسية</a>', f'<a href="locations.html">المدن</a>'] + ([f'<span>{ar}</span>'] if is_city else [f'<a href="{cityp}">{ar}</a>', f'<span>{s["ar"]} {ar}</span>']))
+    hp = HERO_POOL.get(s['slug'], [])
+    pool = HERO_SLIDES.get((s['slug'], c['slug'])) or [x for x in (hp[ci % 3:] + hp[:ci % 3] + CITY_HERO[ci + 1:] + CITY_HERO[:ci + 1]) if x != hero]   # D95: شرائح تختلف بحسب الخدمة والمدينة
+    seen = []; [seen.append(x) for x in pool if x not in seen]
+    slides = ''.join(f'<img class="slide" src="img/photos/{n}.webp" alt="" {sz(n)} loading="lazy" decoding="async">' for n in seen[:3])
     body = f"""<section class="hero hero-l hero-anim" aria-label="{esc(s['ar'] + ' في ' + ar)}">
   <div class="bg" aria-hidden="true">{hero_img(hero, '')}<div class="slides">{slides}</div></div>
   <div class="wrap">
@@ -803,7 +790,7 @@ def master_page(rec):
 </section>"""
     # 2) أعمالنا — 8 لقطات صغيرة (3:4، لايت بوكس) بوسم المدينة → معرض الأعمال الكامل
     figs = ''.join(f'<figure class="shot" data-g="{g}" data-go="portfolio.html" data-go-txt="معرض الأعمال"><img src="img/photos/{n}.webp" alt="{esc(cap)}" {sz(n)} loading="lazy" decoding="async" data-cap="{esc(cap)}" data-sub="{esc(sub)}"><figcaption><b>{cap}</b><span>{sub}</span></figcaption></figure>' for n, cap, sub in shots)
-    body += f'<section class="on-black grain" id="works"><div class="wrap">{sec_head("أعمالنا", f"من أعمالنا — <em>{s["ar"]}</em>", "لقطات حقيقية من مناسبات نفّذناها. اضغط على أي صورة لتكبيرها والتنقّل بين الباقي.", hint=True)}<div class="strip rv">{figs}<span class="edge"></span></div>{foot("portfolio.html", "معرض الأعمال الكامل")}</div></section>'
+    body += f'<section class="on-black grain" id="works"><div class="wrap">{sec_head("أعمالنا", f"من أعمالنا في <em>{ar}</em>" if is_city else f"من أعمالنا — <em>{s["ar"]}</em>", "لقطات حقيقية من مناسبات نفّذناها. اضغط على أي صورة لتكبيرها والتنقّل بين الباقي.", hint=True)}<div class="strip rv">{figs}<span class="edge"></span></div>{foot("portfolio.html", "معرض الأعمال الكامل")}</div></section>'
     # 3) شركاء النجاح — نسخة مضغوطة: 6 شعارات بالجوال / 12 بالحاسوب، بلا فراغ (D73) → كل الشركاء في الرئيسية
     logos = re.findall(r'<div class="logo"><img [^>]+></div>', _home_section('partners'))
     body += f'<section class="partners compact" id="partners"><div class="wrap"><div class="sec-head"><span class="label">شركاء النجاح</span><h2>جهات وشركات وثقت بنا — في {ar} وخارجها</h2></div><div class="logos collapsed" id="plogos" aria-label="شركات">{"".join(logos)}</div><div class="works-foot"><button class="btn btn-sm" id="plogosMore" type="button" aria-expanded="false" aria-controls="plogos">كل شركاء النجاح · {len(logos)} جهة</button></div></div></section>'
@@ -812,12 +799,18 @@ def master_page(rec):
         return f'<a class="svc rv{" local" if local else ""}" href="{href}"><img src="img/photos/{img}.webp" alt="{esc(b)}" loading="lazy" decoding="async"><div><b>{b}</b><small>{small}</small></div></a>'
     grid = f'<h3 class="svc-grp rv">خدماتنا في {ar}</h3>'
     grid += ''.join(svc(page_of(o['slug'], c['slug']), LOC_IMG[o['slug']], f'{o["ar"]} {ar}', o['short'], True) for o in LOCAL_SERVICES if o['slug'] != s['slug'])
-    grid += ''.join(svc(p['slug'] + '.html', 'sv-hosts-3', p['ar'], p['short'], True) for p in INTENT_PAGES if p['city'] == c['slug'])
+    grid += ''.join(svc(p['slug'] + '.html', 'sv-hosts-3', p['ar'], p['short'], True) for p in INTENT_PAGES if p['city'] == c['slug'] and p['slug'] != slug)
     grid += '<h3 class="svc-grp rv">تكمّل مناسبتك</h3>' + ''.join(svc(f'services.html#{k}', SVC_IMG.get(k, SERVICE_HERO_IMG[k]), SERVICES[k]['title'], SERVICES[k]['short']) for k in COMPLEMENT)
     body += f'<section class="on-deep glow" id="services"><div class="wrap">{sec_head("الخدمات", f"كل ما تحتاجه مناسبتك في {ar} — <em>من طاقم واحد</em>", f"قهوجيون وصبّابون ومباشرون، ومعهم كل ما يكمّل الضيافة: سقّاة زمزم، سفرجية، كاونترات وخيام وبوفيهات — طاقم واحد يصل إلى مناسبتك في {ar} بعدّته كاملة.")}<div class="svcs">{grid}</div>{foot("services.html", "كل الخدمات")}</div></section>'
     # 5) كيف يعمل الطاقم — المحتوى المحلي المكتوب (3 أدوار) في قسم واحد (D75) → واتساب
-    rows = ''.join(f'<div class="split{" rev" if i % 2 else ""}"><div class="rv"><span class="kick">{s["kicker"]}</span><h2>{sec[0]}</h2><p>{sec[1]}</p></div>{lfig(roles[i % len(roles)][0], f"{roles[i % len(roles)][1]} — {ar}", roles[i % len(roles)][1], roles[i % len(roles)][2], g)}</div>' for i, sec in enumerate(rec['sections']))
-    body += f'<section class="lsec on-rich roles" id="roles"><div class="wrap">{sec_head("كيف نعمل", f"ماذا يفعل طاقمنا في مناسبتك <em>في {ar}</em>؟", "أدوار واضحة يعرفها أهل الضيافة في السعودية — ونوزّعها على عدد ضيوفك.")}{rows}<div class="works-foot rv">{wa(rec["wa"], "btn btn-wa", "اسأل عن التفاصيل", "wa_sec")}</div></div></section>'
+    def row(i, sec):   # D96: العنصر الرابع/الخامس اختياريان (رابط + نصّه) — صفحات المدن تربط كل دور بصفحة خدمته
+        kick = sec[2] if len(sec) > 2 and is_city else s['kicker']
+        lnk = f'<a class="btn btn-glass btn-sm" href="{sec[3]}">{sec[4]}</a>' if len(sec) > 4 else ''
+        r = roles[i % len(roles)]
+        return f'<div class="split{" rev" if i % 2 else ""}"><div class="rv"><span class="kick">{kick}</span><h2>{sec[0]}</h2><p>{sec[1]}</p>{lnk}</div>{lfig(r[0], f"{r[1]} — {ar}", r[1], r[2], g)}</div>'
+    rows = ''.join(row(i, sec) for i, sec in enumerate(rec['sections']))
+    rh = (f"خدماتنا في <em>{ar}</em> — عن قرب", f"ثلاث خدمات محلية بطاقم واحد — اختر ما يناسب مناسبتك في {ar} أو اجمعها.") if is_city else (f"ماذا يفعل طاقمنا في مناسبتك <em>في {ar}</em>؟", "أدوار واضحة يعرفها أهل الضيافة في السعودية — ونوزّعها على عدد ضيوفك.")
+    body += f'<section class="lsec on-rich roles" id="roles"><div class="wrap">{sec_head("خدماتنا" if is_city else "كيف نعمل", *rh)}{rows}<div class="works-foot rv">{wa(rec["wa"], "btn btn-wa", "اسأل عن التفاصيل", "wa_sec")}</div></div></section>'
     # 6) الطاقم والزي — القسم نفسه من الرئيسية (5 صور صغيرة 3:4) → تفاصيل الزي في صفحة الخدمات
     st = _home_section('staff').replace('<h2 class="rv">اختر زيّ طاقمك</h2>', f'<h2 class="rv">اختر زيّ طاقمك في {ar}</h2>')
     body += st.replace('</div>\n</section>', foot('services.html#hosts', 'تفاصيل الزي والطاقم') + '</div>\n</section>')
@@ -826,18 +819,20 @@ def master_page(rec):
     cut_figs = ''.join(f'<figure class="rv"><img src="img/cutouts/{f}.webp" alt="{esc(n)}" width="480" height="480" loading="lazy" decoding="async"><figcaption>{n}</figcaption></figure>' for f, n in CUTOUT_ITEMS)
     body += f'<section class="on-black grain" id="offerings"><div class="wrap">{sec_head("التقديمات والعدّة", f"ما الذي يصل إلى ضيوفك في <em>{ar}</em>؟", "تمور وقهوة وحلويات ومشروبات — والدلال والفناجين وأطقم التقديم تصل مع الطاقم.", hint=True)}<div class="strip rv">{tiles}<span class="edge"></span></div><div class="eq">{cut_figs}</div>{foot("offerings.html", "كل التقديمات والمعدات")}</div></section>'
     # 8) الترتيبات — ثلاث بطاقات، كل واحدة بزر واتساب (بلا أسعار — D68)
-    pk = ''.join(f'<article class="rv"><h3>{n}</h3><p>{d}</p><ul class="feats">{"".join(f"<li>{f}</li>" for f in fs)}</ul>{wa(f"السلام عليكم، أرغب بالاستفسار عن «{n}» في {ar}:\nالتاريخ: \nالمكان: \nعدد الضيوف: ", "btn btn-gold btn-sm", "اطلب هذا الترتيب", "wa_pk")}</article>' for n, d, fs in rec['packages'])
-    body += f'<section class="lsec on-rich glow" id="packages"><div class="wrap">{sec_head("الترتيبات", f"كيف نرتّب {s["ar"]} لمناسبتك في <em>{ar}</em>", "ثلاثة أشكال شائعة — والتشكيل يُحسب على عدد ضيوفك وشكل المكان.")}<div class="pk">{pk}</div></div></section>'
+    if rec.get('packages'):   # D97: صفحات المدن/النيّة بلا ترتيبات
+        pk = ''.join(f'<article class="rv"><h3>{n}</h3><p>{d}</p><ul class="feats">{"".join(f"<li>{f}</li>" for f in fs)}</ul>{wa(f"السلام عليكم، أرغب بالاستفسار عن «{n}» في {ar}:\nالتاريخ: \nالمكان: \nعدد الضيوف: ", "btn btn-gold btn-sm", "اطلب هذا الترتيب", "wa_pk")}</article>' for n, d, fs in rec['packages'])
+        body += f'<section class="lsec on-rich glow" id="packages"><div class="wrap">{sec_head("الترتيبات", f"كيف نرتّب {s["ar"]} لمناسبتك في <em>{ar}</em>", "ثلاثة أشكال شائعة — والتشكيل يُحسب على عدد ضيوفك وشكل المكان.")}<div class="pk">{pk}</div></div></section>'
     # 9) لماذا نحن → من نحن
     body += f'<section class="lsec on-deep" id="why"><div class="wrap">{sec_head("لماذا نحن", f"لماذا يختارنا أهل <em>{ar}</em>؟")}<ul class="why">{"".join(f"<li class=\"rv\">{w}</li>" for w in rec["why"])}</ul>{foot("about.html", "تعرّف علينا أكثر")}</div></section>'
     # 10) الأسئلة الشائعة
-    body += faq_block(rec['faqs'], f'أسئلة شائعة عن {s["ar"]} في {ar}')
+    body += faq_block(rec['faqs'], f'أسئلة شائعة عن الضيافة في {ar}' if is_city else f'أسئلة شائعة عن {s["ar"]} في {ar}')
     # 11) التغطية → صفحة المدينة
     body += dist_block(f'نصل إلى كل أحياء {ar}', rec['districts'])   # D88: بلا زر «كل خدماتنا في جدة» — هذه هي صفحة جدة الكاملة
     # 12) احجز
-    body += contact_block(f'احجز {s["ar"]} <em>في {ar}</em>', 'أرسل التاريخ والمكان وعدد الضيوف — ونرتّب لك الطاقم والعدّة كاملة.', rec['wa'])
+    body += contact_block(f'مناسبتك في <em>{ar}</em>' if is_city else f'احجز {s["ar"]} <em>في {ar}</em>', 'أرسل التاريخ والمكان وعدد الضيوف — ونرتّب لك الطاقم والعدّة كاملة.', rec['wa'])
     # 13) روابط
-    body += links_block(f'{s["ar"]} في <em>مدن أخرى</em>', rec['other_cities'] + [{'label': 'كل المدن', 'href': 'locations.html'}], 'rel')   # D89: أُبقي كسطر واحد للمدن فقط (ترابط داخلي للفهرسة)؛ روابط «خدمات جدة الأخرى» حُذفت — موجودة في بطاقات الخدمات أعلاه
+    rel = rec['other_cities'] + [{'label': 'كل المدن', 'href': 'locations.html'}] if rec['other_cities'] else rec['others']   # D97: الصفحة النيّة تربط خدمات مدينتها
+    body += links_block('مدن <em>أخرى نخدمها</em>' if is_city else (f'{s["ar"]} في <em>مدن أخرى</em>' if rec['other_cities'] else f'خدمات أخرى في <em>{ar}</em>'), rel, 'rel')   # D89: أُبقي كسطر واحد للمدن فقط (ترابط داخلي للفهرسة)؛ روابط «خدمات جدة الأخرى» حُذفت — موجودة في بطاقات الخدمات أعلاه
     # 14) تابعنا — صف الأيقونات في الأخير (Q5)
     body += social_row(rec['wa'])
     return shell(cur, rec['title'], rec['desc'], [], body, extra_css=LOCAL_CSS + MASTER_CSS, extra_js=MASTER_JS, hero_img=hero, section='locations.html')
@@ -862,15 +857,14 @@ MASTER_JS = '''<script>
 })();
 </script>'''
 
-MASTER_PAGES = {('qahwajiin', 'jeddah')}   # D63: النموذج المعروض للاعتماد — بعد الموافقة: كل الأزواج (LOCAL_SERVICES × CITIES)
+# D95 (v6.8): النموذج معمَّم على 24 صفحة خدمة×مدينة (كان qahwajiin-jeddah فقط — D63)؛ D96/D97: وصفحات المدن الثماني والصفحة النيّة كذلك → 33 صفحة محلية بلغة واحدة.
 
 def build_local_all():
-    out = {'locations.html': build_locations(), 'social.html': build_social(), 'legal.html': build_legal(), 'mubashirin-qahwa-jeddah.html': local_page(intent_content())}
-    for c in CITIES: out[city_page(c['slug'])] = build_city(c['slug'])
+    out = {'locations.html': build_locations(), 'social.html': build_social(), 'legal.html': build_legal(), 'mubashirin-qahwa-jeddah.html': master_page(dict(intent_content(), kind='intent'))}   # D97
+    for c in CITIES: out[city_page(c['slug'])] = build_city(c['slug'])   # D96
     for s in LOCAL_SERVICES:
         for c in CITIES:
-            gen = master_page if (s['slug'], c['slug']) in MASTER_PAGES else local_page   # v6.4 D63
-            out[page_of(s['slug'], c['slug'])] = gen(local_content(s['slug'], c['slug']))
+            out[page_of(s['slug'], c['slug'])] = master_page(local_content(s['slug'], c['slug']))   # D95
     return out
 
 

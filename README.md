@@ -1,6 +1,6 @@
-# prototype-home — نموذج الموقع الكامل (v6.7: الرئيسية + 41 صفحة)
+# prototype-home — نموذج الموقع الكامل (v6.8: مشروع متكامل — الرئيسية + 41 صفحة بلغة تصميم واحدة)
 
-مجلد مستقل للمراجعة فقط (`noindex`). ملف واحد `index.html` + صور مصغّرة + `hero-samples.html` (عيّنات الخطوط). لا يمسّ `keif-aldiafa-web`. v4 محفوظ في git `6c2e22f`، v1 في `prototype-home-v1/` (8788).
+مجلد مستقل للمراجعة فقط (`noindex`). ملف واحد `index.html` + صور مصغّرة + `hero-samples.html` (أرشيف عيّنات الخطوط — D98، غير مربوط من الموقع). لا يمسّ `keif-aldiafa-web`. v4 محفوظ في git `6c2e22f`، v1 في `prototype-home-v1/` (8788).
 
 ## v6.3 — 2026-09-04 (طلب المالك: سحب الصفحات الفرعية من keif-aldiafa-web)
 - **36 صفحة جديدة** مولَّدة من `build/build.py` + `build/local.py`: `locations.html` (المدن) · `city-<slug>.html` ×8 (jeddah, makkah, madinah, riyadh, taif, dammam, abha, yanbu) · `sababin-qahwa-<city>` / `qahwajiin-<city>` / `diyafa-munasabat-<city>` ×24 · `mubashirin-qahwa-jeddah.html` · `social.html` (QR واتساب + 5 منصّات) · `legal.html`.
@@ -157,3 +157,11 @@ cd prototype-home/build && python3 images.py && python3 build.py   # إعادة 
 - الرئيسية: +4 أقسام (الأدوار، الترتيبات، لماذا نحن، تابعنا) · الأشرطة دائرة في الاتجاهين · زر الشركاء بلا أقواس (bidi).
 - Lighthouse جوال: index 94/100، qahwajiin-jeddah 98/100.
 
+## v6.8 — 2026-09-05 · المشروع المتكامل — D94–D98
+- طلب المالك: «تخليه مشروع متكاامل… بعدها نستنسخ التسيق ونطوره عبر نيكست». commit «2026/9/4» + tag قبل البدء.
+- **D94 الفوتر** (index.html → كل الصفحات): شبكة العلامة/الخدمات/نخدم في + دومات + شهادات + السجل التجاري؛ عمودان جوال، 3 من 900px.
+- **D95–D97 لغة تصميم واحدة**: 24 صفحة خدمة×مدينة + 8 صفحات مدن (`city_content`) + صفحة النيّة كلها عبر `master_page()` (kind = svc | city | intent). حُذف التخطيط المحلي القديم (`local_page`, `MASTER_PAGES`).
+- **D98** `hero-samples.html` أرشيف فقط.
+- الجرد: 42 صفحة = index · 5 عامة · locations/social/legal · 8 مدن · 24 خدمة×مدينة · 1 نيّة.
+- الفحص: build 41 / review 267 / BAD 0 · audit_playwright 19 صفحة × 2 = 38/38 نظيفة · Lighthouse جوال 96–99 / a11y 100.
+- خريطة الاستنساخ إلى Next.js: `01-keif-aldiafa/reports/29-المشروع-المتكامل-وخريطة-الاستنساخ-إلى-Next.js-v6.8.md`.

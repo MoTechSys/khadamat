@@ -4,7 +4,9 @@ from playwright.async_api import async_playwright
 BASE='http://localhost:8787/'
 PAGES = ['index.html','services.html#zamzam','offerings.html#equipment','portfolio.html?type=government','about.html','contact.html?service=hosts',
          # v6.3 (D62): عيّنة الصفحات المحلية
-         'locations.html','city-jeddah.html','city-riyadh.html','sababin-qahwa-jeddah.html#pk','qahwajiin-jeddah.html','qahwajiin-makkah.html','diyafa-munasabat-dammam.html','mubashirin-qahwa-jeddah.html','social.html','legal.html']
+         'locations.html','city-jeddah.html','city-riyadh.html','sababin-qahwa-jeddah.html#packages','qahwajiin-jeddah.html','qahwajiin-makkah.html','diyafa-munasabat-dammam.html','mubashirin-qahwa-jeddah.html','social.html','legal.html',
+         # v6.8 (D95–D97): كل الصفحات المحلية بمخطّط واحد — عيّنة إضافية
+         'city-abha.html','sababin-qahwa-yanbu.html','diyafa-munasabat-taif.html']
 async def main():
     res={}
     async with async_playwright() as p:
