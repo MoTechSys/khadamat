@@ -34,7 +34,7 @@ assert "if(fab && hero){" in SCRIPT, 'fab patch failed'
 WA_SVG = re.search(r'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17\.5[^<]*</svg>', IDX).group(0)
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>'
 HINT = '<span class="hint rv">اسحب لليسار<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m7-7-7 7 7 7"/></svg></span>'
-STAMP = 'v6.6 · 2026-09-05'
+STAMP = 'v6.7 · 2026-09-05'
 
 def wa(text, cls='btn btn-wa', label='تواصل عبر واتساب', ev='wa'):
     return f'<a class="{cls}" href="https://wa.me/{WA_NUM}?text={U.quote(text)}" target="_blank" rel="noopener" data-ev="{ev}">{WA_SVG}{label}</a>'
@@ -729,20 +729,8 @@ MASTER_CSS = '''
 /* التقديمات والعدّة: المقصوصات تحت الشريط */
 #offerings .eq{margin-top:18px}
 /* صف الأيقونات — آخر الصفحة (D76) */
-.socrow{display:flex;flex-wrap:nowrap;justify-content:center;gap:6px}
-.socrow a{display:grid;justify-items:center;gap:6px;flex:0 1 66px;min-width:0;color:var(--cream-2);font-size:.7rem;transition:.3s;--c:#c5a059;--g:rgba(197,160,89,.35)}
-.socrow small{white-space:nowrap}
-.socrow .ic{position:relative;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;border:1px solid transparent;background:var(--c);color:#fff;transition:.3s;box-shadow:0 0 18px var(--g),inset 0 1px 0 rgba(255,255,255,.35);overflow:hidden;isolation:isolate}
-.socrow .ic::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);background-size:250% 100%;animation:goldShine 3.4s linear infinite;mix-blend-mode:screen}
-.socrow .ic svg{width:22px;height:22px;position:relative;z-index:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
-.socrow a:hover .ic{transform:translateY(-3px) scale(1.06);box-shadow:0 0 30px var(--g),0 8px 20px rgba(0,0,0,.4)}
-.socrow a.s-instagram{--c:linear-gradient(45deg,#f9ce34,#ee2a7b 55%,#6228d7);--g:rgba(238,42,123,.45)}
-.socrow a.s-tiktok{--c:#0a0a0a;--g:rgba(255,255,255,.28)}.socrow a.s-tiktok .ic{border-color:rgba(255,255,255,.3);box-shadow:0 0 18px var(--g),-2px -1px 0 #25f4ee inset,2px 1px 0 #fe2c55 inset}
-.socrow a.s-snapchat{--c:#FFFC00;--g:rgba(255,252,0,.4)}.socrow a.s-snapchat .ic{color:#111}
-.socrow a.s-x{--c:#0a0a0a;--g:rgba(255,255,255,.28)}.socrow a.s-x .ic{border-color:rgba(255,255,255,.3)}
-.socrow a.s-facebook{--c:#1877F2;--g:rgba(24,119,242,.5)}
+/* .socrow: الأنماط في index.html (D93) */
 @media (prefers-reduced-motion:reduce){.socrow .ic::after{animation:none}}
-@media (min-width:900px){.socrow{gap:22px}.socrow a{flex:0 0 90px}.socrow .ic{width:60px;height:60px}.socrow .ic svg{width:27px;height:27px}.socrow a{font-size:.82rem}}
 /* الهيرو المتحرك (D84): شرائح تتبدّل فوق صورة الهيرو بتلاشٍ + تقريب بطيء — الصورة الأولى تبقى LCP */
 .hero-anim .slides{position:absolute;inset:0;z-index:0;pointer-events:none}
 .hero-anim .slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;opacity:0;transition:opacity 1.6s ease}

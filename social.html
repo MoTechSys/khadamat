@@ -371,6 +371,51 @@ footer .tag{font-family:var(--f-latin);font-size:.72rem;letter-spacing:.14em;col
 @media (min-width:900px){.lb{--lb-chrome:170px}.lb-nav{width:56px;height:56px}.lb-nav.prev{inset-inline-start:40px}.lb-nav.next{inset-inline-end:40px}.lb-thumbs{justify-content:center}.lb-thumbs img{width:64px;height:64px}.lb-cap{padding:40px 22px 14px}.lb-cap b{font-size:1.15rem}}
 body.lb-lock{overflow:hidden}
 
+/* ===== v6.7 — أقسام كانت في النموذج فقط وانتقلت للرئيسية (D93): الأدوار، الترتيبات، لماذا نحن، تابعنا ===== */
+.split{display:grid;gap:16px;align-items:center}
+.split h2{font-size:clamp(1.3rem,4.4vw,1.8rem);color:var(--gold-hi);line-height:1.4}
+.split p{margin-top:10px;color:var(--cream-2);font-size:.97rem}
+.split .kick{display:block;font-size:.74rem;letter-spacing:.3em;color:var(--gold);margin-bottom:6px}
+.split figure{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/10;cursor:zoom-in;background:var(--black);border:1px solid var(--line-2)}
+.split figure img{width:100%;height:100%;object-fit:cover}
+.split .zoom{position:absolute;bottom:8px;inset-inline-end:8px;width:28px;height:28px;border-radius:50%;background:rgba(13,13,13,.6);border:1px solid var(--line-hi);color:var(--gold-hi);display:grid;place-items:center;font-size:.9rem}
+.roles .split{margin-top:22px}
+.roles .split:first-of-type{margin-top:0}
+.roles .split h2{font-size:clamp(1.1rem,3.8vw,1.4rem)}
+.pk{display:grid;gap:12px}
+.pk article{border:1px solid var(--line-2);border-radius:18px;padding:18px;background:rgba(36,36,36,.55)}
+.pk h3{font-size:1.1rem;color:var(--gold-hi)}
+.pk p{color:var(--cream-2);font-size:.92rem;margin-top:6px}
+.pk .feats{display:grid;grid-template-columns:1fr;gap:8px 14px;margin-top:12px;font-size:.88rem;color:var(--cream)}
+.pk .feats li{list-style:none;display:flex;gap:8px;align-items:flex-start;line-height:1.5}
+.pk .feats li::before{content:"✦";color:var(--gold);font-size:.7rem;margin-top:.35em}
+.pk article .btn{margin-top:14px;width:100%}
+.why{display:grid;grid-template-columns:1fr;gap:10px}
+.why li{list-style:none;display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:rgba(36,36,36,.45);color:var(--cream);font-size:.95rem}
+.why li::before{content:"✦";color:var(--gold);font-size:.75rem;margin-top:.4em}
+.socrow{display:flex;flex-wrap:nowrap;justify-content:center;gap:6px}
+.socrow a{display:grid;justify-items:center;gap:6px;flex:0 1 66px;min-width:0;color:var(--cream-2);font-size:.7rem;transition:.3s;--c:#c5a059;--g:rgba(197,160,89,.35)}
+.socrow small{white-space:nowrap}
+.socrow .ic{position:relative;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;border:1px solid transparent;background:var(--c);color:#fff;transition:.3s;box-shadow:0 0 18px var(--g),inset 0 1px 0 rgba(255,255,255,.35);overflow:hidden;isolation:isolate}
+.socrow .ic::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);background-size:250% 100%;animation:goldShine 3.4s linear infinite;mix-blend-mode:screen}
+.socrow .ic svg{width:22px;height:22px;position:relative;z-index:1}
+.socrow a:hover .ic{transform:translateY(-3px) scale(1.06);box-shadow:0 0 28px var(--g)}
+.socrow a.s-instagram{--c:linear-gradient(45deg,#f9ce34,#ee2a7b 55%,#6228d7);--g:rgba(238,42,123,.5)}
+.socrow a.s-tiktok{--c:#0a0a0a;--g:rgba(255,255,255,.28)}.socrow a.s-tiktok .ic{border-color:rgba(255,255,255,.35)}
+.socrow a.s-snapchat{--c:#FFFC00;--g:rgba(255,252,0,.4)}.socrow a.s-snapchat .ic{color:#111}
+.socrow a.s-x{--c:#0a0a0a;--g:rgba(255,255,255,.28)}.socrow a.s-x .ic{border-color:rgba(255,255,255,.35)}
+.socrow a.s-facebook{--c:#1877F2;--g:rgba(24,119,242,.5)}
+@media (min-width:900px){
+  .split{grid-template-columns:1fr 1fr;gap:36px}
+  .split.rev figure{order:-1}
+  .split figure{aspect-ratio:4/3}
+  .roles .split{margin-top:40px}
+  .pk{grid-template-columns:repeat(3,1fr);gap:16px}
+  .why{grid-template-columns:repeat(3,1fr);gap:14px}
+  .socrow{gap:22px}.socrow a{flex:0 0 90px;font-size:.82rem}.socrow .ic{width:60px;height:60px}.socrow .ic svg{width:27px;height:27px}
+}
+@media (prefers-reduced-motion:reduce){.socrow .ic::after{animation:none}}
+
 /* ===== v6 — الصفحات الداخلية ===== */
 .phero{position:relative;min-height:46svh;display:flex;align-items:flex-end;overflow:hidden;background:var(--rich);padding:0}
 .phero picture{display:contents}
@@ -566,7 +611,7 @@ body.lb-lock{overflow:hidden}
 </head>
 <body>
 
-<div class="proto">نموذج تجريبي للمراجعة — ليس الموقع الفعلي · v6.6 · 2026-09-05</div>
+<div class="proto">نموذج تجريبي للمراجعة — ليس الموقع الفعلي · v6.7 · 2026-09-05</div>
 <header>
   <div class="wrap nav">
     <div class="nav-row">
@@ -683,12 +728,16 @@ body.lb-lock{overflow:hidden}
   $$('.strip').forEach(el=>{
     const kids=$$(':scope > *:not(.edge)',el); if(kids.length<3) return;
     const edge=$('.edge',el); const rtl=getComputedStyle(el).direction==='rtl';
-    kids.forEach(k=>{const c=k.cloneNode(true); c.dataset.clone='1'; c.setAttribute('aria-hidden','true'); $$('img',c).forEach(i=>i.setAttribute('loading','lazy')); el.insertBefore(c,edge);});
+    // D92: نسخة قبل الأصل ونسخة بعده → الشريط دائرة كاملة في الاتجاهين (السحب يمينًا أو يسارًا بلا حافة)، والبداية في النسخة الوسطى
+    const clone=k=>{const c=k.cloneNode(true); c.dataset.clone='1'; c.setAttribute('aria-hidden','true'); $$('img',c).forEach(i=>i.setAttribute('loading','lazy')); $$('[id]',c).forEach(n=>n.removeAttribute('id')); return c;};
+    kids.forEach(k=>el.insertBefore(clone(k),kids[0]));   // النسخة السابقة
+    kids.forEach(k=>el.insertBefore(clone(k),edge));      // النسخة التالية
     el.classList.add('auto');
     const pos=()=>Math.abs(el.scrollLeft), setPos=v=>{el.scrollLeft=rtl?-v:v;};
-    const span=()=>{const a=kids[0], b=$('[data-clone]',el); return Math.abs(b.offsetLeft-a.offsetLeft);};
+    const span=()=>{const a=kids[0], b=el.firstElementChild; return Math.abs(a.offsetLeft-b.offsetLeft);};
     let paused=reduce, seen=true, hold=0, last=0, dragging=false, x=0;   // x: موضع كسري (scrollLeft يُقرّب لعدد صحيح)
-    const norm=back=>{const w=span(); if(!w) return; const p=pos(); if(p>=w){setPos(p-w); x=pos();} else if(back&&p<=0){setPos(p+w); x=pos();} };
+    const norm=()=>{const w=span(); if(!w) return; const p=pos(); if(p>=w*1.5){setPos(p-w); x=pos();} else if(p<w*0.5){setPos(p+w); x=pos();} };
+    const home=()=>{const w=span(); if(w){setPos(w); x=pos();}}; home(); requestAnimationFrame(home); window.addEventListener('load',home,{once:true});
     const tick=t=>{ if(!paused&&seen&&!dragging&&!document.hidden&&t-hold>0){ const dt=Math.min(48,t-(last||t)); if(Math.abs(pos()-Math.round(x))>1) x=pos(); x+=dt*0.022; setPos(Math.round(x)); norm(); } last=t; requestAnimationFrame(tick); };
     if(!reduce) requestAnimationFrame(tick);
     const rest=ms=>{hold=performance.now()+ms;};
@@ -696,7 +745,7 @@ body.lb-lock{overflow:hidden}
     el.addEventListener('pointerleave',()=>{ paused=false; rest(600); });
     el.addEventListener('touchstart',()=>{paused=true;},{passive:true});
     el.addEventListener('touchend',()=>{paused=false; rest(2600);},{passive:true});
-    el.addEventListener('scroll',()=>{ if(paused||dragging) norm(true); },{passive:true});
+    el.addEventListener('scroll',()=>{ if(paused||dragging||reduce) norm(); },{passive:true});
     if('IntersectionObserver' in window){ new IntersectionObserver(es=>es.forEach(e=>{seen=e.isIntersecting;}),{threshold:.05}).observe(el); }
     // سحب بالماوس على الحاسوب
     let sx=0, sp=0;
@@ -709,7 +758,7 @@ body.lb-lock{overflow:hidden}
   // 3) شركاء النجاح: 12 ظاهرة على الجوال ثم «عرض الكل»
   const logos=$('#logos'), moreBtn=$('#logosMore');
   const st=document.createElement('style'); st.textContent='@media (max-width:899px){.logos.collapsed .logo:nth-child(n+13){display:none}}.more-row{display:flex;justify-content:center;margin-top:12px}@media (min-width:900px){.more-row{display:none}}.more-row .btn{border:1px solid rgba(197,160,89,.5);color:var(--ink);background:#fff}'; document.head.appendChild(st);
-  if(moreBtn&&logos) moreBtn.addEventListener('click',()=>{ const open=logos.classList.toggle('collapsed'); moreBtn.textContent=open?'عرض كل الشركاء (23)':'إظهار أقل'; moreBtn.setAttribute('aria-expanded',String(!open)); });
+  if(moreBtn&&logos) moreBtn.addEventListener('click',()=>{ const open=logos.classList.toggle('collapsed'); moreBtn.textContent=open?'عرض كل الشركاء · 23 جهة':'إظهار أقل'; moreBtn.setAttribute('aria-expanded',String(!open)); });
 
   // 4) زر واتساب الطافي: مخفي في الهيرو (فيه زر واتساب) وفي قسم التواصل
   // فيديو الهيرو: يُحمَّل بعد أول رسم ويعمل عند الظهور فقط

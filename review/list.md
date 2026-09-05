@@ -439,7 +439,7 @@
 ## قهوجيين جدة — النموذج v6.5 (0)
 
 
-## التكرارات المستبعدة (174)
+## التكرارات المستبعدة (177)
 
 - services: `sv-dagla-1.webp` = الخدمات رقم 2
 - services: `sv-table-4.webp` = الخدمات رقم 15
@@ -491,6 +491,9 @@
 - index: `s-tent.webp` = الخدمات رقم 53
 - index: `o-counter.webp` = الخدمات رقم 58
 - index: `s-folk.webp` = الخدمات رقم 51
+- index: `sv-hosts-4.webp` = الخدمات رقم 5
+- index: `sv-hosts-2.webp` = الخدمات رقم 3
+- index: `sv-hostess-1.webp` = الخدمات رقم 33
 - city-jeddah: `p-hall-m-750.webp` = المدن رقم 1
 - city-jeddah: `pf-wed-3.webp` = الخدمات رقم 11
 - city-jeddah: `pf-eq-3.webp` = الخدمات رقم 65
